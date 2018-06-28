@@ -1,0 +1,5 @@
+Update [dbo].[CommonCode] Set StrValue2 = 'Index', NumValue2 = 0 Where CommonId = 'Announcement-1'
+Update [dbo].[CommonCode] Set StrValue2 = 'Index', NumValue2 = 0 Where CommonId = 'Announcement-2'
+Update [dbo].[CommonCode] Set StrValue2 = 'Index', NumValue2 = 0 Where CommonId = 'Announcement-3'
+Update [dbo].[CommonCode] Set StrValue2 = 'Index', NumValue2 = 0 Where CommonId = 'Announcement-3-1'
+Update [dbo].[CommonCode] Set StrValue2 = 'Index', NumValue2 = 0 Where CommonId = 'Announcement-3-2'

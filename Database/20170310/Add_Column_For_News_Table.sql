@@ -1,0 +1,10 @@
+USE LSDB
+GO 
+
+ALTER TABLE News
+ADD ModifiedBy VARCHAR(200)
+go
+
+ALTER TABLE News
+ADD ModifiedOn DateTime
+GO

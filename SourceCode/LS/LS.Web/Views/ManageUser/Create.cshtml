@@ -1,0 +1,251 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="javascript:void(0);">Quản lí thành viên</a></li>
+            <li><a href="#">Thêm mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+
+<div class="well">
+    <form role="form" style="margin-top:10px;">
+        <div class="box-body row">
+            <div class="col-xs-1" style="width: 3.333333%;"></div>
+            <div class="col-xs-5" style="width: 44.666667%;">
+                <div class="row" style="margin-top:15px;" id="trangthai">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Loại thành viên
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="txtTypeUser" class="form-control" onchange="changeTypeUser();">
+                            <option value="student">Sinh viên</option>
+                            <option value="teacher">Giáo viên</option>
+                            <option value="another">Khác</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;display:none;" id="school">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Trường
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="txtSchool" class="form-control" onchange="changeSchool()">
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;" id="trangthai">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Họ tên
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="txtStatus" class="form-control">
+                            <option value="sv1">Hồ Thị Tuyết Ngân</option>
+                            <option value="sv2">Mai Chí Thọ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Tên đăng nhập<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập tên đăng nhập" id="txtUserId" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Mật khẩu<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="password" placeholder="Nhập mật khẩu" id="txtPass" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Nhập lại mật khẩu<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="password" placeholder="Nhập lại mật khẩu" id="txtConfirmPass" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;" id="trangthai">
+                    <div class="col-xs-4" style="font-weight: bold;">
+                        Trạng thái
+                    </div>
+                    <div class="col-xs-6">
+                        <select id="txtStatus" class="form-control">
+                            <option value="ACT">Hoạt động</option>
+                            <option value="IACT">Không Hoạt động</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1" style="width: 3.333333%;"></div>
+            <div class="col-xs-5" style="width: 44.666667%;">
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Họ tên<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập họ tên" id="txtFullName" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Giới tính<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-2">
+                        <span><input type="radio" value="">Nam</span>
+                    </div>
+                    <div class="col-xs-2">
+                        <span><input type="radio" value="">Nữ</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Giới tính<span style="color:red;"> *</span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input id="txtBirthday" class="form-control calendar" data-date-format="dd/mm/yyyy" readonly="readonly" placeholder="Ngày sinh">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Nơi sinh<span style="color:red;"> </span>
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập nơi sinh" id="txtPOB" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Địa chỉ
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập số điạ chỉ" id="txtAdd" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        SĐT
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập số điện thoại" id="txtTel" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                        Email
+                    </div>
+                    <div class="col-xs-6">
+                        <input type="text" placeholder="Nhập email" id="txtEmail" class="form-control">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:5px;">
+                    <div class="col-lg-4"> </div>
+                    <div class="col-lg-6" style="margin-top: 5px;">
+                        <a id="btnSave" class="btn btn-primary pull-right">
+                            Lưu
+                        </a>
+                        <a id="btnReset" class="btn btn-primary pull-right" style="/*display: none;*/margin-right:5px;">
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1" style="width: 3.333333%;"></div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        changeTypeUser();
+    });
+    $('.calendar').datepicker(
+        {}
+    );
+
+    function changeTypeUser() {
+        var type = $("#txtTypeUser").val();
+        if (type != undefined || type != null || type != "") {
+            if (type == "student" || type == "teacher") {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetSchool", "ManageUser")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                    }),
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $("#txtSchool").empty();
+                            $("#school").show();
+                            for (var i = 0; i < data.data.length; i++) {
+                                var option = "<option value='" + data.data[i].Id + "'>" + data.data[i].Name + "</option>";
+                                $(option).appendTo("#txtSchool");
+                            }
+                        }
+                        
+                    },
+                    async: false,
+                });
+            }
+            else {
+                $("#school").hide();
+            }
+        }
+    }
+
+    function changeSchool() {
+        var idSchool = $("#txtSchool").val();
+        var type = $("#txtTypeUser");
+
+        if (idSchool != undefined || idSchool != null || idSchool.trim() != "") {
+            if (type == "student") {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetStudent", "ManageUser")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        idSchool:idSchool
+                    }),
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $("#txtSchool").empty();
+                            $("#school").show();
+                            for (var i = 0; i < data.data.length; i++) {
+                                var option = "<option value='" + data.data[i].Id + "'>" + data.data[i].Name + "</option>";
+                                $(option).appendTo("#txtSchool");
+                            }
+                        }
+
+                    },
+                    async: false,
+                });
+            }
+            else {
+                $("#school").hide();
+            }
+        }
+    }
+
+</script>

@@ -1,0 +1,54 @@
+﻿@using resx = LS.Resources.About.ResourcesAbout;
+@using resx1 = LS.Resources.Resources;
+@using LS.Web.Models
+
+@model TeacherViewModel
+
+@{
+    ViewBag.Title = "Gallery";
+}
+
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.MemoryGallery</h2>
+                <p>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Introduction</a></li>
+                    <li>@resx.Gallery</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section full-width-portfolio" style="border-top:0; border-bottom:0; background:#fff;">
+    <!-- Start Big Heading -->
+    <div class="big-title text-center" data-animation="fadeInDown" data-animation-delay="01">
+        <h1 class="accent-color"> <strong>@resx.ThisisMyClasses</strong></h1>
+    </div>
+    <!-- End Big Heading -->
+    <p class="text-center">
+        @resx.Unforgettable
+    </p>
+    <!-- Start Recent Projects Carousel -->
+    <ul id="portfolio-list" data-animated="fadeIn">
+        @foreach (var result in Model.TeacherMemoryVM)
+        {
+            <li>
+                <div class="item">
+                    <a class="lightbox" title="This is my class" href="@result.Url@result.FileName@result.FileExtension" data-lightbox-gallery="gallery2">
+                        <div class="portfolio-item-content">
+                            <span class="header">Anniversary Class</span>
+                            <p class="body">Goodbye Class</p>
+                        </div>
+                        <img alt="" src="@result.Url@result.FileName@result.FileExtension" class="single-galarey">
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+    <!-- End Recent Projects Carousel -->
+</div>

@@ -1,0 +1,9 @@
+﻿@using LS.Web.Models
+@model CommentVM
+
+@foreach (var item in Model.commentDetailVM)
+{
+<div class="classic-testimonials item">
+    @(Html.Raw(item.Value))
+</div>
+}

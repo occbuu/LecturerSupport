@@ -1,0 +1,94 @@
+﻿<style>
+    .pagination {
+        margin: 0px 0;
+        font-weight: 400;
+    }
+
+    p {
+        color: black !important;
+    }
+
+    .all-grammar {
+        line-height: 100%;
+        margin: 5em 10em;
+        color: black;
+        height: 100%;
+        display: block;
+        font-size: 15px;
+    }
+
+    .title-gr {
+        line-height: 100%;
+        font-size: 30px;
+        font-weight: 100;
+        font-family: Georgia, serif;
+    }
+
+    .main-title {
+        line-height: 100%;
+        margin-top: 1em;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 200;
+        font-family: Georgia, serif;
+    }
+
+    .the-author {
+        line-height: 100%;
+        display: flex;
+        float: right;
+        margin-top: 0.5em;
+    }
+
+    .right-author {
+        line-height: 100%;
+        font-weight: bold;
+    }
+
+    .right-school {
+        line-height: 100%;
+        font-style: italic;
+        float: right;
+    }
+
+    .quote-src {
+        line-height: 100%;
+        padding: 0.5em 0.5em;
+        margin: 1em 0em;
+        background-color: #eee;
+    }
+
+    .head-center {
+        text-align: center;
+    }
+
+    .the-author2 {
+        line-height: 100%;
+        display: flex;
+        margin-top: 0.5em;
+    }
+
+    .dif {
+        font-style: italic;
+        font-family: Helvetica, Arial, Tahoma, sans-serif;
+    }
+
+    .table-main {
+        padding: 1em 0em;
+    }
+
+    .sidebar .widget {
+        overflow: hidden;
+        margin-bottom: 0px;
+    }
+
+    .search-area {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+
+    .sidebar {
+        margin-bottom: 0px;
+        float: right;
+    }
+</style>

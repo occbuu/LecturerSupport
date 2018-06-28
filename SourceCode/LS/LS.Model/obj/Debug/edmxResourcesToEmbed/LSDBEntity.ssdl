@@ -1,0 +1,1638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AddressUniversity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UniversityId" Type="bigint" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="20" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AssignmentConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentId" Type="bigint" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Attachment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Extension" Type="nvarchar" MaxLength="50" />
+    <Property Name="Data" Type="varbinary(max)" />
+    <Property Name="ContentType" Type="nvarchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="SubjectId" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="VenueId" Type="bigint" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Prerequisition" Type="nvarchar" MaxLength="500" />
+    <Property Name="TeacherId" Type="bigint" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Images" Type="varchar" MaxLength="255" />
+    <Property Name="UniversityId" Type="bigint" />
+    <Property Name="TeachingAssistantId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ClassAnnouncement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Brief" Type="nvarchar" MaxLength="500" />
+    <Property Name="Type" Type="nvarchar" MaxLength="500" />
+    <Property Name="Value" Type="nvarchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="MofidiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ClassDiscuss">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Level" Type="varchar" MaxLength="20" />
+    <Property Name="Content" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentType" Type="varchar" MaxLength="10" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ApprovedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ApprovedDate" Type="datetime" />
+    <Property Name="ObjectLinkID" Type="bigint" />
+    <Property Name="Level" Type="varchar" MaxLength="20" />
+    <Property Name="Content" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="CommonCode">
+    <Key>
+      <PropertyRef Name="CommonTypeId" />
+      <PropertyRef Name="CommonId" />
+    </Key>
+    <Property Name="CommonTypeId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CommonId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="StrValue1" Type="nvarchar(max)" />
+    <Property Name="StrValue2" Type="nvarchar" MaxLength="500" />
+    <Property Name="StrValue3" Type="nvarchar" MaxLength="500" />
+    <Property Name="NumValue1" Type="decimal" Precision="20" Scale="0" />
+    <Property Name="NumValue2" Type="decimal" Precision="20" Scale="0" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Sequence" Type="int" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CommonType">
+    <Key>
+      <PropertyRef Name="CommonTypeId" />
+    </Key>
+    <Property Name="CommonTypeId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Note" Type="nvarchar" MaxLength="255" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="Type" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="500" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CourseOrganiserId" Type="bigint" />
+    <Property Name="VenueId" Type="bigint" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="CourseScore">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Score" Type="varchar" MaxLength="5" />
+    <Property Name="TypeScore" Type="nvarchar" MaxLength="50" />
+    <Property Name="PercentScore" Type="varchar" MaxLength="50" />
+    <Property Name="StudentId" Type="bigint" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="10" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ModidiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModidiedOn" Type="datetime" />
+    <Property Name="Image" Type="varchar" MaxLength="200" />
+    <Property Name="DocumentType" Type="varchar" MaxLength="20" />
+    <Property Name="Type" Type="varchar" MaxLength="20" />
+    <Property Name="Content" Type="ntext" />
+    <Property Name="FileName" Type="text" />
+    <Property Name="FileExtension" Type="varchar" MaxLength="200" />
+    <Property Name="Linkl" Type="text" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionnaireId" Type="bigint" />
+    <Property Name="StudentId" Type="bigint" />
+    <Property Name="Posting" Type="nvarchar" MaxLength="500" />
+    <Property Name="StartOn" Type="datetime2" Precision="7" />
+    <Property Name="EndOn" Type="datetime2" Precision="7" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="NoOfLearner" Type="int" Nullable="false" />
+    <Property Name="OverallAverageScore" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EvaluationItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EvaluationId" Type="bigint" />
+    <Property Name="QuestionnaireItemId" Type="bigint" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Percentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="NofResponse" Type="int" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Function">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Code" Type="nvarchar" MaxLength="255" />
+    <Property Name="DisplayAs" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="FunctionRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="FunctionId" Type="int" Nullable="false" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Infomation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Type" Type="nvarchar" MaxLength="100" />
+    <Property Name="Images" Type="varchar" MaxLength="50" />
+    <Property Name="TeacherId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Library">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="200" />
+    <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Brief" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Links" Type="varchar(max)" />
+    <Property Name="Keyword" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Images" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedDate" Type="smalldatetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+    <Property Name="ModifiedDate" Type="smalldatetime" />
+    <Property Name="Download" Type="bigint" />
+    <Property Name="TypeId" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Links">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ObjectId" Type="varchar" MaxLength="50" />
+    <Property Name="URL" Type="varchar" MaxLength="500" />
+    <Property Name="Type" Type="varchar" MaxLength="20" />
+    <Property Name="FileExtension" Type="varchar" MaxLength="50" />
+    <Property Name="FileName" Type="varchar" MaxLength="200" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="UploadedBy" Type="varchar" MaxLength="200" />
+    <Property Name="UploadedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Action" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="LogType" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="500" />
+    <Property Name="Message" Type="ntext" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="MessageType" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Time" Type="datetime" />
+    <Property Name="CategoryId" Type="varchar" MaxLength="20" />
+    <Property Name="Title" Type="nvarchar" MaxLength="2000" />
+    <Property Name="NewsBrief" Type="nvarchar" MaxLength="500" />
+    <Property Name="NewsDetail" Type="ntext" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="Editor" Type="nvarchar" MaxLength="250" />
+    <Property Name="Links" Type="varchar(max)" />
+    <Property Name="Keyword" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="Images" Type="varchar" MaxLength="255" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Object">
+    <Key>
+      <PropertyRef Name="ObjectId" />
+    </Key>
+    <Property Name="ObjectId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ObjectGroup" Type="varchar" MaxLength="20" />
+    <Property Name="ObjectType" Type="nvarchar" MaxLength="50" />
+    <Property Name="ObjectName" Type="nvarchar" MaxLength="255" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="PID" Type="varchar" MaxLength="40" />
+    <Property Name="PIDDate" Type="datetime" />
+    <Property Name="PIDIssue" Type="nvarchar" MaxLength="250" />
+    <Property Name="DoB" Type="datetime" />
+    <Property Name="PoB" Type="nvarchar" MaxLength="250" />
+    <Property Name="PerAdd" Type="nvarchar" MaxLength="250" />
+    <Property Name="TemAdd" Type="nvarchar" MaxLength="250" />
+    <Property Name="Gender" Type="bit" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+    <Property Name="ProvieneId" Type="varchar" MaxLength="20" />
+    <Property Name="Tel" Type="varchar" MaxLength="50" />
+    <Property Name="Fax" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="TaxCode" Type="varchar" MaxLength="50" />
+    <Property Name="Note" Type="ntext" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="QA">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionType" Type="varchar" MaxLength="50" />
+    <Property Name="Question" Type="nvarchar(max)" />
+    <Property Name="Answer" Type="nvarchar(max)" />
+    <Property Name="AskedBy" Type="nvarchar" MaxLength="500" />
+    <Property Name="AskedDate" Type="smalldatetime" />
+    <Property Name="AnsweredBy" Type="nvarchar" MaxLength="500" />
+    <Property Name="AnsweredDate" Type="smalldatetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="Highlight" Type="bit" />
+    <Property Name="CreatedDate" Type="smalldatetime" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+    <Property Name="ModifiedDate" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="Questionnaire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CategoryId" Type="bigint" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="QuestionnaireItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionnaireId" Type="bigint" />
+    <Property Name="SectionHeader" Type="nvarchar" MaxLength="500" />
+    <Property Name="Question" Type="nvarchar" MaxLength="500" />
+    <Property Name="MaxScore" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Status" Type="char" MaxLength="3" />
+    <Property Name="Remarks" Type="nvarchar(max)" />
+    <Property Name="SystemRole" Type="bit" />
+    <Property Name="DefaultRole" Type="bit" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="EndTime" Type="time" Precision="7" />
+    <Property Name="Contents" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="UniversityId" Type="bigint" />
+    <Property Name="AddressUniversityId" Type="bigint" />
+    <Property Name="TeacherId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ScoreConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="TypeScore" Type="nvarchar" MaxLength="50" />
+    <Property Name="PercentScore" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SiteInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lang" Type="varchar" MaxLength="50" />
+    <Property Name="brief" Type="ntext" />
+    <Property Name="type" Type="varchar" MaxLength="250" />
+    <Property Name="Value" Type="ntext" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="URL1" Type="varchar" MaxLength="500" />
+    <Property Name="URL2" Type="varchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="qty" Type="int" />
+    <Property Name="Sequence" Type="int" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ParentId" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ObjectId" Type="varchar" MaxLength="20" />
+    <Property Name="Code" Type="varchar" MaxLength="20" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="SchoolId" Type="bigint" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StudentAttendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScheduleId" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="StudentId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="StudentClass">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="Score" Type="varchar" MaxLength="5" />
+    <Property Name="StudentId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="StudentExcercise">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentId" Type="bigint" />
+    <Property Name="ClassId" Type="bigint" />
+    <Property Name="StudentId" Type="bigint" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="Link" Type="text" />
+    <Property Name="FileName" Type="text" />
+    <Property Name="FileExtension" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Content" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="AssignmentConfigId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubjectName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="SubjectType" Type="varchar" MaxLength="20" />
+    <Property Name="Unit" Type="int" />
+    <Property Name="Practice" Type="int" />
+    <Property Name="Theory" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="CanDelete" Type="bit" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TagName" Type="varchar" MaxLength="255" />
+    <Property Name="Type" Type="varchar" MaxLength="255" />
+    <Property Name="TagId" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Birthday" Type="datetime" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="200" />
+    <Property Name="TypeTeacherId" Type="bigint" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ObjectId" Type="varchar" MaxLength="20" />
+    <Property Name="SchoolId" Type="bigint" />
+    <Property Name="Owner" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TeacherBackground">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" />
+    <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TeacherDelegateStudent">
+    <Key>
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="StudentId" Type="bigint" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Topic" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SupervisionType" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Time" Type="varchar" MaxLength="20" />
+    <Property Name="Degree" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TeacherMajor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="ObjectId" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="200" />
+    <Property Name="ModifiedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TeacherMemory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="URL" Type="varchar" MaxLength="500" />
+    <Property Name="FileExtension" Type="varchar" MaxLength="50" />
+    <Property Name="FileName" Type="varchar" MaxLength="200" />
+    <Property Name="UploadedBy" Type="varchar" MaxLength="200" />
+    <Property Name="UploadedDate" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="BackgroundId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TeacherResearchWork">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" />
+    <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Level" Type="nvarchar" MaxLength="100" />
+    <Property Name="Member" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Time" Type="varchar" MaxLength="20" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TeacherStudies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="TeacherId" Type="bigint" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CanDelete" Type="bit" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="Year" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="University">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Address" Type="varchar" MaxLength="200" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="int" />
+    <Property Name="UserId" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Pwd" Type="varchar" MaxLength="500" />
+    <Property Name="ObjectId" Type="varchar" MaxLength="20" />
+    <Property Name="LastLogin" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="ModifiedBy" Type="varchar" MaxLength="200" />
+    <Property Name="ModifiedDate" Type="datetime" />
+    <Property Name="HackTimes" Type="int" />
+    <Property Name="LastIP" Type="varchar" MaxLength="50" />
+    <Property Name="Birthday" Type="datetime" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Avatar" Type="varchar" MaxLength="255" />
+    <Property Name="Address1" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="UserSocialNetwork">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="varchar" MaxLength="200" />
+    <Property Name="ThirdParty_ID" Type="varchar" MaxLength="250" />
+    <Property Name="ThirdPartyType" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+    <Property Name="CreatedDate" Type="smalldatetime" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="dk_AddressUniversity_University">
+    <End Role="University" Type="Self.University" Multiplicity="0..1" />
+    <End Role="AddressUniversity" Type="Self.AddressUniversity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AddressUniversity">
+        <PropertyRef Name="UniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AssignmentConfig_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="AssignmentConfig" Type="Self.AssignmentConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignmentConfig">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AssignmentConfig_Document">
+    <End Role="Document" Type="Self.Document" Multiplicity="0..1" />
+    <End Role="AssignmentConfig" Type="Self.AssignmentConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignmentConfig">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attendance_Schedule">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+    <End Role="StudentAttendance" Type="Self.StudentAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentAttendance">
+        <PropertyRef Name="ScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_subject">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="Class" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <End Role="Class" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_teacherassitant">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <End Role="Class" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="TeachingAssistantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class_University">
+    <End Role="University" Type="Self.University" Multiplicity="0..1" />
+    <End Role="Class" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="UniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ClassAnnouncement_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="ClassAnnouncement" Type="Self.ClassAnnouncement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassAnnouncement">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ClassDiscuss_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="ClassDiscuss" Type="Self.ClassDiscuss" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassDiscuss">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Comment">
+    <End Role="Comment" Type="Self.Comment" Multiplicity="1" />
+    <End Role="Comment1" Type="Self.Comment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Comment_News">
+    <End Role="News" Type="Self.News" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="News">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ObjectLinkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Course1" Type="Self.Course" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Course1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseScore_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="CourseScore" Type="Self.CourseScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseScore">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_CourseScore_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="CourseScore" Type="Self.CourseScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseScore">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Document_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="Document" Type="Self.Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Evaluation_Questionnaire">
+    <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="QuestionnaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluationItem_Evaluation">
+    <End Role="Evaluation" Type="Self.Evaluation" Multiplicity="0..1" />
+    <End Role="EvaluationItem" Type="Self.EvaluationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EvaluationItem">
+        <PropertyRef Name="EvaluationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluationItem_QuestionnaireItem">
+    <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="0..1" />
+    <End Role="EvaluationItem" Type="Self.EvaluationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionnaireItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EvaluationItem">
+        <PropertyRef Name="QuestionnaireItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FunctionRole_Function">
+    <End Role="Function" Type="Self.Function" Multiplicity="1" />
+    <End Role="FunctionRole" Type="Self.FunctionRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Function">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FunctionRole">
+        <PropertyRef Name="FunctionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FunctionRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="FunctionRole" Type="Self.FunctionRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FunctionRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_news_user">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionnaireItem_Questionnaire">
+    <End Role="Questionnaire" Type="Self.Questionnaire" Multiplicity="0..1" />
+    <End Role="QuestionnaireItem" Type="Self.QuestionnaireItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuestionnaireItem">
+        <PropertyRef Name="QuestionnaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Schedule_AddressUniversity">
+    <End Role="AddressUniversity" Type="Self.AddressUniversity" Multiplicity="0..1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddressUniversity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="AddressUniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ScoreConfig_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="ScoreConfig" Type="Self.ScoreConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScoreConfig">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_Object">
+    <End Role="Object" Type="Self.Object" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_Objects">
+    <End Role="Object" Type="Self.Object" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_University">
+    <End Role="University" Type="Self.University" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentAttendance_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="StudentAttendance" Type="Self.StudentAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentAttendance">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentClass_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentClass">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentClass_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="StudentClass" Type="Self.StudentClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentClass">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_AssignmentConfig">
+    <End Role="AssignmentConfig" Type="Self.AssignmentConfig" Multiplicity="0..1" />
+    <End Role="StudentExcercise" Type="Self.StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssignmentConfig">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="AssignmentConfigId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="StudentExcercise" Type="Self.StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Document">
+    <End Role="Document" Type="Self.Document" Multiplicity="0..1" />
+    <End Role="StudentExcercise" Type="Self.StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="StudentExcercise" Type="Self.StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Teacher_Object">
+    <End Role="Object" Type="Self.Object" Multiplicity="0..1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Teacher_University">
+    <End Role="University" Type="Self.University" Multiplicity="0..1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherdelegatestudent_student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="TeacherDelegateStudent" Type="Self.TeacherDelegateStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherDelegateStudent">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherdelegatestudent_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="TeacherDelegateStudent" Type="Self.TeacherDelegateStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherDelegateStudent">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teachermemory_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="TeacherMemory" Type="Self.TeacherMemory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherMemory">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teachermemory_teacherbackground">
+    <End Role="TeacherBackground" Type="Self.TeacherBackground" Multiplicity="0..1" />
+    <End Role="TeacherMemory" Type="Self.TeacherMemory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TeacherBackground">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherMemory">
+        <PropertyRef Name="BackgroundId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherresearchwork_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <End Role="TeacherResearchWork" Type="Self.TeacherResearchWork" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherResearchWork">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherstudies_teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="TeacherStudies" Type="Self.TeacherStudies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherStudies">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Object">
+    <End Role="Object" Type="Self.Object" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="LSDBModelStoreContainer">
+    <EntitySet Name="AddressUniversity" EntityType="Self.AddressUniversity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssignmentConfig" EntityType="Self.AssignmentConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassAnnouncement" EntityType="Self.ClassAnnouncement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassDiscuss" EntityType="Self.ClassDiscuss" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommonCode" EntityType="Self.CommonCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommonType" EntityType="Self.CommonType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseScore" EntityType="Self.CourseScore" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Evaluation" EntityType="Self.Evaluation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EvaluationItem" EntityType="Self.EvaluationItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Function" EntityType="Self.Function" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FunctionRole" EntityType="Self.FunctionRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Infomation" EntityType="Self.Infomation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Links" EntityType="Self.Links" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Object" EntityType="Self.Object" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QA" EntityType="Self.QA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questionnaire" EntityType="Self.Questionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuestionnaireItem" EntityType="Self.QuestionnaireItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScoreConfig" EntityType="Self.ScoreConfig" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SiteInfo" EntityType="Self.SiteInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentAttendance" EntityType="Self.StudentAttendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentClass" EntityType="Self.StudentClass" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentExcercise" EntityType="Self.StudentExcercise" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherBackground" EntityType="Self.TeacherBackground" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherDelegateStudent" EntityType="Self.TeacherDelegateStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherMajor" EntityType="Self.TeacherMajor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherMemory" EntityType="Self.TeacherMemory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherResearchWork" EntityType="Self.TeacherResearchWork" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TeacherStudies" EntityType="Self.TeacherStudies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="University" EntityType="Self.University" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserSocialNetwork" EntityType="Self.UserSocialNetwork" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="dk_AddressUniversity_University" Association="Self.dk_AddressUniversity_University">
+      <End Role="University" EntitySet="University" />
+      <End Role="AddressUniversity" EntitySet="AddressUniversity" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AssignmentConfig_Class" Association="Self.fk_AssignmentConfig_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfig" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AssignmentConfig_Document" Association="Self.fk_AssignmentConfig_Document">
+      <End Role="Document" EntitySet="Document" />
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfig" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attendance_Schedule" Association="Self.FK_Attendance_Schedule">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="StudentAttendance" EntitySet="StudentAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_subject" Association="Self.fk_class_subject">
+      <End Role="Subject" EntitySet="Subject" />
+      <End Role="Class" EntitySet="Class" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_teacher" Association="Self.fk_class_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Class" EntitySet="Class" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_teacherassitant" Association="Self.fk_class_teacherassitant">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Class" EntitySet="Class" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class_University" Association="Self.FK_Class_University">
+      <End Role="University" EntitySet="University" />
+      <End Role="Class" EntitySet="Class" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ClassAnnouncement_Class" Association="Self.fk_ClassAnnouncement_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="ClassAnnouncement" EntitySet="ClassAnnouncement" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ClassDiscuss_Class" Association="Self.fk_ClassDiscuss_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="ClassDiscuss" EntitySet="ClassDiscuss" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Comment" Association="Self.FK_Comment_Comment">
+      <End Role="Comment" EntitySet="Comment" />
+      <End Role="Comment1" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Comment_News" Association="Self.fk_Comment_News">
+      <End Role="News" EntitySet="News" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_Course" Association="Self.FK_Course_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Course1" EntitySet="Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseScore_Class" Association="Self.FK_CourseScore_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="CourseScore" EntitySet="CourseScore" />
+    </AssociationSet>
+    <AssociationSet Name="fk_CourseScore_Student" Association="Self.fk_CourseScore_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="CourseScore" EntitySet="CourseScore" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Document_Class" Association="Self.fk_Document_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Evaluation_Questionnaire" Association="Self.FK_Evaluation_Questionnaire">
+      <End Role="Questionnaire" EntitySet="Questionnaire" />
+      <End Role="Evaluation" EntitySet="Evaluation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluationItem_Evaluation" Association="Self.FK_EvaluationItem_Evaluation">
+      <End Role="Evaluation" EntitySet="Evaluation" />
+      <End Role="EvaluationItem" EntitySet="EvaluationItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluationItem_QuestionnaireItem" Association="Self.FK_EvaluationItem_QuestionnaireItem">
+      <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
+      <End Role="EvaluationItem" EntitySet="EvaluationItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FunctionRole_Function" Association="Self.FK_FunctionRole_Function">
+      <End Role="Function" EntitySet="Function" />
+      <End Role="FunctionRole" EntitySet="FunctionRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FunctionRole_Role" Association="Self.FK_FunctionRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="FunctionRole" EntitySet="FunctionRole" />
+    </AssociationSet>
+    <AssociationSet Name="fk_news_user" Association="Self.fk_news_user">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionnaireItem_Questionnaire" Association="Self.FK_QuestionnaireItem_Questionnaire">
+      <End Role="Questionnaire" EntitySet="Questionnaire" />
+      <End Role="QuestionnaireItem" EntitySet="QuestionnaireItem" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Schedule_AddressUniversity" Association="Self.fk_Schedule_AddressUniversity">
+      <End Role="AddressUniversity" EntitySet="AddressUniversity" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Class" Association="Self.FK_Schedule_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule_teacher" Association="Self.fk_schedule_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ScoreConfig_Class" Association="Self.fk_ScoreConfig_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="ScoreConfig" EntitySet="ScoreConfig" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_Object" Association="Self.fk_Student_Object">
+      <End Role="Object" EntitySet="Object" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_Objects" Association="Self.fk_Student_Objects">
+      <End Role="Object" EntitySet="Object" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_University" Association="Self.fk_Student_University">
+      <End Role="University" EntitySet="University" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentAttendance_Student" Association="Self.fk_StudentAttendance_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentAttendance" EntitySet="StudentAttendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentClass_Class" Association="Self.FK_StudentClass_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="StudentClass" EntitySet="StudentClass" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentClass_Student" Association="Self.fk_StudentClass_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentClass" EntitySet="StudentClass" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_AssignmentConfig" Association="Self.fk_StudentExcercise_AssignmentConfig">
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfig" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercise" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Class" Association="Self.fk_StudentExcercise_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercise" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Document" Association="Self.fk_StudentExcercise_Document">
+      <End Role="Document" EntitySet="Document" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercise" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Student" Association="Self.fk_StudentExcercise_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercise" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Teacher_Object" Association="Self.fk_Teacher_Object">
+      <End Role="Object" EntitySet="Object" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Teacher_University" Association="Self.fk_Teacher_University">
+      <End Role="University" EntitySet="University" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherdelegatestudent_student" Association="Self.fk_teacherdelegatestudent_student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="TeacherDelegateStudent" EntitySet="TeacherDelegateStudent" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherdelegatestudent_teacher" Association="Self.fk_teacherdelegatestudent_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TeacherDelegateStudent" EntitySet="TeacherDelegateStudent" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teachermemory_teacher" Association="Self.fk_teachermemory_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TeacherMemory" EntitySet="TeacherMemory" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teachermemory_teacherbackground" Association="Self.fk_teachermemory_teacherbackground">
+      <End Role="TeacherBackground" EntitySet="TeacherBackground" />
+      <End Role="TeacherMemory" EntitySet="TeacherMemory" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherresearchwork_teacher" Association="Self.fk_teacherresearchwork_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TeacherResearchWork" EntitySet="TeacherResearchWork" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherstudies_teacher" Association="Self.fk_teacherstudies_teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TeacherStudies" EntitySet="TeacherStudies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Users" Association="Self.FK_UserRole_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Object" Association="Self.FK_Users_Object">
+      <End Role="Object" EntitySet="Object" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

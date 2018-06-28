@@ -1,0 +1,43 @@
+﻿@using resx = LS.Resources.Posts.ResourcesPosts;
+@using resxa = LS.Resources.Resources;
+
+<div id="content">
+    <div class="container">
+        <div class="row blog-post-page">
+            <div class="col-md-9 blog-box tab-content">
+                <div id="Cul1" class="tab-pane in active">
+                    <!-- Start Single Post Area -->
+                    <div class="blog-post gallery-post">
+                        <!-- Start Single Post Content -->
+                        <div class="post-content">
+                            <h3 class="accent-color" style="font-weight:700; font-size:2em; font-style:italic;padding-bottom:3%"> Khảo Sát Dành Cho Sinh Viên Chuyên Ngữ Anh</h3>
+                            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf7atBhA9sDw0jLvIpxvcFupNvoPgXbIsjeSrV5cQbVH4zhtw/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                        </div>
+                        <!-- End Single Post Content -->
+                    </div>
+                    <!-- End Single Post Area -->
+                </div>
+            </div>
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar right-sidebar">
+                <!-- Search Widget -->
+                <div class="widget widget-popular-posts">
+                    <h4>@resx.PopularPost <span class="head-line"></span></h4>
+                    <ul class="tab" id="tab1">
+                        <li>
+                            <div class="widget-thumb">
+                                <a href="#"><img src="~/Content/images/Library//chu-trung-qtnsnb.png" alt="" /></a>
+                            </div>
+                            <div class="widget-content">
+                                <h5><a onclick="changePage(2)">Khảo Sát - Sinh Viên Không Chuyên Ngữ Anh</a></h5>
+                                <span>May 2, 2016</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--End sidebar-->
+        </div>
+    </div>
+</div>

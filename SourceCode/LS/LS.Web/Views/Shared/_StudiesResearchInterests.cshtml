@@ -1,0 +1,22 @@
+﻿@using LS.Web.Models;
+@model NameResearchInterestsVM
+
+@foreach (var item in Model.ResearchInterestsDetail)
+{
+    <table class="table table-borderless table-research">
+        <thead>
+            <tr>
+                <td width="160px">@Model.Time</td>
+                <td>@Model.Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.Raw(item.Value)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

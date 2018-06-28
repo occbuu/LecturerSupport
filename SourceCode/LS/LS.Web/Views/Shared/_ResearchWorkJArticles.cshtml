@@ -1,0 +1,17 @@
+﻿@using LS.Web.Models;
+@model NameJournalArticlesVM
+
+@foreach (var item in Model.JournalArticlesDetail)
+{
+    <table class="table table-borderless table-research">
+        <thead>
+            <tr>
+                <td class="first-td">@Model.Time</td>
+                <td>@Model.Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.Raw(item.Value)
+        </tbody>
+    </table>
+}

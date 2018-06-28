@@ -1,0 +1,39 @@
+﻿<Window x:Class="MVVM.Views.ContactView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM.Views"
+        mc:Ignorable="d"
+        Title="ContactView" Height="350" Width="500"
+        xmlns:viewModel="clr-namespace:MVVM.ViewModels">
+    <Window.Resources>
+        <viewModel:ContactManagerViewModel x:Key="contactViewModel" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource ResourceKey=contactViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="93*" />
+            <RowDefinition Height="29*" />
+            <RowDefinition Height="27*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="81*" />
+        </Grid.RowDefinitions>
+        <ListView Grid.ColumnSpan="2" BorderThickness="2" x:Name="lstContacts"   IsSynchronizedWithCurrentItem="True" ItemsSource="{StaticResource ResourceKey=contactViewModel}" DisplayMemberPath="FirstName" Margin="0,0,0,28" Grid.RowSpan="2" />
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="First name" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=FirstName}" />
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Last name" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=LastName}" />
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Email address" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=EmailAddress}" />
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Telephone number" />
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=TelephoneNumber}" />
+    </Grid>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="DemoWPF.MainWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+         Title="GridExample" Height="auto" Width="auto">
+    <Grid>
+        <Menu IsMainMenu="True">
+            <MenuItem Header="Grid" Name="Grid" Click="Grid_Click" />
+            <MenuItem Header="StackPanel" Name="StackPanel">
+                <MenuItem Header="Verical" Name="Verical" Click="Verical_Click" />
+                <MenuItem Header="Horizontal" Name="Horizontal" Click="Horizontal_Click" />
+            </MenuItem>
+            <MenuItem Header="DockPanel" Name="DockPanel" Click="DockPanel_Click" />
+            <MenuItem Header="WrapPanel" Name="WrapPanel" />
+            <MenuItem Header="Animation" Name="Animation" Click="Animation_Click" />
+            <MenuItem Header="TypeConverters" Name="TypeConverters" Click="TypeConverters_Click" />
+        </Menu>
+    </Grid>
+</Window>

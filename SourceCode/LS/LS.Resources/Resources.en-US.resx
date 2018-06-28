@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ComparativeLinguistic" xml:space="preserve">
+    <value>Comparative Linguistic</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="DelegateStudents" xml:space="preserve">
+    <value>Delegate Students</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="EnglishLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="EnglishLinguistic" xml:space="preserve">
+    <value>English Linguistic</value>
+  </data>
+  <data name="EnglishSkill" xml:space="preserve">
+    <value>English Skill</value>
+  </data>
+  <data name="EnglishTeachingMethodology" xml:space="preserve">
+    <value>English Teaching Methodology</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot Password</value>
+  </data>
+  <data name="Grammar" xml:space="preserve">
+    <value>Grammar</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Introduction" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="JapaneseCulture" xml:space="preserve">
+    <value>Japanese Culture</value>
+  </data>
+  <data name="JapaneseLanguage" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="JapaneseLinguistic" xml:space="preserve">
+    <value>Japanese Linguistic</value>
+  </data>
+  <data name="JapaneseLiterature" xml:space="preserve">
+    <value>Japanese Literature</value>
+  </data>
+  <data name="JapanHistory" xml:space="preserve">
+    <value>Japan History</value>
+  </data>
+  <data name="JapanStudies" xml:space="preserve">
+    <value>Japan Studies</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="MemoryAndGallery" xml:space="preserve">
+    <value>Memory &amp; Gallery</value>
+  </data>
+  <data name="MyClass" xml:space="preserve">
+    <value>My Class</value>
+  </data>
+  <data name="OpenPost" xml:space="preserve">
+    <value>OpenPost</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PleaseSignIn" xml:space="preserve">
+    <value>Please Sign in</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="ResearchWork" xml:space="preserve">
+    <value>Research Works</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="Studies" xml:space="preserve">
+    <value>Studies</value>
+  </data>
+  <data name="Survey" xml:space="preserve">
+    <value>Survey</value>
+  </data>
+  <data name="Teaching" xml:space="preserve">
+    <value>Teaching</value>
+  </data>
+  <data name="Translation" xml:space="preserve">
+    <value>Translation</value>
+  </data>
+  <data name="VietnameseLanguage" xml:space="preserve">
+    <value>Vietnamese</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Dr Thanh Dieu 's website !</value>
+  </data>
+  <data name="DR" xml:space="preserve">
+    <value>DR</value>
+  </data>
+  <data name="FunctionalGrammar" xml:space="preserve">
+    <value>Functional Grammar</value>
+  </data>
+  <data name="LiteratureLinguistic" xml:space="preserve">
+    <value>Literature Linguistic</value>
+  </data>
+  <data name="Morphology" xml:space="preserve">
+    <value>Morphology</value>
+  </data>
+  <data name="Phonology" xml:space="preserve">
+    <value>Phonology</value>
+  </data>
+  <data name="Pragmatic" xml:space="preserve">
+    <value>Pragmatic</value>
+  </data>
+  <data name="Semantic" xml:space="preserve">
+    <value>Semantic</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="Syntax" xml:space="preserve">
+    <value>Syntax</value>
+  </data>
+  <data name="TranThiThanhDieu" xml:space="preserve">
+    <value>TRAN THI THANH DIEU</value>
+  </data>
+  <data name="TitleHome" xml:space="preserve">
+    <value>:: Dr Thanh Dieu :: Welcome to my website !</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="FollowMe" xml:space="preserve">
+    <value>Follow Me</value>
+  </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>GET IN TOUTCH</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Terms</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="SocialNetwork" xml:space="preserve">
+    <value>Social Network</value>
+  </data>
+  <data name="IAm" xml:space="preserve">
+    <value>I'm</value>
+  </data>
+  <data name="MoreAboutLecturers" xml:space="preserve">
+    <value>More About Lecturers</value>
+  </data>
+  <data name="MoreImportant" xml:space="preserve">
+    <value>is more important than</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Quality</value>
+  </data>
+  <data name="ReadMoreAboutUs" xml:space="preserve">
+    <value>Read More About Us</value>
+  </data>
+  <data name="ThisisMyClasses" xml:space="preserve">
+    <value>This is My Classes</value>
+  </data>
+  <data name="University" xml:space="preserve">
+    <value>University of Social Sciences and Humanities</value>
+  </data>
+  <data name="ViewFullPortfolio" xml:space="preserve">
+    <value>View Full Portfolio</value>
+  </data>
+  <data name="WeAlwaysSatisfyYou" xml:space="preserve">
+    <value>We always satisfy you</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Diplomas" xml:space="preserve">
+    <value>Diplomas</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Pictures</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="SchoolsTaught" xml:space="preserve">
+    <value>Schools Taught</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="WorkYears" xml:space="preserve">
+    <value>Work Years</value>
+  </data>
+  <data name="IfYouNeed" xml:space="preserve">
+    <value>If you need documents, please leave your email address below</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+</root>

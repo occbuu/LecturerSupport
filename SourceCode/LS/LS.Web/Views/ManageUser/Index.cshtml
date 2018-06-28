@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="javascript:void(0);">Quản lí thành viên</a></li>
+            <li><a href="#">Tìm kiếm và chỉnh sửa</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+
+<div class="well">
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="search" style="width:55%">
+                <input id="txtKeyword" type="text" placeholder="Tìm kiếm theo tên giảng viên" style="background-color:white!important" />
+                <i class="fa fa-search" style="top:8px;color:red!important" onclick="search()"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:1%">
+        <div class="col-lg-8">
+        </div>
+        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchPage();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create","TeacherManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
+        </div>
+    </div>
+</div>
+
+<div class="well" style="padding-bottom:4%">
+    <span id="showTotalRecord" class="help-block"></span>
+    <hr />
+    <div class="box" id="boxData">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:20px;">
+                            <input id="cbTotal" type="checkbox" value="checkTotalRecord" onclick="clickCb();">
+                        </th>
+                        <th style="width:40px;">STT</th>
+                        <th style="width:150px;">Id</th>
+                        <th style="width:300px;">Họ tên</th>
+                        <th style="width:110px;">Chức vụ</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="listPost"></tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:20px;"></th>
+                        <th style="width:150px;">STT</th>
+                        <th style="width:40px;">Id</th>
+                        <th style="width:300px;">Họ tên</th>
+                        <th style="width:110px;">Chức vụ</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div id="pagination" class="pagination">
+        </div>
+    </div>
+</div>
+
+<script id="tmplContent" type="text/x-jquery-tmpl">
+    <tr id="rowPost_${Id}">
+        <th style="width:20px;">
+            <input id="cbChild_${Id}" type="checkbox" value="checkChildRecord">
+        </th>
+        <td id="idSTT">${index}</td>
+        <td>${Id}</td>
+        <td>${Titlej}</td>
+        <td>${CategoryId}</td>
+        <td>${Time}</td>
+        <td data-toggle="tooltip" data-html="true" title="${ FullName} &#13; ${Birthday} &#13; ${Hometown}">${CreatedBy}</td>
+        <td>
+            <div class="row">
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="Edit('${Id}');" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}',this)"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>

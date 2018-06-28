@@ -1,0 +1,33 @@
+Chủ đề 3, bắt dầu từ ngày mai (7-Dec-2016):
+(1a) Tìm hiểu sâu & kỷ về quy tắc trong lập trình (theo tài liệu anh gửi)
+(1b) Tìm hiểu sâu & kỹ về lập trình hướng đối tượng trên C# (theo tài liệu anh gửi & trang của Microsoft)
+(2a) Tìm hiểu sâu & kỹ về Visual Studio 2013 & 2015 (theo tài liệu anh gửi)
+(2b) Tìm hiểu sâu & kỹ về ASP.NET (tự do)
+(3) Tìm hiểu sâu & kỹ về ASP.NET MVC(theo tài liệu anh gửi)
+(4) Tìm hiểu sâu & kỹ về ASP.NET Web API (theo tài liệu anh gửi)
+
+Lưu ý:
+- Theo tài liệu a gửi là bắt buộc, và ko cần tìm bên ngoài nếu ko có yêu cầu; Những tài liệu này rất cần để sau này tụi em làm vic đó!
+- Song song với các đề tài trên, tụi em sẽ có 1 project và sẽ tiếp tục làm theo. Bắt đầu là xây dựng các màn hình cho dự án LS (Lecturer Support)
+- Thời gian của Chủ đề này là 10 ngày
+- Yêu cầu: 
+ + Mục (1a) + (1b) ==> 1 buỗi thuyết trình & demo
+ + Mục (2a) + (2b) ==> 1 buỗi thuyết trình & demo
+ + Mục (3) ==> 1 buỗi thuyết trình & demo
+ + Mục (4) ==> 1 buỗi thuyết trình & demo
+- Người hướng dẫn chính: Mr.Toàn + Mr.Điệp
+- Người nhận xét đánh giá: Mr.Hiếu + Mr.Toàn
+- Người hỗ trợ: 5 bạn, Mr.Hùng, Mr.Dương, Mr.Tài
+
+Lịch Báo cáo Chủ đề 3 : 
+- 9/12/2016 : 3h chiều báo cáo mục 1 : 
+   o 1a) Tìm hiểu sâu & kỷ về quy tắc trong lập trình (theo tài liệu anh Hiếu gửi)
+   o (1b) Tìm hiểu sâu & kỹ về lập trình hướng đối tượng trên C# (theo tài liệu anh Hiếu gửi & trang của Microsoft)
+- 12/12/2016 : 2h chiều báo cáo mục 2 :
+   o (2a) Tìm hiểu sâu & kỹ về Visual Studio 2013 & 2015 (theo tài liệu anh Hiếu gửi)
+    o (2b) Tìm hiểu sâu & kỹ về ASP.NET (tự do)
+- 14/12/2016 : 2h chiều báo cáo mục 3 : 
+    o (3) Tìm hiểu sâu & kỹ về ASP.NET MVC(theo tài liệu anh Hiếu gửi)
+- 16/12/2016 : 1h30 chiều báo cáo mục 4 :
+    o (4) Tìm hiểu sâu & kỹ về ASP.NET Web API (theo tài liệu anh Hiếu gửi)
+p/s : thời gian có thể thay đổi đôi chút sau khi báo cáo chủ đề 3 mục 1 hoàn thành …

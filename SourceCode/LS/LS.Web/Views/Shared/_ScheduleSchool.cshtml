@@ -1,0 +1,30 @@
+﻿@using LS.Web.Models
+@model SchoolDetailVM
+
+<h4 class="classic-title"><span>@Model.SchoolName</span></h4>
+<div class="latest-posts-classic custom-carousel touch-carousel" data-appeared-items="2">
+    @foreach (var item in Model.SchoolDetails)
+    {
+    <!-- Post 1 -->
+        <div class="post-row item">
+            <div class="left-meta-post">
+                <div class="post-date"><span class="day">@{var dayOfWeek = string.Format("{0:ddd}", item.Date); @dayOfWeek}</span><span class="month">@{var year = string.Format("{0:yyyy}", item.Date); @year}</span></div>
+                <div class="post-type"><i class="fa fa-picture-o"></i></div>
+            </div>
+            <h3 class="post-title"><a href="#">@item.SubjectName</a></h3>
+            <div class="post-content">
+                <p>
+                    <span>Time:</span> Start on @{var date = string.Format("{0:dd/MM/yyyy}", item.Date); @date}
+                    <
+                    <span> - </span>
+                    @{
+                        var displayTime = string.Format("{0:hh\\:mm}", item.SartTime);
+                        @displayTime
+                    }
+                </p>
+                <p><span>Remark:</span> @item.Remark</p>
+            </div>
+        </div>
+                        }
+</div>
+<div class="hr1" style="margin-bottom:30px;"></div>

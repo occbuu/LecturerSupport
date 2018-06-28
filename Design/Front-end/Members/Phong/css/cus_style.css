@@ -1,0 +1,54 @@
+.info-teacher b{
+	padding-left: 10px ;
+	font-size: 16px;
+}
+
+.info-teacher span {
+	font-size: 15px;
+}
+
+.sub-info-teacher {
+	padding-left: 10px;
+}
+
+.tbl-info {
+	line-height: 2em;
+	color: #999;
+	margin-left: 10px;
+}
+
+.sub-menu-list li{
+	padding-left: 7px;
+	display: none;
+}
+
+.subject-by-uvt a {
+	cursor: pointer;
+}
+
+.nav-pills > li  > a{
+ color: rgb(78, 78, 78);
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus,
+.nav-pills > li > a:hover  {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 80, 157);
+}
+
+ .sub-menu-list > li > a:hover,
+ .sub-menu-list > li > a:active,
+ .sub-menu-list > li > a:focus {
+    color: rgb(255, 255, 255);
+  	background-color: rgb(0, 80, 157);
+}
+
+.share-doc ul li a{
+	text-decoration:  none;
+}
+
+.share-doc {
+	margin: 15px;
+}

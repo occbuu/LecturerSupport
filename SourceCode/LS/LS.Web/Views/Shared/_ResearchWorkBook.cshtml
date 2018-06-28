@@ -1,0 +1,22 @@
+﻿@using LS.Utility;
+@using LS.Web.Models;
+@model NameBookVM
+
+@foreach (var item in Model.BookDetail)
+{
+    <div class="col-md-6 flag-box single-book-box">
+        <div class="single-book-title">
+            <div class="single-title-container">
+                @Html.Raw(Model.Value)
+            </div>
+            <div class="single-book-date">
+                @Model.Time
+            </div>
+        </div>
+        <div class="single-book-content">
+            <p>
+                @Html.Raw(item.Value)
+            </p>
+        </div>
+    </div>
+}

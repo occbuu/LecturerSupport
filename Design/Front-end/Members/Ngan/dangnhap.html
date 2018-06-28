@@ -1,0 +1,486 @@
+﻿<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Classy Resume a Personal Category Bootstrap Responsive Website Template | Home :: w3layouts</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style2.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- gallery -->
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/paging.css" />
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <!-- font-awesome icons -->
+    <style>
+        h3.title {
+            font-size: 4em;
+            color: #135f79;
+            border-bottom: 4px double rgba(247, 197, 106, 0.35);
+            /* border-bottom: 4px double rgba(247, 197, 106, 0.35); */
+            padding-bottom: 0.2em;
+            margin-top: 1em;
+        }
+
+        .nav-side-menu {
+            overflow: auto;
+            font-family: verdana;
+            font-size: 12px;
+            font-weight: 200;
+            background-color: #2e353d;
+            height: 100%;
+            min-height: 500px;
+            color: #e1ffff;
+        }
+
+            .nav-side-menu .brand {
+                background-color: #23282e;
+                line-height: 50px;
+                display: block;
+                text-align: center;
+                font-size: 14px;
+            }
+
+            .nav-side-menu .toggle-btn {
+                display: none;
+            }
+
+            .nav-side-menu ul,
+            .nav-side-menu li {
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+                line-height: 35px;
+                cursor: pointer;
+                /*
+            .collapsed{
+               .arrow:before{
+                         font-family: FontAwesome;
+                         content: "\f053";
+                         display: inline-block;
+                         padding-left:10px;
+                         padding-right: 10px;
+                         vertical-align: middle;
+                         float:right;
+                    }
+             }
+        */
+            }
+
+                .nav-side-menu ul :not(collapsed) .arrow:before,
+                .nav-side-menu li :not(collapsed) .arrow:before {
+                    font-family: FontAwesome;
+                    content: "\f078";
+                    display: inline-block;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    vertical-align: middle;
+                    float: right;
+                }
+
+                .nav-side-menu ul .active,
+                .nav-side-menu li .active {
+                    border-left: 3px solid #d19b3d;
+                    background-color: #4f5b69;
+                }
+
+                .nav-side-menu ul .sub-menu li.active,
+                .nav-side-menu li .sub-menu li.active {
+                    color: #d19b3d;
+                }
+
+                    .nav-side-menu ul .sub-menu li.active a,
+                    .nav-side-menu li .sub-menu li.active a {
+                        color: #d19b3d;
+                    }
+
+                .nav-side-menu ul .sub-menu li,
+                .nav-side-menu li .sub-menu li {
+                    background-color: #181c20;
+                    border: none;
+                    line-height: 28px;
+                    border-bottom: 1px solid #23282e;
+                    margin-left: 0px;
+                }
+
+                    .nav-side-menu ul .sub-menu li:hover,
+                    .nav-side-menu li .sub-menu li:hover {
+                        background-color: #020203;
+                    }
+
+                    .nav-side-menu ul .sub-menu li:before,
+                    .nav-side-menu li .sub-menu li:before {
+                        font-family: FontAwesome;
+                        content: "\f105";
+                        display: inline-block;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        vertical-align: middle;
+                    }
+
+            .nav-side-menu li {
+                padding-left: 0px;
+                border-left: 3px solid #2e353d;
+                border-bottom: 1px solid #23282e;
+            }
+
+                .nav-side-menu li a {
+                    text-decoration: none;
+                    color: #e1ffff;
+                }
+
+                    .nav-side-menu li a i {
+                        padding-left: 10px;
+                        width: 20px;
+                        padding-right: 20px;
+                    }
+
+                .nav-side-menu li:hover {
+                    border-left: 3px solid #d19b3d;
+                    background-color: #4f5b69;
+                    -webkit-transition: all 1s ease;
+                    -moz-transition: all 1s ease;
+                    -o-transition: all 1s ease;
+                    -ms-transition: all 1s ease;
+                    transition: all 1s ease;
+                }
+
+        @media (max-width: 767px) {
+            .nav-side-menu {
+                position: relative;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+                .nav-side-menu .toggle-btn {
+                    display: block;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    z-index: 10 !important;
+                    padding: 3px;
+                    background-color: #ffffff;
+                    color: #000;
+                    width: 40px;
+                    text-align: center;
+                }
+
+            .brand {
+                text-align: left !important;
+                font-size: 22px;
+                padding-left: 20px;
+                line-height: 50px !important;
+            }
+        }
+
+        @media (min-width: 767px) {
+            .nav-side-menu .menu-list .menu-content {
+                display: block;
+            }
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <div class="w3_navigation">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="logo">
+                        <h1><a class="navbar-brand" href="index.html"><span class="one"></span>Welcome</a></h1>
+                    </div>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                    <nav class="cl-effect-1" id="cl-effect-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">Thông tin giảng viên</a></li>
+                            <li><a href="thanhtich.html">Thành tích</a></li>
+                            <li><a href="hssvtieubieu.html">Học sinh - Sinh viên tiêu biểu</a></li>
+                            <li><a href="lop.html">Các khóa học</a></li>
+                            <li><a data-toggle="modal" data-target="#myModal">Đăng nhập</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </div>
+    </div>
+    <!-- Content -->
+    <div></div>
+    <div class="main">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="nav-side-menu" style="min-height:700px !important; margin-bottom:20px !important;">
+                    <div class="brand">MENU</div>
+                    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+                    <div class="menu-list">
+                        <ul id="menu-content" class="menu-content collapse out">
+                            <li>
+                                <a href="dangnhap.html">
+                                    <i class="fa fa-dashboard fa-lg"></i> Trang cá nhân
+                                </a>
+                            </li>
+                            <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                                <a href="#"><i class="fa fa-gift fa-lg"></i> Tất cả môn học<span class="arrow"></span></a>
+                            </li>
+                            <li>
+                                <ul class="sub-menu collapse" id="products">
+                                    <li><a href="monhoc.html">Các môn đang học</a></li>
+                                    <li><a href="monhoc.html">Các môn đã học</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="container">
+                    <h3 class="title wow zoomInLeft animated" data-wow-delay=".5s">Thông báo </h3>
+                </div>
+                <div style="padding-right:2em; padding-left:1em;">
+                    <div style="margin-top:2em;">
+                        <table id="ctl00_ContentPlaceHolder1_ctl00_tbThongTin" class="classTable" border="0">
+                            <tbody>
+                                <tr>
+                                    <td class="TextThongTin" align="left"><strong>Th&ocirc;ng b&aacute;o đ&oacute;ng học ph&iacute; học kỳ 1 năm học 2016-2017 (lần 2)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="TextThongTin" align="left">
+                                        <p>Học viện C&ocirc;ng nghệ Bưu ch&iacute;nh Viễn th&ocirc;ng tr&acirc;n trọng th&ocirc;ng b&aacute;o đến sinh vi&ecirc;n c&aacute;c kho&aacute;/ c&aacute;c hệ đ&agrave;o tạo tại Học viện cơ sở về việc đ&oacute;ng học ph&iacute; học kỳ 1 năm học 2016-2017 (lần 2).</p>
+                                        <p>Th&ocirc;ng tin chi tiết vui l&ograve;ng xem<a href="https://drive.google.com/open?id=0BwoOK0uQCNrYMzZKNDlraUducGJ0RGdIUERndktXU1NVRE5R">&nbsp;file đ&iacute;nh k&egrave;m.</a></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>&nbsp;</p>
+                        <hr />
+                    </div>
+                    <div>
+                        <table id="ctl00_ContentPlaceHolder1_ctl00_tbThongTin" class="classTable" border="0">
+                            <tbody>
+                                <tr>
+                                    <td class="TextThongTin" align="left"><strong>Th&ocirc;ng b&aacute;o đ&oacute;ng học ph&iacute; học kỳ 1 năm học 2016-2017</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="TextThongTin" align="left">
+                                        <p>Học viện C&ocirc;ng nghệ Bưu ch&iacute;nh Viễn th&ocirc;ng tr&acirc;n trọng th&ocirc;ng b&aacute;o đến sinh vi&ecirc;n c&aacute;c kho&aacute;/ c&aacute;c hệ đ&agrave;o tạo tại Học viện cơ sở về việc đ&oacute;ng học ph&iacute; học kỳ 1 năm học 2016-2017.</p>
+                                        Th&ocirc;ng tin chi tiết vui l&ograve;ng xem<a href="http://hcm.ptit.edu.vn/uploads/2016/08/CV-NOIBO-215.pdf">&nbsp;file đ&iacute;nh k&egrave;m.</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>&nbsp;</p>
+                        <hr />
+                    </div>
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Th&ocirc;ng b&aacute;o đăng k&yacute; học lại, học cải thiện c&ugrave;ng kh&oacute;a 2016</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Thực hiện kế hoạch đ&agrave;o tạo năm học 2016 - 2017, hệ Đại học cao đẳng ch&iacute;nh quy kh&oacute;a 2016 sẽ bắt đầu học kỳ 1 năm học 2016 &ndash; 2017 từ ng&agrave;y 12/09/2016.</p>
+                                        <p>Nhằm tạo điều kiện cho c&aacute;c sinh vi&ecirc;n c&aacute;c kh&oacute;a trước c&oacute; điều kiện đăng k&yacute; học cải thiện, trả nợ m&ocirc;n học. Học viện Cơ sở tổ chức cho sinh vi&ecirc;n đang theo học tại trường đăng k&yacute; học lại c&aacute;c m&ocirc;n chưa đạt, học cải thiện điểm c&ugrave;ng kh&oacute;a 2016 tr&ecirc;n Website Đăng k&yacute; m&ocirc;n học. Chi tiết tại website: <strong>uis.ptithcm.edu.vn</strong>.</p>
+                                        <p>&nbsp;&nbsp;&nbsp;&nbsp; Thời gian đăng k&yacute;: ng&agrave;y 31/08/2016 v&agrave; ng&agrave;y 01/09/2016.</p>
+                                        <p>Lưu &yacute;: ở đợt đăng k&yacute; n&agrave;y, sinh vi&ecirc;n chỉ được đăng k&yacute; th&ecirc;m c&aacute;c m&ocirc;n học, hệ thống kh&ocirc;ng cho ph&eacute;p x&oacute;a c&aacute;c m&ocirc;n học đ&atilde; đăng k&yacute;.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="w3l_footer">
+        <div class="container">
+            <div class="w3ls_footer_grids">
+                <div class="w3ls_footer_grid">
+                    <div class="col-md-4 w3ls_footer_grid_left">
+                        <div class="w3ls_footer_grid_leftl">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </div>
+                        <div class="w3ls_footer_grid_leftr">
+                            <h4>Location</h4>
+                            <p>Thành phố Hồ Chí Minh</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-4 w3ls_footer_grid_left">
+                        <div class="w3ls_footer_grid_leftl">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div class="w3ls_footer_grid_leftr">
+                            <h4>Email</h4>
+                            <a href="mailto:thanhdieutt@hcmussh.edu.vn">thanhdieutt@hcmussh.edu.vn</a>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="col-md-4 w3ls_footer_grid_left">
+                        <div class="w3ls_footer_grid_leftl">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </div>
+                        <div class="w3ls_footer_grid_leftr">
+                            <h4>Call Me</h4>
+                            <p>091-891-1737</p>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="w3l_footer_pos">
+            <p>© 2016 Classy Resume. All Rights Reserved | Design by <a href="https://w3layouts.com/">Ho Thi Tuyet Ngan</a></p>
+        </div>
+    </div>
+    <!-- //footer -->
+    <!-- skills -->
+    <script src="js/pie-chart.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#demo-pie-1').pieChart({
+                barColor: '#44c7f4',
+                trackColor: '#fff',
+                lineCap: 'round',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-2').pieChart({
+                barColor: '#44c7f4',
+                trackColor: '#fff',
+                lineCap: 'butt',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-3').pieChart({
+                barColor: '#44c7f4',
+                trackColor: '#fff',
+                lineCap: 'square',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-4').pieChart({
+                barColor: '#44c7f4',
+                trackColor: '#fff',
+                lineCap: 'square',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+        });
+    </script>
+    <!-- skills -->
+    <script src="js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use "$(window).load(function() {"
+        $(function () {
+            // Slideshow 4
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: true,
+                nav: false,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+
+        });
+    </script>
+    <!-- js -->
+    <script src="js/jquery.tools.min.js"></script>
+    <script src="js/jquery.mobile.custom.min.js"></script>
+    <script src="js/jquery.cm-overlay.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.cm-overlay').cmOverlay();
+        });
+    </script>
+    <!-- js files -->
+
+
+
+    <script src="js/bars.js"></script>
+
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+    <!-- //js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- //for bootstrap working -->
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+</body>
+</html>

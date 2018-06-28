@@ -1,0 +1,57 @@
+﻿@using resx = LS.Resources.About.ResourcesAbout;
+@using resx1 = LS.Resources.Resources;
+@using LS.Web.Models
+@using LS.Utility
+
+@model TeacherViewModel
+
+@{
+    ViewBag.Title = "Studies";
+}
+
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.Studies</h2>
+                <p>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Introduction</a></li>
+                    <li>@resx.Studies</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content" style="background-color: #f9f9f9;">
+    <div class="container">
+        <div class="page-content" style="background-color: #ffffff">
+            <div class="row">
+                <div class="col-md-12 big-title">
+                    <h1 class="title-research accent-color">@resx.ResearchInterests</h1>
+                    @foreach (var item in Model.TeacherStudiesVM)
+                    {
+                        <table class="table table-borderless table-research">
+                            <thead>
+                                <tr>
+                                    <td width="160px">@item.Year</td>
+                                    <td>@item.Title</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                       @(Html.Raw(item.Description))
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

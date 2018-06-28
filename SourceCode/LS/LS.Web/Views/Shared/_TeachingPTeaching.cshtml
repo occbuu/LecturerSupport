@@ -1,0 +1,21 @@
+﻿@using LS.Web.Models
+@model NamePTeachingVM
+
+@{var count = 0;}
+@foreach (var item in Model.PTeachingDetail)
+{
+    <div class="col-md-6">
+        <div class="single-teaching">
+            <i class="fa fa-book"></i>
+            @Html.Raw(Model.Value)
+            @Html.Raw(item.Value)
+        </div>
+    </div>
+
+    count++;
+    if (count % 2 == 0)
+    {
+        <div class="clearfix"></div>
+        count = 0;
+    }
+}

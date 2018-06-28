@@ -1,0 +1,1596 @@
+﻿@{
+    ViewBag.Title = "Managing Information Class";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+@using LS.Utility
+@using LS.Web.Models
+@model List<UniversityViewModel>
+
+@section scripts{
+    <script src="~/Scripts/controller/admin/classController.js"></script>
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javascript:void(0);">Lớp</a></li>
+            <li><a href="#">Quản Lý Thông Tin Lớp</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <!--<i class="fa fa-usd"></i>
+                    <span></span>-->
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <div class="box-content">
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Từ ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-from-date" class="form-control" type="text">
+                        </div>
+                        <br><br>
+                    </div>
+
+                    <div class="col-sm-5 col-sm-offset-2 search-right">
+                        <div class="input-group">
+                            <input class="form-control input-lg" id="type-search" placeholder="Tìm kiếm theo tên lớp hoặc môn học" type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="btn-type-search">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Đến ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-to-date" class="form-control" type="text">
+                        </div>
+                        <br /><br />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Trạng thái:
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="select-status"></select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn Trường
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="select-school">
+                                <option value="@Constants.University_Staus.All">
+                                    Tất cả
+                                </option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Id">
+                                        @item.Name
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4" style="margin-left: 13px;margin-top: 5px;">
+                        <button id="btn-search" class="btn btn-primary btn-sm" style="color:white"><i class="fa fa-search"></i> Tìm kiếm</button>
+                        <button id="btnCreateClass" data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-success btn-sm" style="color:white;"><i class="fa fa-plus"></i> Thêm mới</button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã Lớp</th>
+                            <th>Thông tin lớp</th>
+                            <th width="250px;">Mô tả</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableClass">
+                        <!-- Start: list_row -->
+                        <!-- End: list_row -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã lớp</th>
+                            <th>Thông tin lớp</th>
+                            <th>Mô tả</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div id="pagination" class="pull-right pagination">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-12 ">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỬA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-school-edit">
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">
+                                            @item.Name
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Mã Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Code Class" id="txtCodeClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Class" id="txtNameClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Môn Học<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-subject-edit"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-status-edit"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Giảng viên chính<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-teacher-edit"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trợ giảng<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-subteacher-edit"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Hình Ảnh:
+                            </div>
+                            <div class="col-lg-9" id="theDiv">
+                                <img class="col-md-3" id="imgClassEdit" />
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="txtImageEdit" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Giới Thiệu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="introEdit" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Yêu Cầu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="requierEdit" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;margin-left: -12px;">
+                                    Ngày Bắt Đầu<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: 4px;">
+                                    <input class="form-control" id="startDate" placeholder="Start Date" type="text" data-date-format="dd/mm/yyyy" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày Kết Thúc<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="endDate" placeholder="End Date" data-date-format="dd/mm/yyyy" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert-danger" id="divThongBao_TB" style="margin-top: 5px;">
+                            <span id="spanThongBao_TB" style="margin-left:2%"></span>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="btnEdit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em;height:33px">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="create-class" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM LỚP</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-school-create">
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">
+                                            @item.Name
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Mã Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Code Class" id="txtCodeClassCreate" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Class" id="txtNameClassCreate" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Môn Học<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-subject-create"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-status-create"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Giảng viên chính<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-teacher-create"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trợ giảng<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="select-subteacher-create"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Hình Ảnh:
+                            </div>
+                            <div class="col-lg-9" id="theDiv">
+                                <img class="col-md-3" id="imgClassCreate" />
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="txtImageCreate" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Giới Thiệu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="introCreate" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Yêu Cầu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="requierCreate" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;margin-left: -12px;">
+                                    Ngày Bắt Đầu<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: 4px;">
+                                    <input class="form-control" id="startDateCreate" placeholder="Start Date" type="text" data-date-format="dd/mm/yyyy" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày Kết Thúc<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="endDateCreate" placeholder="End Date" data-date-format="dd/mm/yyyy" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert-danger" id="divThongBaoCreate" style="margin-top: 5px;">
+                            <span id="spanThongBaoCreate" style="margin-left:2%"></span>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="btnCreate" onclick="createClass()" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em;height:33px">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade modalshow" id="see-detail" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">GIỚI THIỆU THÔNG TIN LỚP</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Mã Lớp:
+                            </div>
+                            <div class="col-lg-9" id="class-code">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Lớp:
+                            </div>
+                            <div class="col-lg-9" id="class-name">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Trường:
+                            </div>
+                            <div class="col-lg-9" id="class-school">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Môn Học:
+                            </div>
+                            <div class="col-lg-9" id="class-subject">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái:
+                            </div>
+                            <div class="col-lg-9" id="class-status">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Giảng Viên Chính:
+                            </div>
+                            <div class="col-lg-9" id="class-teacher">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trợ Giảng:
+                            </div>
+                            <div class="col-lg-9" id="class-subteacher">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Giới Thiệu:
+                            </div>
+                            <div class="col-lg-9" id="class-intro">
+
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Ngày Bắt Đầu:
+                            </div>
+                            <div class="col-lg-9" id="start-date">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Ngày Kết Thúc:
+                            </div>
+                            <div class="col-lg-9" id="end-date">
+
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Hình ảnh:
+                            </div>
+                            <div class="col-lg-9">
+                                <img class="col-md-3" id="imgClassDetail" />
+                            </div>
+                            <br><br>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em;height:33px">Sửa</button>
+                        </div>
+                        <br />
+                    </div>
+                    <legend></legend>
+                    <div class="container-fluid">
+                        <div id="dashboard_links">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a id="overview" class="tab-link" data-toggle="pill" href="#home">Thông Tin Lịch Dạy</a></li>
+                                <li><a data-toggle="pill" href="#menu1">Danh Sách Sinh Viên</a></li>
+                                <li><a data-toggle="pill" href="#menu2">Đề Cương</a></li>
+                            </ul>
+                        </div>
+                        <div id="dashboard_tabs" class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div class="row">
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <div class="box-name ui-draggable-handle">
+                                                <i class="fa fa-table"></i>
+                                            </div>
+                                            <div class="box-icons">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                                <a class="expand-link">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
+                                            <div class="no-move"></div>
+                                        </div>
+                                        <div class="box-content no-padding">
+                                            <table class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Thông tin lịch</th>
+                                                        <th width="80">Trạng thái</th>
+                                                        <th>Lưu ý</th>
+                                                        <th width="400">Nội dung</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tableClassSchedule"></tbody>
+                                            </table>
+                                        </div>
+                                        <div id="paginationSchedule" class="pull-right pagination">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <div class="box-name ui-draggable-handle">
+                                                <i class="fa fa-table"></i>
+                                            </div>
+                                            <div class="box-icons">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                                <a class="expand-link">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
+                                            <div class="no-move"></div>
+                                        </div>
+                                        <div class="box-content no-padding">
+                                            <table class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Thông tin chung</th>
+                                                        <th>Ngày sinh</th>
+                                                        <th>Địa chỉ</th>
+                                                        <th>Điểm tổng kết</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tableClassStudent"></tbody>
+                                            </table>
+                                        </div>
+                                        <div id="paginationStudent" class="pull-right pagination">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <div class="box-name ui-draggable-handle">
+                                                <i class="fa fa-table"></i>
+                                            </div>
+                                            <div class="box-icons">
+                                                <a class="collapse-link">
+                                                    <i class="fa fa-chevron-up"></i>
+                                                </a>
+                                                <a class="expand-link">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
+                                            <div class="no-move"></div>
+                                        </div>
+                                        <div class="box-content no-padding">
+                                            <table class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Thông tin chung</th>
+                                                        <th>Tiêu đề</th>
+                                                        <th>Nội dung</th>
+                                                        <th>Loại</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tableClassConspectus"></tbody>
+                                            </table>
+                                        </div>
+                                        <div id="paginationConspectus" class="pull-right pagination">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-dialog {
+        width: 1000px;
+        margin: 30px auto;
+    }
+
+    .img-detail-class img {
+        width: 150px;
+    }
+
+    #dashboard_tabs {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .status {
+        padding: 0px;
+    }
+</style>
+
+<script id="scriptTableClass" type="text/x-jquery-tmpl">
+
+    <tr>
+        <td id="ClassId"></td>
+        <td id="ClassCode">
+            <strong>Id: </strong>${Id}<br />
+            <strong>Code: </strong>${Code}
+        </td>
+        <td id="ClassInfo">
+            <strong>Tên Lớp: </strong>${Name}<br />
+            <strong>Môn học: </strong>${Subject}<br />
+            <strong>Địa điểm: </strong>${University}<br />
+            <strong>Giảng viên chính: </strong>${Teacher}<br />
+            <strong>Trợ giảng: </strong>${TeacherAssistant}
+        </td>
+        <td>{{html textSummary(Value)}}</td>
+        <td>
+            <strong>Trạng thái</strong>:{{if Status==@Constants.Class_Status.ActiveStaus}}
+            <span class="alert alert-success status">Active</span><br />
+            {{/if}}
+            {{if Status==@Constants.Class_Status.InactiveStatus}}
+            <span class="alert alert-warning status">Inactive</span><br />
+            {{/if}}
+            {{if Status==@Constants.Class_Status.DeleteStatus}}
+            <span class="alert alert-danger status">Deleted</span><br />
+            {{/if}}
+            {{if Status==@Constants.Class_Status.CommingStatus}}
+            <span class="alert alert-info status">Comming</span><br />
+            {{/if}}
+            <strong>Ngày bắt đầu</strong>: ${StartDate}<br />
+            <strong>Ngày kết thúc</strong>: ${EndDate}
+        </td>
+        <td>
+            <button class="btn btn-primary btn-app-sm" type="button" id="edit_${Id}" onclick="editClass('${Id}', this)" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-pencil" style="color:white"></i>
+            </button>
+
+            <button class="btn btn-danger btn-app-sm" type="button" id="del_${Id}" onclick="confirmDelete('${Id}')">
+                <i class="fa fa-times" style="color:white"></i>
+            </button>
+
+            <button id="see_${Id}" onclick="seeDetail('${Id}',this)" class="btn btn-success btn-app-sm" type="button" data-toggle="modal" data-target="#see-detail">
+                <i class="fa fa-info-circle" style="color:white"></i>
+            </button>
+        </td>
+    </tr>
+
+</script>
+
+<script id="scriptClassIntro" type="text/x-jquery-tmpl">
+    {{html Description}}
+</script>
+
+<script id="scriptClassSchedule" type="text/x-jquery-tmpl">
+    <tr>
+        <td></td>
+        <td>
+            <strong>Id: </strong>${Id}<br />
+            <strong>Ngày: </strong>${Date}<br />
+            <strong>Từ: </strong>${StartTime}<br />
+            <strong>Đến: </strong>${EndTime}<br />
+            <strong>Địa điểm:</strong>${AddressUniversity}
+        </td>
+        <td>
+            {{if Status==@Constants.Schedule_Status.ActiveStaus}}
+            <span class="alert alert-success status">Active</span><br />
+            {{/if}}
+            {{if Status==@Constants.Schedule_Status.InactiveStatus}}
+            <span class="alert alert-warning status">
+                Inactive
+            </span><br />
+            {{/if}}
+            {{if Status==@Constants.Schedule_Status.DeleteStatus}}
+            <span class="alert alert-danger status">Deleted</span><br />
+            {{/if}}
+        </td>
+        <td>${Remark}</td>
+        <td>${Contents}</td>
+    </tr>
+</script>
+
+<script id="scriptClassStudent" type="text/x-jquery-tmpl">
+    <tr>
+        <td></td>
+        <td>
+            <strong>Id: </strong>${StudentId}<br />
+            <strong>Họ tên: </strong>${Name}<br />
+        </td>
+        <td>${Birthday}</td>
+        <td>${TemAdd}</td>
+        <td>${TotalMark}</td>
+    </tr>
+</script>
+
+<script id="scriptClassConspectus" type="text/x-jquery-tmpl">
+    <tr>
+        <td></td>
+        <td>
+            <strong>Id: </strong>${Id}<br />
+            <strong>Create By: </strong>${CreateBy}<br />
+            <strong>Create On: </strong>${CreateOn}
+        </td>
+        <td>${Title}</td>
+        <td>${Content}</td>
+        <td>${Type}</td>
+    </tr>
+</script>
+
+<script type="text/javascript">
+
+    var tempList;
+
+    $(function () {
+        CKEDITOR.replace('introEdit');
+        CKEDITOR.replace('requierEdit');
+        CKEDITOR.replace('introCreate');
+        CKEDITOR.replace('requierCreate');
+        loadStatus('select-status');//For status search
+
+        ///
+        /// Validate for image formats
+        ///
+        $("input[id=txtImageEdit]").change(function () {
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                alert("Vui lòng chọn hình ảnh");
+                $("#txtImageEdit").val("");
+                return false;
+            }
+        });
+
+        $("input[id=txtImageCreate]").change(function () {
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                alert("Vui lòng chọn hình ảnh");
+                $("#txtImageCreate").val("");
+                return false;
+            }
+        });
+    });
+
+    $('#btn-search').click(function () {
+        $('#pagination').twbsPagination('destroy');
+        flagTyping = false;//When SearchBySeleted is enable
+        flagSelected = true;
+        searchBySelectedLsit();
+    });
+
+    function searchBySelectedLsit() {
+        $('#tableClass').empty();
+        var fromDate = $('#search-from-date').val();
+        var toDate = $('#search-to-date').val();
+        var status = $('#select-status').val();
+        var schoolId = $('#select-school').val();
+        var data = {
+            FromDate: fromDate,
+            ToDate: toDate,
+            Status: status,
+            SchoolId: schoolId,
+        };
+        $.ajax({
+            url: "@Url.Action("SearchBySelectedLsit", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { model: JSON.stringify(data), pageNumber: pageConfig.pageIndex, pageSize: pageConfig.pageSize },
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptTableClass").tmpl(response.listClass).appendTo("#tableClass");
+                    tempList = response.listClass; // Store a global list
+                    if (response.total > pageConfig.pageSize) {
+                        paging(response.total, function () {
+                            searchBySelectedLsit();
+                        });
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    $('#btn-type-search').click(function () {
+        $('#pagination').twbsPagination('destroy');
+        flagTyping = true;
+        flagSelected = false;
+        searchByTyping();
+    });
+
+    function searchByTyping() {
+        $('#tableClass').empty();
+        var keyWord = $('#type-search').val();
+        if (keyWord != '' || keyWord != undefined || keyWord != null) {
+            $.ajax({
+                url: "@Url.Action("SearchByTying", "Class")",
+                type: "POST",
+                dataType: "Json",
+                data: { keyWord: keyWord, pageNumber: pageConfig.pageIndex, pageSize: pageConfig.pageSize },
+                success: function (response) {
+                    if (response.status) {
+                        $("#scriptTableClass").tmpl(response.listClass).appendTo("#tableClass");
+                        tempList = response.listClass; // Store a global list
+                        if (response.total > pageConfig.pageSize) {
+                            paging(response.total, function () {
+                                searchByTyping();
+                            });
+                        }
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    function seeDetail(id, object) {
+        var obj = null;
+        $(tempList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $('#class-code').text(obj.Code);
+        $('#class-name').text(obj.Name);
+        $('#class-subject').text(obj.Subject);
+        $('#class-school').text(obj.University);
+        $('#start-date').text(obj.StartDate);
+        $('#end-date').text(obj.EndDate);
+        $('#class-teacher').text(obj.Teacher);
+        $('#class-subteacher').text(obj.TeacherAssistant);
+        switch (obj.Status) {
+            case "@Constants.Class_Status.ActiveStaus":
+                {
+                    $('#class-status').html('<span class="alert alert-success">Active</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.InactiveStatus":
+                {
+                    $('#class-status').html('<span class="alert alert-warning">Inactive</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.CommingStatus":
+                {
+                    $('#class-status').html('<span class="alert alert-info">Comming</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.DeleteStatus":
+                {
+                    $('#class-status').html('<span class="alert alert-danger">Deleted</span>');
+                    break;
+                }
+        }
+
+        var dir = "@Constants.Class.DirOfimageClass" + obj.Images;
+        $('#imgClassDetail').attr("src", dir);
+        var value = { Description: obj.Value };
+        $("#class-intro").empty();
+        $('#scriptClassIntro').tmpl(value).appendTo('#class-intro');
+        document.getElementById("show-edit").onclick = function () { editClass(id, object) };
+        $('#paginationSchedule').twbsPagination('destroy');
+        classSchedule(id);
+        $('#paginationStudent').twbsPagination('destroy');
+        classStudent(id);
+        $('#paginationConspectus').twbsPagination('destroy');
+        classConspectus(id)
+    }
+
+    //#region -- Edit --
+
+    function editClass(id, temp) {
+        loadStatus('select-status-edit');
+        $("#divThongBao_TB").hide();
+        loadSubject();
+        loadTeacher();
+        $(tempList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+
+        $('#txtCodeClass').val(obj.Code);
+        $('#txtNameClass').val(obj.Name);
+
+        $('#select-school-edit').val(obj.UniversityId);
+        $('#select-status-edit').val(obj.Status);
+        $('#select-teacher-edit').val(obj.TeacherId);
+        $('#select-subteacher-edit').val(obj.TeacherAssistantId);
+        $('#select-subject-edit').val(obj.SubjectId);
+
+        CKEDITOR.instances.introEdit.setData(obj.Value);
+        CKEDITOR.instances.requierEdit.setData(obj.Prerequisition);
+
+        $('#startDate').val(obj.StartDate);
+        $('#endDate').val(obj.EndDate);
+
+        var dir = "@Constants.Class.DirOfimageClass" + obj.Images;
+        $('#imgClassEdit').attr("src", dir);
+        document.getElementById("btnEdit").onclick = function () { updateClass(id) };
+    }
+
+    function updateClass(id) {
+        var obj = {};
+        obj.Id = id;
+        obj.Status = $("#select-status-edit").val();
+        obj.Code = $('#txtCodeClass').val();
+        obj.Name = $('#txtNameClass').val();
+        obj.StartDate = $('#startDate').val();
+        obj.EndDate = $('#endDate').val();
+        obj.UniversityId = $('#select-school-edit').val();
+        obj.TeacherId = $('#select-teacher-edit').val();
+        obj.TeacherAssistantId = $('#select-subteacher-edit').val();
+        obj.SubjectId = $('#select-subject-edit').val();
+        obj.Value = CKEDITOR.instances.introEdit.getData();
+        obj.Prerequisition = CKEDITOR.instances.requierEdit.getData();
+
+        if (obj.Code.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập mã lớp");
+            return false;
+        }
+
+        if (obj.Name.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập tên lớp");
+            return false;
+        }
+
+        if (obj.StartDate.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập ngày bắt đầu");
+            return false;
+        }
+
+        if (obj.EndDate.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập ngày kết thúc");
+            return false;
+        }
+
+        if (obj.Value.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập giới thiệu");
+            return false;
+        }
+
+        if (obj.Prerequisition.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập yêu cầu");
+            return false;
+        }
+        var image = document.getElementById("txtImageEdit");
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (image.value != "") {
+            formData.append('file', image.files[0]);
+            formData.append('cofile', true);
+            //obj.Images = $('#txtImageEdit').val();
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateClass", "Class")",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success == 1) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-success");
+                        $("#spanThongBao_TB").text("Sửa thành công!");
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+                    else if (response.success == -2) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-danger");
+                        $("#spanThongBao_TB").text("Ngày bắt đầu hoặc ngày kết thúc không hợp lệ");
+                    }
+                    else if (response.success == -1) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-danger");
+                        $("#spanThongBao_TB").text("Có lỗi trong quá trình update. Vui lòng xem lại dữ liệu đầu vào!");
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    //#endregion
+
+
+    //#region -- Create --
+
+    $('#btnCreateClass').click(function () {
+        loadStatus('select-status-create');
+        $("#divThongBaoCreate").hide();
+        loadSubject();
+        loadTeacher();
+        document.getElementById("btnCreate").onclick = function () { createClass() };
+
+    });
+
+    function createClass() {
+        var obj = {};
+        obj.Status = $("#select-status-create").val();
+        obj.Code = $('#txtCodeClassCreate').val();
+        obj.Name = $('#txtNameClassCreate').val();
+        obj.StartDate = $('#startDateCreate').val();
+        obj.EndDate = $('#endDateCreate').val();
+        obj.UniversityId = $('#select-school-create').val();
+        obj.TeacherId = $('#select-teacher-create').val();
+        obj.TeacherAssistantId = $('#select-subteacher-create').val();
+        obj.SubjectId = $('#select-subject-create').val();
+        obj.Value = CKEDITOR.instances.introCreate.getData();
+        obj.Prerequisition = CKEDITOR.instances.requierCreate.getData();
+
+        if (obj.Code.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập mã lớp");
+            return false;
+        }
+
+        if (obj.Name.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập tên lớp");
+            return false;
+        }
+
+        if (obj.StartDate.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập ngày bắt đầu");
+            return false;
+        }
+
+        if (obj.EndDate.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập ngày kết thúc");
+            return false;
+        }
+
+        if (obj.Value.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập giới thiệu");
+            return false;
+        }
+
+        if (obj.Prerequisition.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Vui lòng nhập yêu cầu");
+            return false;
+        }
+        var image = document.getElementById("txtImageCreate");
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (image.value != "") {
+            formData.append('file', image.files[0]);
+            formData.append('cofile', true);
+            //obj.Images = $('#txtImageEdit').val();
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CreateClass", "Class")",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success == 1) {
+                        $("#divThongBaoCreate").show();
+                        $("#divThongBaoCreate").removeClass();
+                        $("#divThongBaoCreate").addClass("alert-success");
+                        $("#spanThongBaoCreate").text("Thêm thành công!");
+                        showSuccess("Thêm");
+                        $("#create-class").modal("hide");
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+                    else if (response.success == -2) {
+                        $("#divThongBaoCreate").show();
+                        $("#divThongBaoCreate").removeClass();
+                        $("#divThongBaoCreate").addClass("alert-danger");
+                        $("#spanThongBaoCreate").text("Ngày bắt đầu hoặc ngày kết thúc không hợp lệ");
+                    }
+                    else if (response.success == -1) {
+                        $("#divThongBaoCreate").show();
+                        $("#divThongBaoCreate").removeClass();
+                        $("#divThongBaoCreate").addClass("alert-danger");
+                        $("#spanThongBaoCreate").text("Có lỗi trong quá trình thêm mới. Vui lòng xem lại dữ liệu đầu vào!");
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    //#endregion
+
+
+    //#region -- Delete --
+
+    function deleteClass(id) {
+        if (id != undefined || id != null || id != "") {
+            var obj = {};
+            obj.Id = id;
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteClass", "Class")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    model: obj
+                }),
+                success: function (response) {
+                    if (response.success == true) {
+                        showSuccess("Xóa");
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+                    else {
+                        $.alert("Có vấn đề phát khi khi xóa! Vui lòng kiểm tra dữ liệu!");
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function confirmDelete(id) {
+        $.confirm({
+            title: 'Cảnh báo !!!',
+            content: 'Bạn có chắc chắn muốn xóa "ID: ' + id + '" không?',
+            type: 'red',
+            animation: 'Rotate',
+            closeAnimation: 'Rotate',
+            buttons: {
+                ok: {
+                    btnClass: 'btn-red',
+                    text: "Có",
+                    action: function () {
+                        deleteClass(id);
+                    }
+                },
+                close: {
+                    text: "Không",
+                }
+            }
+        });
+    }
+
+    //#enregion
+
+    ///
+    /// Get schedules of a class
+    ///
+    function classSchedule(id) {
+        $("#tableClassSchedule").empty();
+        $.ajax({
+            url: "@Url.Action("ClassSchedule", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { id: id, pageNumber: pageConfigSchedule.pageIndex, pageSize: pageConfigSchedule.pageSize },
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptClassSchedule").tmpl(response.listClass).appendTo("#tableClassSchedule");
+                    //tempList = response.listClass; // Store a global list
+                    if (response.total > pageConfigSchedule.pageSize) {
+                        pagingSchedule(response.total, function () {
+                            classSchedule(id);
+                        });
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    ///
+    ///Pagination for SearchBySelected and SearchByTyping
+    ///
+    var pageConfig = {
+        pageSize: 7, // Lines to show in a page
+        pageIndex: 1, // The position that you choose
+    }
+
+    function paging(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfig.pageSize);
+        $('#pagination').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfig.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    ///
+    ///Pagination for Schedule
+    ///
+    var pageConfigSchedule = {
+        pageSize: 4, // Lines to show in a page
+        pageIndex: 1 // The position that you choose
+    }
+
+    var flagTyping = false;
+    var flagSelected = false;
+
+    function pagingSchedule(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfigSchedule.pageSize);
+        $('#paginationSchedule').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfigSchedule.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    ///
+    ///Pagination for Student
+    ///
+    var pageConfigStudent = {
+        pageSize: 4, // Lines to show in a page
+        pageIndex: 1 // The position that you choose
+    }
+
+    var flagTyping = false;
+    var flagSelected = false;
+
+    function pagingStudent(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfigStudent.pageSize);
+        $('#paginationStudent').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfigStudent.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    ///
+    ///Pagination for Comspectus
+    ///
+    var pageConfigConspectus = {
+        pageSize: 4, // Lines to show in a page
+        pageIndex: 1 // The position that you choose
+    }
+
+    var flagTyping = false;
+    var flagSelected = false;
+
+    function pagingConspectus(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfigConspectus.pageSize);
+        $('#paginationConspectus').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfigStudent.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    ///
+    ///Get students of a class
+    ///
+    function classStudent(id) {
+        $("#tableClassStudent").empty();
+        $.ajax({
+            url: "@Url.Action("LoadStudent", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { ClassId: id, pageNumber: pageConfigStudent.pageIndex, pageSize: pageConfigStudent.pageSize },
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptClassStudent").tmpl(response.lstStudentScore).appendTo("#tableClassStudent");
+                    //tempList = response.listClass; // Store a global list
+                    if (response.total > pageConfigStudent.pageSize) {
+                        pagingStudent(response.total, function () {
+                            classStudent(id);
+                        });
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    ///
+    ///Get a  list of  conspectus of a class
+    ///
+    function classConspectus(id) {
+        $("#tableClassConspectus").empty();
+        $.ajax({
+            url: "@Url.Action("LoadConspectus", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { ClassId: id, pageNumber: pageConfigConspectus.pageIndex, pageSize: pageConfigConspectus.pageSize },
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptClassConspectus").tmpl(response.lstComsectus).appendTo("#tableClassConspectus");
+                    //tempList = response.listClass; // Store a global list
+                    if (response.total > pageConfigConspectus.pageSize) {
+                        pagingStudent(response.total, function () {
+                            classConspectus(id);
+                        });
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    //Begin -- Helper --
+
+    function loadStatus(idStatus) {
+        var option0 = "<option value='" + @Constants.Class_Status.All + "'>Tất cả</option>";
+        var option1 = "<option value='" + @Constants.Class_Status.ActiveStaus + "'>Active</option>";
+        var option2 = "<option value='" + @Constants.Class_Status.InactiveStatus + "'>Inctive</option>";
+        var option3 = "<option value='" + @Constants.Class_Status.CommingStatus + "'>Comming</option>";
+        var option4 = "<option value='" + @Constants.Class_Status.DeleteStatus + "'>Deleted</option>";
+        $("#" + idStatus + "").html(option0 + option1 + option2 + option3 + option4);
+    }
+
+    function loadSubject() {
+        $.ajax({
+            url: '@Url.Action("LoadSubject","Class")',
+            type: 'Post',
+            dataType: 'Json',
+            success: function (response) {
+                if (response.status) {
+                    $("#select-subject-edit").empty();
+                    $("#select-subject-create").empty();
+                    for (var i = 0; i < response.listSubject.length; i++) {
+                        var option = "<option value='" + response.listSubject[i].Id + "'>" + response.listSubject[i].SubjectName + "</option>";
+                        $(option).appendTo("#select-subject-edit");
+                        $(option).appendTo("#select-subject-create");
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    function loadTeacher() {
+        $.ajax({
+            url: '@Url.Action("LoadTeacher", "Class")',
+            type: 'Post',
+            dataType: 'Json',
+            success: function (response) {
+                if (response.status) {
+                    $("#select-subteacher-edit").empty();
+                    $("#select-teacher-edit").empty();
+                    $("#select-subteacher-create").empty();
+                    $("#select-teacher-create").empty();
+                    for (var i = 0; i < response.listTeacher.length; i++) {
+                        if (response.listTeacher[i].TypeTeacherId == 1) // get list main teacher
+                        {
+                            var option = "<option value='" + response.listTeacher[i].Id + "'>" + response.listTeacher[i].Name + "</option>";
+                            $(option).appendTo("#select-teacher-edit");
+                            $(option).appendTo("#select-teacher-create");
+                        }
+                        else {
+                            if (response.listTeacher[i].TypeTeacherId == 2) // get list sub teacher
+                            {
+                                var option = "<option value='" + response.listTeacher[i].Id + "'>" + response.listTeacher[i].Name + "</option>";
+                                $(option).appendTo("#select-subteacher-edit");
+                                $(option).appendTo("#select-subteacher-create");
+                            }
+                        }
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    function showSuccess(item) {
+        $.alert(item + " thành công");
+    }
+
+    //End
+
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('select').select2();
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+
+    $(function () {
+        $("#endDate").datepicker();
+        $("#startDate").datepicker();
+        $("#search-from-date").datepicker();
+        $("#search-to-date").datepicker();
+        $("#endDateCreate").datepicker();
+        $("#startDateCreate").datepicker();
+    });
+
+    $('#show-edit').click(function () {
+        $('#see-detail').modal('hide');
+        $('#myModal').modal('show')
+
+    });
+</script>

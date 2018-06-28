@@ -1,0 +1,146 @@
+﻿@using resx = LS.Resources.Resources
+@using LS.Web.Models
+@using LS.Utility
+
+@{
+    var commonCode = HttpContext.Current.Session[Constants.InfoType.Header] == null ? new List<CommonCodeVM>() : HttpContext.Current.Session[Constants.InfoType.Header] as List<CommonCodeVM>;
+}
+
+<li>
+    <a class="active" href="@Url.Action("Index", "Home")">@resx.Home</a>
+</li>
+<li>
+    <a href="javascript:void(0);">@resx.Introduction</a>
+    <ul class="dropdown">
+        @foreach (var result in commonCode)
+        {
+            if (result.CommonTypeId == Constants.InfoType.Introduction)
+            {
+                if (result.Value1 == Constants.InfoType.ResearchWorks)
+                {
+                    <li><a href="@Url.Action(result.Value2,result.Value3, new {type="JournalArticles"})">@result.Value1</a></li>
+                    continue;
+                }
+                <li><a href="@Url.Action(result.Value2,result.Value3)">@result.Value1</a></li>
+            }
+        }
+    </ul>
+</li>
+<li>
+    <a href="javascript:void(0);">@resx.Announcement</a>
+    <ul class="dropdown">
+        @foreach (var result in commonCode)
+        {
+            if (result.CommonId.Contains(Constants.InfoType.Announcement))
+            {
+                <li>
+                    @if (result.commonCodeDetailsVM.Count() == 0)
+                    {
+                        <a href="@Url.Action(result.Value2,result.Value3, new {categoryid = result.CommonId})">@result.Value1</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);">@result.Value1</a>
+
+                        <ul class="dropdown-submenu">
+                            @foreach (var item in result.commonCodeDetailsVM)
+                            {
+                                <li><a href="@Url.Action(item.Value2,item.Value3,new {type = item.CommonId})">@item.Value1</a></li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        }
+    </ul>
+</li>
+<li>
+    <a href="javascript:void(0);">@resx.EnglishLanguage</a>
+    <ul class="dropdown">
+        @foreach (var result in commonCode)
+        {
+            if (result.CommonId.Contains(Constants.InfoType.English))
+            {
+                <li>
+                    @if (result.commonCodeDetailsVM.Count() == 0)
+                    {
+                        <a href="@Url.Action(result.Value2, result.Value3, new { categoryid = result.CommonId })">@result.Value1</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);">@result.Value1</a>
+                        <ul class="dropdown-submenu">
+                            @foreach (var item in result.commonCodeDetailsVM)
+                            {
+                                <li><a href="@Url.Action(item.Value2, item.Value3, new { categoryid = item.CommonId })">@item.Value1</a></li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        }
+    </ul>
+</li>
+<li>
+    <a href="javascript:void(0);">@resx.JapanStudies</a>
+    <ul class="dropdown">
+        @foreach (var result in commonCode)
+        {
+            if (result.CommonId.Contains(Constants.InfoType.JapaneseStudies))
+            {
+                <li>
+                    @if (result.commonCodeDetailsVM.Count() == 0)
+                    {
+                        <a href="@Url.Action(result.Value2, result.Value3, new { categoryid = result.CommonId })">@result.Value1</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);">@result.Value1</a>
+                        <ul class="dropdown-submenu">
+                            @foreach (var item in result.commonCodeDetailsVM)
+                        {
+                                <li><a href="@Url.Action(item.Value2, item.Value3, new { categoryid = item.CommonId })">@item.Value1</a></li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        }
+    </ul>
+</li>
+@if (!string.IsNullOrEmpty(UserFrontVM.CurrentUser.UserId))
+{
+    <li class="user">
+        <a><i class="fa fa-users"></i> @UserFrontVM.CurrentUser.Name</a>
+        <ul class="dropdown">
+            @if (UserFrontVM.CurrentUser.Role == "Admin")
+            {
+                <li><a href="@Url.Action("Index","Dashboard")">Trang chủ Admin</a></li>
+            }
+            <li><a href="@Url.Action("Index","Users")">@resx.Profile</a></li>
+            <li><a style="cursor:pointer" data-toggle="modal" data-target="#changePassword">@resx.ChangePassword</a></li>
+            <li><a href="@Url.Action("MyClass","Users")">@resx.MyClass</a></li>
+            <li><a href="javascript:void(0);" class="logout">@resx.Logout</a></li>
+        </ul>
+    </li>
+    <li>
+        <!--LOGIN-->
+        <a class="formLogin" style="cursor:pointer;display:none;" data-toggle="modal" data-target="#login">@resx.Login</a>
+    </li>
+}
+else
+{
+    <li class="user" style="display:none;">
+        <a><i class="fa fa-users"></i> AAA </a>
+        <ul class="dropdown">
+            <li><a href="@Url.Action("Index","Users")">@resx.Profile</a></li>
+            <li><a style="cursor:pointer" data-toggle="modal" data-target="#changePassword">@resx.ChangePassword</a></li>
+            <li><a href="@Url.Action("MyClass","Users")">@resx.MyClass</a></li>
+            <li><a href="javascript:void(0);" class="logout">@resx.Logout</a></li>
+        </ul>
+    </li>
+    <li>
+        <!--LOGIN-->
+        <a class="formLogin" style="cursor:pointer" data-toggle="modal" data-target="#login">@resx.Login</a>
+    </li>
+}

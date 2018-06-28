@@ -1,0 +1,36 @@
+﻿@using LS.Web.Models
+@using LS.Utility
+
+@{
+    var topBarVM = HttpContext.Current.Session[Constants.InfoType.TopBar] == null ? new List<TopBarVM>() : HttpContext.Current.Session[Constants.InfoType.TopBar] as List<TopBarVM>;
+    var socialNetworkVM = HttpContext.Current.Session[Constants.InfoType.SocialNetwork] == null ? new List<SocialNetworkVM>() : HttpContext.Current.Session[Constants.InfoType.SocialNetwork] as List<SocialNetworkVM>;
+}
+
+<!-- Start Top Bar -->
+<div class="top-bar">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <ul class="contact-details">
+                    @foreach (var result in topBarVM)
+                    {
+                        @(Html.Raw(result.Value))
+                    }
+                </ul>
+                <!-- End Contact Info -->
+            </div>
+            <div class="col-md-6">
+                <!-- Start Social Links -->
+                <ul class="social-list">
+                    @foreach (var result in socialNetworkVM)
+                    {
+                        @(Html.Raw(result.Value))
+                    }
+                </ul>
+                <!-- End Social Links -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Top Bar -->

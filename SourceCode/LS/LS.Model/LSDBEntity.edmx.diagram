@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6ef823c6e8114721a55363033e3d2a40" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="LSDBModel.AddressUniversity" Width="1.5" PointX="11.25" PointY="19.875" />
+        <EntityTypeShape EntityType="LSDBModel.AssignmentConfig" Width="1.5" PointX="15.75" PointY="38.125" />
+        <EntityTypeShape EntityType="LSDBModel.Attachment" Width="1.5" PointX="7.75" PointY="5.75" />
+        <EntityTypeShape EntityType="LSDBModel.Class" Width="1.5" PointX="8.25" PointY="31.875" />
+        <EntityTypeShape EntityType="LSDBModel.ClassAnnouncement" Width="1.5" PointX="10.5" PointY="52.875" />
+        <EntityTypeShape EntityType="LSDBModel.ClassDiscuss" Width="1.5" PointX="10.5" PointY="24.375" />
+        <EntityTypeShape EntityType="LSDBModel.Comment" Width="1.5" PointX="7.5" PointY="43" />
+        <EntityTypeShape EntityType="LSDBModel.CommonCode" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LSDBModel.CommonType" Width="1.5" PointX="9.75" PointY="5.75" />
+        <EntityTypeShape EntityType="LSDBModel.Course" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LSDBModel.CourseScore" Width="1.5" PointX="13.5" PointY="39" />
+        <EntityTypeShape EntityType="LSDBModel.Document" Width="1.5" PointX="10.5" PointY="43.375" />
+        <EntityTypeShape EntityType="LSDBModel.Evaluation" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="LSDBModel.EvaluationItem" Width="1.5" PointX="5.25" PointY="3.5" />
+        <EntityTypeShape EntityType="LSDBModel.Function" Width="1.5" PointX="3" PointY="52.375" />
+        <EntityTypeShape EntityType="LSDBModel.FunctionRole" Width="1.5" PointX="5.25" PointY="43.25" />
+        <EntityTypeShape EntityType="LSDBModel.Infomation" Width="1.5" PointX="5.75" PointY="9.75" />
+        <EntityTypeShape EntityType="LSDBModel.Library" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="LSDBModel.Link" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="LSDBModel.Log" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LSDBModel.Message" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LSDBModel.News" Width="1.5" PointX="5.25" PointY="46.625" />
+        <EntityTypeShape EntityType="LSDBModel.Object" Width="1.5" PointX="0.75" PointY="38.125" />
+        <EntityTypeShape EntityType="LSDBModel.QA" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LSDBModel.Questionnaire" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="LSDBModel.QuestionnaireItem" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="LSDBModel.Role" Width="1.5" PointX="3" PointY="44.75" />
+        <EntityTypeShape EntityType="LSDBModel.Schedule" Width="1.5" PointX="13.5" PointY="28" />
+        <EntityTypeShape EntityType="LSDBModel.ScoreConfig" Width="1.5" PointX="10.5" PointY="49.25" />
+        <EntityTypeShape EntityType="LSDBModel.SiteInfo" Width="1.5" PointX="11.75" PointY="5.75" />
+        <EntityTypeShape EntityType="LSDBModel.Student" Width="1.5" PointX="6" PointY="35.25" />
+        <EntityTypeShape EntityType="LSDBModel.StudentAttendance" Width="1.5" PointX="11.25" PointY="38.875" />
+        <EntityTypeShape EntityType="LSDBModel.StudentClass" Width="1.5" PointX="13.5" PointY="34.125" />
+        <EntityTypeShape EntityType="LSDBModel.StudentExcercise" Width="1.5" PointX="10.5" PointY="28.625" />
+        <EntityTypeShape EntityType="LSDBModel.Subject" Width="1.5" PointX="6" PointY="24.5" />
+        <EntityTypeShape EntityType="LSDBModel.sysdiagram" Width="1.5" PointX="11.75" PointY="11.75" />
+        <EntityTypeShape EntityType="LSDBModel.Tag" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="LSDBModel.Teacher" Width="1.5" PointX="3" PointY="32.5" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherBackground" Width="1.5" PointX="3" PointY="27.75" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherDelegateStudent" Width="1.5" PointX="11.25" PointY="34" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherMajor" Width="1.5" PointX="13.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherMemory" Width="1.5" PointX="5.25" PointY="29.25" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherResearchWork" Width="1.5" PointX="5.25" PointY="53" />
+        <EntityTypeShape EntityType="LSDBModel.TeacherStudy" Width="1.5" PointX="5.25" PointY="57.625" />
+        <EntityTypeShape EntityType="LSDBModel.University" Width="1.5" PointX="0.75" PointY="34" />
+        <EntityTypeShape EntityType="LSDBModel.UserRole" Width="1.5" PointX="5.25" PointY="40.375" />
+        <EntityTypeShape EntityType="LSDBModel.User" Width="1.5" PointX="3" PointY="39" />
+        <EntityTypeShape EntityType="LSDBModel.UserSocialNetwork" Width="1.5" PointX="13.75" PointY="4.75" />
+        <AssociationConnector Association="LSDBModel.dk_AddressUniversity_University" />
+        <AssociationConnector Association="LSDBModel.fk_Schedule_AddressUniversity" />
+        <AssociationConnector Association="LSDBModel.fk_AssignmentConfig_Class" />
+        <AssociationConnector Association="LSDBModel.fk_AssignmentConfig_Document" />
+        <AssociationConnector Association="LSDBModel.fk_StudentExcercise_AssignmentConfig" />
+        <AssociationConnector Association="LSDBModel.fk_class_subject" />
+        <AssociationConnector Association="LSDBModel.fk_class_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_class_teacherassitant" />
+        <AssociationConnector Association="LSDBModel.FK_Class_University" />
+        <AssociationConnector Association="LSDBModel.fk_ClassAnnouncement_Class" />
+        <AssociationConnector Association="LSDBModel.fk_ClassDiscuss_Class" />
+        <AssociationConnector Association="LSDBModel.FK_CourseScore_Class" />
+        <AssociationConnector Association="LSDBModel.fk_Document_Class" />
+        <AssociationConnector Association="LSDBModel.FK_Schedule_Class" />
+        <AssociationConnector Association="LSDBModel.fk_ScoreConfig_Class" />
+        <AssociationConnector Association="LSDBModel.FK_StudentClass_Class" />
+        <AssociationConnector Association="LSDBModel.fk_StudentExcercise_Class" />
+        <AssociationConnector Association="LSDBModel.FK_Comment_Comment" />
+        <AssociationConnector Association="LSDBModel.fk_Comment_News" />
+        <AssociationConnector Association="LSDBModel.FK_Comment_Users" />
+        <AssociationConnector Association="LSDBModel.FK_Course_Course" />
+        <AssociationConnector Association="LSDBModel.fk_CourseScore_Student" />
+        <AssociationConnector Association="LSDBModel.fk_StudentExcercise_Document" />
+        <AssociationConnector Association="LSDBModel.FK_Evaluation_Questionnaire" />
+        <AssociationConnector Association="LSDBModel.FK_EvaluationItem_Evaluation" />
+        <AssociationConnector Association="LSDBModel.FK_EvaluationItem_QuestionnaireItem" />
+        <AssociationConnector Association="LSDBModel.FK_FunctionRole_Function" />
+        <AssociationConnector Association="LSDBModel.FK_FunctionRole_Role" />
+        <AssociationConnector Association="LSDBModel.fk_news_user" />
+        <AssociationConnector Association="LSDBModel.fk_Student_Object" />
+        <AssociationConnector Association="LSDBModel.fk_Student_Objects" />
+        <AssociationConnector Association="LSDBModel.fk_Teacher_Object" />
+        <AssociationConnector Association="LSDBModel.FK_Users_Object" />
+        <AssociationConnector Association="LSDBModel.FK_QuestionnaireItem_Questionnaire" />
+        <AssociationConnector Association="LSDBModel.FK_UserRole_Role" />
+        <AssociationConnector Association="LSDBModel.FK_Attendance_Schedule" />
+        <AssociationConnector Association="LSDBModel.fk_schedule_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_Student_University" />
+        <AssociationConnector Association="LSDBModel.fk_StudentAttendance_Student" />
+        <AssociationConnector Association="LSDBModel.fk_StudentClass_Student" />
+        <AssociationConnector Association="LSDBModel.fk_StudentExcercise_Student" />
+        <AssociationConnector Association="LSDBModel.fk_teacherdelegatestudent_student" />
+        <AssociationConnector Association="LSDBModel.fk_Teacher_University" />
+        <AssociationConnector Association="LSDBModel.fk_teacherdelegatestudent_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_teachermemory_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_teacherresearchwork_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_teacherstudies_teacher" />
+        <AssociationConnector Association="LSDBModel.fk_teachermemory_teacherbackground" />
+        <AssociationConnector Association="LSDBModel.FK_UserRole_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

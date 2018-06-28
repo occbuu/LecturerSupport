@@ -1,0 +1,352 @@
+﻿@using LS.Utility;
+@using resx1 = LS.Resources.Resources;
+@using LS.Web.Models;
+
+@model CategoryViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var uri = new Uri(Request.Url.AbsoluteUri);
+    var url = uri.Scheme + "://" + uri.Host + ":" + uri.Port.ToString() + "/";
+}
+
+<div id="container">
+    <!-- Start Page Banner -->
+    <div class="page-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>@ViewBag.Category</h2>
+                    <span>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</span>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumbs">
+                        <li><a href="#">@resx1.EnglishLanguage</a></li>
+                        @if (Model.Category.NumValue1 > 1)
+                        {
+                            <li><a href="#">@Model.Category_Parent.StrValue1</a></li>
+                        }
+                        <li>@ViewBag.Category</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner -->
+</div>
+
+<div id="content">
+    <div class="container">
+        <div class="row blog-post-page">
+            <div class="col-md-9 blog-box tab-content">
+                <div class="tab-pane in active">
+                    <!-- Start Post -->
+                    <h4 id="showTotalRecord" class="classic-title"></h4>
+                    <div id="divListPosts">
+                        @{ foreach (var item in Model.LstNews)
+                            {
+                                <div class="blog-post standard-post">
+                                    <div class="post-content">
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <a href="@(url)ViewPost/@(item.Links)"><img src="@UrlImages.ImagesPost@item.Id/@item.Images" alt="No Image" /></a>
+                                            </div>
+                                            <div class="col-xs-10">
+                                                <h2 class="accent-color"><a href="@(url)ViewPost/@(item.Links)">@item.Title</a></h2>
+                                                <div style="font-size:15px;font-weight:500;">@(Html.Raw(item.NewsBrief))</div>
+                                                <div class="row">
+                                                    <div class="col-xs-6" style="font-style:italic">@item.Time</div>
+                                                    <div style="float:right; margin-right:10px;font-weight:400;font-style:italic">@item.Editor</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    @if (Model.TotalNews > 4)
+                    {
+                        <ul id="NewsPagination" class="pagination accent-color" style="float:right">
+                            <li><a href="javascript:void(0);" onclick="goBack('News');"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                            <li><a href="javascript:void(0);">1</a></li>
+                            <li><a href="javascript:void(0);" onclick="goNext('News')"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                        </ul>
+                    }
+                </div>
+            </div>
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar right-sidebar">
+                <!-- Popular Posts widget -->
+                <div class="widget widget-categories" style="margin-top:50px;">
+                    <h4 class="accent-color">
+                        OTHER CATEGORIES
+                        <span class="head-line"></span>
+                    </h4>
+                    <ul id="ulListCategory">
+                        @{
+                            foreach (var item in Model.LstCategory)
+                            {
+                                if (item.NumValue1 == 1 && item.NumValue2 == 1)
+                                {
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <a style="font-size:15px; font-weight:bold;" href="javascript:void(0);">@item.ValueDisplay</a>
+                                            </div>
+                                            <div style="">
+                                                <i class="fa fa-plus-square" onclick="toggleChild('@item.CommonId');"></i>
+                                            </div>
+                                        </div>
+
+                                        <ul value="0" id="ul_@item.CommonId" style="display:none;margin-left:10px;"></ul>
+                                    </li>
+                                }
+                                else if (item.NumValue1 == 2)
+                                {
+                                    <li>
+                                        <a style="font-size:15px; font-weight:bold;" href="@Url.Action("Index","Posts")?categoryid=@item.CommonId">@item.ValueDisplay</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a style="font-size:15px; font-weight:bold;" href="@Url.Action("Index","Posts")?categoryid=@item.CommonId">@item.ValueDisplay</a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                @if (Model.TotalCategory > 4)
+                {
+                    <ul id="CatePagination" class="pagination">
+                        <li><a href="javascript:void(0);" onclick="goBack('Category');"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0);">1</a></li>
+                        <li><a href="javascript:void(0);" onclick="goNext('Category');"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                    </ul>
+                }
+                <br />
+                @if (Model.ListTags.Count() > 0)
+                {
+                    <div class="widget widget-tags">
+                        <h4 class="accent-color">Tags <span class="head-line"></span></h4>
+                        <div class="tagcloud">
+                            @foreach (var item in Model.ListTags)
+                            {
+                                <a href="#">@item.TagName</a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <!--End sidebar-->
+        </div>
+    </div>
+</div>
+
+<script id="tmplListNews" type="text/x-jquery-tmpl">
+    <div class="blog-post standard-post">
+        <div class="post-content">
+            <div class="row">
+                <div class="col-xs-2">
+                    <img src="@UrlImages.ImagesPost${Id}/${Images}" alt="No Image" />
+                </div>
+                <div class="col-xs-10">
+                    <h2 class="accent-color"><a href="@(url)ViewPost/${Links}">${Title}</a></h2>
+                    <div style="font-size:15px;font-weight:500;">{{html NewsBrief}}</div>
+                    <div class="row">
+                        <div class="col-xs-6" style="font-style:italic">${Time}</div>
+                        <div style="float:right; margin-right:10px;font-weight:400;font-style:italic">${Editor}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="tmplListCategory" type="text/x-jquery-tmpl">
+    {{if NumValue1 == 1 && NumValue2 ==1}}
+    <li>
+        <div class="row">
+            <div class="col-xs-9">
+                <a style="font-size:15px; font-weight:bold;" href="javascript:void(0);">${ValueDisplay}</a>
+            </div>
+            <div style="">
+                <i class="fa fa-plus-square" onclick="toggleChild('${CommonId}');"></i>
+            </div>
+        </div>
+
+        <ul value="0" id="ul_${CommonId}" style="display:none;"></ul>
+    </li>
+    {{else NumValue1==2|| (NumValue1==1&&NumValue2==0)}}
+    <li>
+        <a style="font-size:15px; font-weight:bold;" href="@Url.Action("Index","Posts")?categoryid=${CommonId}">${ValueDisplay}</a>
+    </li>
+    {{/if}}
+</script>
+
+<script type="text/javascript">
+
+    var pageSize1 = 4; // news
+    var pageSize2 = 4; // category
+    $(function () {
+        if(@Model.TotalNews<=0){
+            $("#showTotalRecord").show();
+            $("#showTotalRecord").text("Chưa có bài đăng nào!");
+        }
+    })
+
+    function toggleChild(id) {
+        //console.log(id);
+        var val = $("#ul_" + id).attr("value");
+        if (val == "0") {
+            $("#ul_" + id).show(500);
+            $("#ul_" + id).attr("value", "1");
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetChildCategory", "Posts")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    commonIdParent: id
+                }),
+                success: function (data) {
+                    if (data.success == true) {
+                        $("#ul_" + id).empty();
+                        var childCategory = "";
+                        for (var i = 0; i < data.data.length; i++) {
+                            console.log(data.data[i]);
+                            childCategory += "<li><a href='"+"@Url.Action("Index","Posts")?categoryid="+data.data[i].CommonId+"'><i class='fa fa-caret-right'></i>" + data.data[i].ValueDisplay + "</a></li>";
+                        }
+                        $(childCategory).appendTo("#ul_" + id);
+                    }
+                }
+            })
+        }
+        else {
+            $("#ul_" + id).hide(500);
+            $("#ul_" + id).attr("value", "0");
+        }
+    }
+
+    function goBack(type) {
+        if (type == "News") {
+            var curPage = parseInt($("#NewsPagination li:eq(1) a").html());
+            if (curPage > 1) {
+                getDataNewsPage(curPage - 1);
+            }
+        }
+        else {
+            var curPage = parseInt($("#CatePagination li:eq(1) a").html());
+            if (curPage > 1) {
+                getDataCategoryPage(curPage - 1);
+            }
+        }
+    }
+
+    function goNext(type) {
+        if (type == "News") {
+            var curPage = parseInt($("#NewsPagination li:eq(1) a").html());
+            if (curPage >= 1) {
+                getDataNewsPage(curPage + 1);
+            }
+        }
+        else {
+            var curPage = parseInt($("#CatePagination li:eq(1) a").html());
+            if (curPage >= 1) {
+                getDataCategoryPage(curPage + 1);
+            }
+        }
+    }
+    function getDataNewsPage(page) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("getDataNewsPage", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                page: page,
+                categoryId: '@ViewBag.CategoryId'
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    $("#divListPosts").empty();
+                    $("#tmplListNews").tmpl(data.data).appendTo("#divListPosts");
+                    $("#NewsPagination li:eq(1) a").html(page);
+
+                    var lastPage = 1;
+
+                    if (data.TotalRecord % pageSize1 == 0) {
+                        lastPage = Math.floor(data.TotalRecord / pageSize1);
+                    }
+                    else {
+                        lastPage = Math.floor(data.TotalRecord / pageSize1) + 1;
+                    }
+                    if (page == 1) {
+                        $("#NewsPagination li:eq(0) a").removeAttr("onclick");
+                        $("#NewsPagination li:eq(2) a").attr("onclick", "goNext('News')");
+                    }
+                    else if (page == lastPage) {
+                        $("#NewsPagination li:eq(2) a").removeAttr("onclick");
+                        $("#NewsPagination li:eq(0) a").attr("onclick", "goBack('News')");
+                    }
+                    else {
+                        $("#NewsPagination li:eq(2) a").attr("onclick", "goNext('News')");
+                        $("#NewsPagination li:eq(0) a").attr("onclick", "goBack('News')");
+                    }
+                }
+                else {
+                    alert(data.sErr);
+                }
+            },
+            async: false,
+        });
+    }
+
+    function getDataCategoryPage(page) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("getDataCategoryPage", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                page: page,
+                commonId: '@ViewBag.CategoryId'
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    console.log(data);
+                    $("#ulListCategory").empty();
+                    $("#tmplListCategory").tmpl(data.data).appendTo("#ulListCategory");
+                    $("#CatePagination li:eq(1) a").html(page);
+
+                    var lastPage = 1;
+
+                    if (data.TotalRecord % pageSize2 == 0) {
+                        lastPage = Math.floor(data.TotalRecord / pageSize2);
+                    }
+                    else {
+                        lastPage = Math.floor(data.TotalRecord / pageSize2) + 1;
+                    }
+                    if (page == 1) {
+                        $("#CatePagination li:eq(0) a").removeAttr("onclick");
+                        $("#CatePagination li:eq(2) a").attr("onclick", "goNext('Category')");
+                    }
+                    else if (page == lastPage) {
+                        $("#CatePagination li:eq(2) a").removeAttr("onclick");
+                        $("#CatePagination li:eq(0) a").attr("onclick", "goBack('Category')");
+                    }
+                    else {
+                        $("#CatePagination li:eq(2) a").attr("onclick", "goNext('Category')");
+                        $("#CatePagination li:eq(0) a").attr("onclick", "goBack('Category')");
+                    }
+                }
+                else {
+                    alert(data.sErr);
+                }
+            },
+            async: false,
+        });
+    }
+
+</script>

@@ -1,0 +1,428 @@
+﻿@using resx = LS.Resources.About.ResourcesAbout;
+@using resx1 = LS.Resources.Resources;
+
+@{
+    ViewBag.Title = "MyClass";
+}
+
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.MyClass</h2>
+                <p>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Introduction</a></li>
+                    <li>@resx.MyClass</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <!--Start Recent Projects-->
+            <div class="recent-projects">
+                <h4 class="title"><span>@resx.LatestClasses</span></h4>
+                <div class="projects-carousel touch-carousel">
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass", "About")">
+                                    <div class="thumb-overlay"><i class="fa fa-play"></i></div>
+                                    <img alt="" src="~/Content/images/subject/linguistics.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Linguistics</h4>
+                                    <span>Website</span>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>5</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
+                                    <img alt="" src="~/Content/images/subject/PhoneticsandPhonology.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>English Phonetics and Phonology</h4>
+                                    <span>Ilustration</span>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>2</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/MorphologySyntax.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Morphology – Syntax</h4>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>8</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/semantics.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Semantics</h4>
+                                    <span>Website</span>
+                                    <span>Ilustration</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>12</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/DiscourseAnalysis.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Discourse Analysis</h4>
+                                    <span>Logo</span>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>5</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/images.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Linguistics PG</h4>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>9</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/image3.png" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Second Language Acquisition PG</h4>
+                                    <span>Website</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>1</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/images.png" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>English Phonetics and Phonology PG</h4>
+                                    <span>Ilustration</span>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>6</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+
+                </div>
+            </div>
+            <!--End Recent Projects-->
+            <!-- Divider -->
+            <div class="hr5" style="margin-top:45px; margin-bottom:35px;"></div>
+            <!--Start Recent Projects-->
+            <div class="recent-projects">
+                <h4 class="title"><span>@resx.TeachedClasses</span></h4>
+                <div class="projects-carousel touch-carousel">
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-play"></i></div>
+                                    <img alt="" src="~/Content/images/subject/linguistics.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Linguistics</h4>
+                                    <span>Website</span>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>5</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-arrows-alt"></i></div>
+                                    <img alt="" src="~/Content/images/subject/PhoneticsandPhonology.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>English Phonetics and Phonology</h4>
+                                    <span>Ilustration</span>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>2</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/MorphologySyntax.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Morphology – Syntax</h4>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>8</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/semantics.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Semantics</h4>
+                                    <span>Website</span>
+                                    <span>Ilustration</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>12</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/DiscourseAnalysis.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Discourse Analysis</h4>
+                                    <span>Logo</span>
+                                    <span>Drawing</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>5</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/images.jpg" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Linguistics PG</h4>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>9</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/image3.png" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>Second Language Acquisition PG</h4>
+                                    <span>Website</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>1</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                    <!-- Start Project Item -->
+                    <div class="portfolio-item item">
+                        <div class="portfolio-border">
+                            <!-- Start Project Thumb -->
+                            <div class="portfolio-thumb">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <div class="thumb-overlay"><i class="fa fa-link"></i></div>
+                                    <img alt="" src="~/Content/images/subject/images.png" class="single-galarey">
+                                </a>
+                            </div>
+                            <!-- End Project Thumb -->
+                            <!-- Start Project Details -->
+                            <div class="portfolio-details">
+                                <a href="@Url.Action("DetailClass","About")">
+                                    <h4>English Phonetics and Phonology PG</h4>
+                                    <span>Ilustration</span>
+                                    <span>Animation</span>
+                                </a>
+                                <a href="#" class="like-link"><i class="fa fa-heart"></i><span>6</span></a>
+                            </div>
+                            <!-- End Project Details -->
+                        </div>
+                    </div>
+                    <!-- End Project Item -->
+                </div>
+            </div>
+            <!--End Recent Projects-->
+        </div>
+    </div>
+</div>
+
+<style>
+    .portfolio-details {
+        height: 80px;
+    }
+</style>

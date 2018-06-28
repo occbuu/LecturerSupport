@@ -1,0 +1,23 @@
+﻿@using LS.Utility;
+@using LS.Web.Models;
+@model NameResearchWorkVM
+
+@foreach (var item in Model.ResearchWorkDetail)
+{
+    <table class="table table-borderless table-research">
+        <thead>
+            <tr>
+                <td class="first-td">@Model.Time</td>
+                <td>@Model.Value</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @Html.Raw(item.Value1)
+            </tr>
+            <tr>
+                @Html.Raw(item.Value2)
+            </tr>
+        </tbody>
+    </table>
+}

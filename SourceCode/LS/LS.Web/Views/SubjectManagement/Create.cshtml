@@ -1,0 +1,299 @@
+﻿@using LS.Web.Models
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+@model List<SubjectViewModel>
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Quản lý môn học</a></li>
+            <li><a href="#">Thêm mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <form role="form" style="margin-top:10px;">
+        <div class="box-body">
+            <div class="row" style="margin-top:15px;">
+                <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                    Tên môn học:<span style="color:red;"> *</span>
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Nhập tên môn học" id="txtSubject" class="form-control">
+                </div>
+            </div>
+            <div id="showThongBaoTenMonHoc" style="margin-top:15px">
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Mô tả:<span style="color:red;"> *</span>
+                </div>
+                <div class="col-lg-10">
+                    <textarea id="editorContent" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                </div>
+            </div>
+            <div id="showThongBaoMoTa" style="margin-top:15px">
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Loại môn học:
+                </div>
+                <div class="col-lg-10">
+                    <select id="txtType" class="form-control">
+                        <option value="LyThuyet">Lý Thuyết</option>
+                        <option value="ThucHanh">Thực Hành</option>
+                        <option value="LTThucHanh">Lý thuyết và Thực hành</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-6" style="font-weight: bold;">
+                            Số bài:
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="number" id="txtUnit" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-5" style="font-weight: bold;padding-left:55px;">
+                            Thực hành:
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="number" id="txtPractice" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-5" style="font-weight: bold;padding-left:55px;">
+                            Lý thuyết:
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="number" id="txtTheory" min="1" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+            </div>
+            <div id="showThongBaoDiem" style="margin-top:15px">
+            </div>
+            <div class="row" style="margin-top:15px;" id="trangthai">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Trạng thái
+                </div>
+                <div class="col-lg-10">
+                    <select id="txtStatus" class="form-control">
+                        <option value="ACT">Hoạt động</option>
+                        <option value="IACT">Không Hoạt động</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="margin-top:5px;float:right">
+                <div class="col-lg-4" style="margin-top: 5px;">
+                    <a id="btnReset" class="btn btn-primary" style="display: none;width:70px;float:right" onclick="reset();">
+                        Reset
+                    </a>
+                </div>
+                <div class="col-lg-4" style="margin-top: 5px;margin-right:25px">
+                    <a id="btnSaveSubject" class="btn btn-primary" onclick="save();" style="display: inline-block;margi;width:70px">
+                        Lưu
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    var subjectName = $("#txtSubject").val();
+    var count=0;
+    var idSubject;
+    $(function () {
+        CKEDITOR.replace('editorContent');
+    });
+
+    function save()
+    {
+        var subjectName = $("#txtSubject").val();
+        var unit = $("#txtUnit").val();
+        var practice = $("#txtPractice").val();
+        var theory = $("#txtTheory").val();
+        var description = CKEDITOR.instances.editorContent.getData();
+        var subjectVM = @Html.Raw(Json.Encode(@Model));
+        var result= true;
+        var obj= {};
+        $(subjectVM).each(function () {
+            obj = this;
+            if (obj.SubjectName == subjectName || description =="" || subjectName=="" || unit=="" || theory=="" || practice == "" || (unit || theory || practice) >10 && !(unit || theory || practice) < 1) {
+                result = false;
+                return result;
+            }
+        });
+        if(result == true)
+        {
+            if(count <1)
+            {
+                $("#showThongBaoTenMonHoc").css("display","none");
+                addSubject();
+            }
+            else
+            {
+                document.getElementById("btnSaveSubject").id = "btnEditSubject"; //Đổi Id btnSaveSubject thành btnEditSubject
+                document.getElementById("btnEditSubject").onclick = function () { editSubject() };
+                $("#btnEditSubject").click();
+            }
+        }
+        else
+        {
+            if(description == "")
+            {
+                $("#showThongBaoMoTa").show();
+                $("#showThongBaoMoTa").removeClass();
+                $("#showThongBaoMoTa").addClass("alert-danger");
+                $("#showThongBaoMoTa").text("Mô tả không được trống !!!");
+            }
+            else{
+                $("#showThongBaoMoTa").hide();
+            }
+
+            if(subjectName == "")
+            {
+                $("#showThongBaoTenMonHoc").show();
+                $("#showThongBaoTenMonHoc").removeClass();
+                $("#showThongBaoTenMonHoc").addClass("alert-danger");
+                $("#showThongBaoTenMonHoc").text("Tên môn học không được trống");
+            }
+            else
+            {
+                $(subjectVM).each(function () {
+                    var item = this;
+                    if(item.SubjectName == subjectName)
+                    {
+                        $("#showThongBaoTenMonHoc").show();
+                        $("#showThongBaoTenMonHoc").removeClass();
+                        $("#showThongBaoTenMonHoc").addClass("alert-danger");
+                        $("#showThongBaoTenMonHoc").text("Tên môn học đã tồn tại !!!. Vui lòng chọn tên khác");
+                    }
+                    else{
+                        $("#showThongBaoTenMonHoc").hide();
+                    }
+                });
+            }
+
+            if(unit =="" || theory=="" || practice == "")
+            {
+                $("#showThongBaoDiem").show();
+                $("#showThongBaoDiem").removeClass();
+                $("#showThongBaoDiem").addClass("alert-danger");
+                $("#showThongBaoDiem").text("Thông tin không được trống !!!");
+            }
+            else{
+                if((unit > 10 || unit < 1 ) || (theory > 10 || theory < 1 ) || (practice > 10 || practice < 1 ))
+                {
+                    $("#showThongBaoDiem").show();
+                    $("#showThongBaoDiem").removeClass();
+                    $("#showThongBaoDiem").addClass("alert-danger");
+                    $("#showThongBaoDiem").text("Thông tin không được nhỏ hơn 1 và không lớn hơn 10 !!!");
+                }
+                else{
+                    $("#showThongBaoDiem").hide();
+                }
+            }
+        }
+    }
+
+    function editSubject() {
+        var obj = {};
+        obj.Id= idSubject;
+        obj.SubjectName = $("#txtSubject").val();
+        obj.Description = CKEDITOR.instances.editorContent.getData();
+        obj.SubjectType = $("#txtType").val();
+        obj.Unit = $("#txtUnit").val();
+        obj.Practice = $("#txtPractice").val();
+        obj.Theory = $("#txtTheory").val();
+        obj.Status = $("#txtStatus").val();
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateSubject", "SubjectManagement")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    subject: obj
+                }),
+                success: function (data) {
+                    if (data.success == true) {
+                        $.alert("Chỉnh sửa thành công");
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function addSubject() {
+        var obj = {};
+        obj.SubjectName = $("#txtSubject").val();
+        obj.Description = CKEDITOR.instances.editorContent.getData();
+        obj.SubjectType = $("#txtType").val();
+        obj.Unit = $("#txtUnit").val();
+        obj.Practice = $("#txtPractice").val();
+        obj.Theory = $("#txtTheory").val();
+        obj.Status = $("#txtStatus").val();
+        if (obj != undefined || obj != null || obj != "") {
+            if((obj.SubjectName && obj.SubjectType && obj.Unit && obj.Theory && obj.Practice)!= "")
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CreateSubject", "SubjectManagement")',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        subject: obj
+                    }),
+                    success: function (data) {
+                        if (data.success == true) {
+                            idSubject = data.id
+                            count++;
+                            $.alert("Đã thêm thành công");
+                            $("#btnReset").css("display","block");
+                        }
+                    },
+                    async: false,
+                });
+            }
+        }
+    }
+
+    function reset()
+    {
+        $("#txtSubject").val(null);
+        CKEDITOR.instances.editorContent.setData(null);
+        $("#txtType").val(null);
+        $("#txtUnit").val(null);
+        $("#txtPractice").val(null);
+        $("#txtTheory").val(null);
+        $("#txtStatus").val(null);
+        $("#btnReset").css("display","none");
+    }
+
+</script>

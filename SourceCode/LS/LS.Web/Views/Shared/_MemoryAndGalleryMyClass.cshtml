@@ -1,0 +1,37 @@
+﻿@using LS.Web.Models
+@using LS.Utility
+@model MyClassGalleryVM
+
+<div class="big-title text-center" data-animation="fadeInDown" data-animation-delay="01">
+    <h1 class="accent-color"> <strong>@Model.Value</strong></h1>
+</div>
+<!-- End Big Heading -->
+<p class="text-center">
+    @Model.Status
+</p>
+<!-- Start Recent Projects Carousel -->
+
+<ul id="portfolio-list" data-animated="fadeIn">
+    @foreach (var itemDetail in Model.MyClassGalleryDetail)
+    {
+        var images = itemDetail.Images.Split(';');
+        foreach (var img in images)
+        {
+            if (!string.IsNullOrEmpty(img))
+            {
+                <li>
+                    <div class="item">
+                        @{
+                            var image = Constants.MemoryAndGallery.DirImagesOfMyClass + img;
+                        }
+                        <a class="lightbox" title="This is my class" href="@image" data-lightbox-gallery="gallery2">
+                            <div class="portfolio-item-content">
+                            </div>
+                            <img alt="" src="@image" class="single-galarey">
+                        </a>
+                    </div>
+                </li>
+                                    }
+                                }
+                            }
+</ul>

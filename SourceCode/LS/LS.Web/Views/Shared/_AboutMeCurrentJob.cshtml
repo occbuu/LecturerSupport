@@ -1,0 +1,71 @@
+﻿@using LS.Utility;
+@using LS.Web.Models
+@model NameCurrentJobVM
+
+<div class="skill-shortcode">
+    <div class="panel-group" id="accordion">
+        <!-- Start Accordion 1 -->
+        @*<div class="panel panel-default">
+                <!-- Toggle Heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-1">
+                            <i class="fa fa-angle-up control-icon"></i>
+                            <i class="fa fa-desktop"></i> BA of English - University of Pedagogy
+                        </a>
+                    </h4>
+                </div>
+                <!-- Toggle Content -->
+                <div id="collapse-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <img class="img-thumbnail image-text" style="float:left; width:150px;" alt="" src="~/Content/images/about/supham.png" />
+                        <strong class="accent-color">
+                            English Linguistics
+                        </strong>
+                        is a university specializing in tertiary-level training of teachers and lecturers located in District 5. The university was founded as the Saigon National Pedagogical University in 1957 and reestablished by prime ministerial decree in 1976.
+                        In 1995, the university was incorporated in Ho Chi Minh City National University, but it was split to become an autonomous university with the current name in 1999.
+                        Between 1976 and 2006, the university educated 65,945 graduates, of which 1,000 were postgraduates. The university also offered training for 33,800 teachers and has education cooperations with over 50 universities worldwide.
+                    </div>
+                </div>
+            </div>*@
+        @foreach (var item in Model.CurrentJobDetail)
+            {
+            <div class="panel panel-default">
+                <!-- Toggle Heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#k-@item.Id" class="collapsed">
+                            <i class="fa fa-angle-up control-icon"></i>
+                            <i class="fa fa-desktop"></i>@Model.Value
+                        </a>
+                    </h4>
+                </div>
+                <!-- Toggle Content -->
+                @if (item.Name == Constants.AboutMe.ContentOfJobOfCurrentJoDefault)
+                {
+                    <div id="k-@item.Id" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            @{var image = Constants.AboutMe.DirImagesOfBackground + item.Images;
+                                <img class="img-thumbnail image-text" style="float:left; width:150px;" alt="" src="@image" />
+                            }
+                            @Html.Raw(item.Value)
+                        </div>
+                    </div>
+                                }
+                                else
+                                {
+                                    <div id="k-@item.Id" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @{
+                                                var image = Constants.AboutMe.DirImagesOfBackground + item.Images;
+                                                <img class="img-thumbnail image-text" style="float:left; width:150px;" alt="" src="@image" />
+                                            }
+                                            @Html.Raw(item.Value)
+                                        </div>
+                                    </div>
+                                                }
+            </div>
+                                                }
+        <!-- End Accordion 1 -->
+    </div>
+</div>

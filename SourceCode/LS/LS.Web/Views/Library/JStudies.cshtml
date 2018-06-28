@@ -1,0 +1,332 @@
+﻿@*@using PagedList;
+@using resx = LS.Resources;
+@using LS.Utility
+
+@model IPagedList<LS.Web.Models.NewsViewModels>
+
+@{
+    ViewBag.Title = resx.Resources.JapanStudies;
+    var first = ViewBag.First as LS.Web.Models.NewsViewModels;
+}*@
+
+@*<div id="container">
+    <!-- Start Page Banner -->
+    <div class="page-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>@resx.Resources.OpenPost</h2>
+                    <p><a href="@Url.Action("JStudies","Library")">@resx.Resources.JapanStudies</a></p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumbs">
+                        <li><a>@resx.Resources.OpenPost</a></li>
+                        <li><a href="@Url.Action("JStudies","Library")">@resx.Resources.JapanStudies</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Banner -->
+<!-- Start Content -->
+<div id="content">
+    <div class="container">
+        <div class="row blog-page">
+            <!-- Start Blog Posts -->
+            <div class="col-md-9 page-content">
+                <div id="mainBox">
+                    <div class="row">
+                        <h4 class="classic-title"><span>@resx.Posts.ResourcesPosts.NewPost</span></h4>
+                        <!-- Start Toggle 1 -->
+                        <div id="container">
+                            <div class="col-md-3">
+                                <img class="image-text" style="float:left; width:180px;" src="@UrlImages.ImagesEnglish@first.Images" alt="" />
+                            </div>
+                            <div class="col-md-9">
+                                <h2><a href="#" onclick="changePage('${Id}')">@first.Title</a></h2>
+                                <ul class="post-meta">
+                                    <li>@resx.Posts.ResourcesPosts.Author <a href="#">@first.Editor</a></li>
+                                    <li>@first.Time</li>
+                                    <li><a href="${Links}">@resx.Posts.ResourcesPosts.Link</a></li>
+                                    <li><a href="#">(@first.TotalComment) @resx.Posts.ResourcesPosts.Comments</a></li>
+                                </ul>
+                                <p>@first.NewsBrief</p>
+                                <a class="main-button" href="#" onclick="changePage('${Id}')">@resx.Posts.ResourcesPosts.ReadMore <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- End Toggle 1 -->
+                    </div>
+                    <div class="hr5" style=" margin-top:45px; margin-bottom:40px;"></div>
+                    <div class="row">
+                        <div class="panel-group">
+                            <!-- Start Toggle 2 -->
+                            <h4 class="classic-title"><span>@resx.Posts.ResourcesPosts.OldPost</span></h4>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-2">
+                                            <i class="fa fa-angle-up control-icon"></i>
+                                            <i class="fa fa-desktop"></i>@resx.Posts.ResourcesPosts.AllPosts
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse-2" class="panel-collapse collapse">
+                                    <div id="contentPage" class="panel-body">
+                                    </div>
+                                    <div id="ulSearchResult" class="pagination" style="display:none;text-align:center;margin-left:30%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Blog Posts -->
+            <!--Sidebar-->
+            <div class="col-md-3 sidebar right-sidebar">
+                <!-- Search Widget -->
+                <div class="input-group input-group-sm">
+                    <!-- Input -->
+                    <input type="text" id="txtKeyword" name="search" class="form-control" placeholder="@resx.Posts.ResourcesPosts.EnterKeywords ...">
+                    <!-- Dropdown -->
+
+                    <div class="input-group-btn">
+                        <select id="slType" class="btn btn-default accent-color">
+                            <option value="title">Title</option>
+                            <option value="newsdetails">Details</option>
+                        </select>
+                        <button class="btn btn-default" type="button" onclick="search(1)"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+                </div>
+                <!--End sidebar-->
+                <div class="widget widget-popular-posts" style="margin-top:50px;">
+                    <h4>@resx.Posts.ResourcesPosts.PopularPost <span class="head-line"></span></h4>
+                    <ul class="tab" id="tab1">
+                        @foreach (var item in Model)
+                        {
+                            <li onclick="changePage('@item.Id')">
+                                <div class="widget-thumb">
+                                    <a href="#"><img src="@UrlImages.ImagesEnglish@item.Images" alt="" /></a>
+                                </div>
+                                <div class="widget-content">
+                                    <h5><a style='cursor:pointer'>@item.Title</a></h5>
+                                    <span>@item.Time</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="pager">
+                        @Html.PagedListPager(Model, Page => Url.Action("JCulture", new { Page }))
+                    </ul>
+                </div>
+            </div>
+            <!--End sidebar-->
+        </div>
+    </div>
+</div>
+<!-- End Content -->*@
+@*<style>
+    .img-thumbnail .image-text {
+        padding: 0;
+    }
+</style>
+
+<script id="temp" type="text/x-jquery-tmpl">
+
+    <h4 class="classic-title"></h4>
+    <div class="row">
+        <div class="col-md-3">
+            <img class="image-text" style="float:left; width:180px;" src="@UrlImages.ImagesEnglish${Images}" alt="" />
+        </div>
+        <div class="col-md-9">
+            <h2><a href="#" onclick="changePage('${Id}')">${Title}</a></h2>
+            <ul class="post-meta">
+                <li>@resx.Posts.ResourcesPosts.Author <a href="#">${Editor}</a></li>
+                <li>${Time}</li>
+                <li><a href="${Links}">@resx.Posts.ResourcesPosts.Link</a></li>
+                <li><a href="#">(@first.TotalComment) @resx.Posts.ResourcesPosts.Comments</a></li>
+            </ul>
+            <p>${NewsBrief}</p>
+            <a class="main-button" href="#" onclick="changePage('${Id}')">@resx.Posts.ResourcesPosts.ReadMore <i class="fa fa-angle-right"></i></a>
+        </div>
+    </div>
+
+</script>
+
+<script src="~/Scripts/jquery.tmpl.js"></script>
+
+<script type="text/javascript">
+
+    var _recordPerPage = 4;
+
+    $(function () {
+        search(1);
+    })
+
+    function changePage(id) {
+
+        $("#mainBox").empty();
+        _count = 1;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetPage", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                idNews: id
+            }),
+            success: function (data) {
+                $("#showTotalRecord").css("display", "none");
+                $("#ulSearchResult").css("display", "none");
+                $("#contentPage").html(data);
+            },
+            async: false,
+        });
+
+        reload_js();
+        moreQuestion();
+        moreQuestion();
+    }
+
+    var src = "/Scripts/js/owl.carousel.min.js";
+
+    //function reload_js() {
+    //    $('script[src="' + src + '"]').remove();
+    //    $('<script>').attr('src', src).appendTo('head');
+    //}
+
+    //function hideAll(id) {
+    //    $("#readMore" + id).show();
+    //    $("#hideAll" + id).hide();
+    //    $("#boxReadMore" + id).empty();
+    //}
+
+    //function moreQuestion() {
+    //    if (_count < 5) {
+    //        var data = { Id: _count };
+    //        $("#tmplQuestion").tmpl(data).appendTo("#commentlist");
+    //        _count++;
+    //    }
+    //    else {
+    //        $("#moreQuestion").hide();
+    //    }
+    //}
+
+    function search(page) {
+
+        $("#contentPage").empty();
+
+        var key = $("#txtKeyword").val();
+        var type = $("#slType").val();
+        var fromCount = 0;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Search", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                categoryId: "@ViewBag.Category",
+                key: key,
+                type: type,
+                page: page,
+                pageSize: _recordPerPage
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    var stt = (page - 1) * _recordPerPage;
+                    stt = stt + 1;
+                    if (data.TotalRecord > 0) {
+                        fromCount = stt;
+                    }
+                    else {
+                        fromCount = stt - 1;
+                    }
+                    for (var i = 0; i < data.data.length; i++) {
+                        data.data[i].index = stt;
+                        stt++;
+                    }
+                    $("#temp").tmpl(data.data).appendTo("#contentPage");
+
+                    var remainder = data.TotalRecord % _recordPerPage;
+                    var totalPage = (data.TotalRecord - remainder) / _recordPerPage;
+                    if (remainder > 0) {
+                        totalPage = totalPage + 1;
+                    }
+
+                    var nextPage = page + 1;
+                    var prevPage = page - 1;
+
+                    if (totalPage > 1) {
+                        var str = "";
+                        if (page == 1) {
+                            if (totalPage == 2) {
+                                str = '<button type="button" class="btn btn-info btn-system" onclick="search(' + page + ')">@resx.Library.ResourcesLibrary.Page ' + page + ' @resx.Library.ResourcesLibrary.To ' + totalPage + '</button>'
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + page + ')">' + page + ' <span class="sr-only">(current)</span></button>';
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 1) + ')">' + (page + 1) + ' <span class="sr-only">(current)</span></button>';
+                            }
+                            else {
+                                str = '<button type="button" class="btn btn-info btn-system" onclick="search(' + page + ')">@resx.Library.ResourcesLibrary.Page ' + page + ' @resx.Library.ResourcesLibrary.To ' + totalPage + '</button>'
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + page + ')">' + page + ' <span class="sr-only">(current)</span></button>';
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 1) + ')">' + (page + 1) + ' <span class="sr-only">(current)</span></button>';
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 2) + ')">' + (page + 2) + ' <span class="sr-only">(current)</span></button>';
+                                str += '<button type="button"class="btn btn-info btn-system"  onclick="search(' + nextPage + ');">&raquo;</button>';
+                            }
+                        }
+                        else if (page > (totalPage - 2)) {
+                            if (page == 2 && totalPage == 2) {
+                                str = '<button type="button" class="btn btn-info btn-system" onclick="search(' + page + ')">@resx.Library.ResourcesLibrary.Page ' + page + ' @resx.Library.ResourcesLibrary.To ' + totalPage + '</button>'
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (1) + ')">' + (page - 1) + ' <span class="sr-only">(current)</span></button>';
+                                str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (2) + ')">' + (page) + ' <span class="sr-only">(current)</span></button>';
+                            }
+                            else {
+                                str = '<button type="button" class="btn btn-info btn-system" onclick="search(' + page + ')">@resx.Library.ResourcesLibrary.Page ' + page + ' @resx.Library.ResourcesLibrary.To ' + totalPage + '</button>'
+                                str += '<button type="button" class="btn btn-info btn-system" onclick="search(' + 1 + ');"> ...</button>';
+                                str += '<button type="button" class="btn btn-info btn-system" onclick="search(' + prevPage + ');">&laquo;</button>';
+                                if (page == (totalPage - 1)) {
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page - 1) + ')">' + (page - 1) + ' <span class="sr-only">(current)</span></button>';
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + page + ')">' + page + ' <span class="sr-only">(current)</span></button>';
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 1) + ')">' + (page + 1) + ' <span class="sr-only">(current)</span></button>';
+                                    str += '<button type="button"class="btn btn-info btn-system"  onclick="search(' + nextPage + ');">&raquo;</button>';
+                                }
+                                else if (page == totalPage) {
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page - 2) + ')">' + (page - 2) + ' <span class="sr-only">(current)</span></button>';
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page - 1) + ')">' + (page - 1) + ' <span class="sr-only">(current)</span></button>';
+                                    str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + page + ')">' + page + ' <span class="sr-only">(current)</span></button>';
+                                }
+                            }
+                        }
+                        else {
+                            str = '<button type="button" class="btn btn-info btn-system" onclick="search(' + page + ')">@resx.Library.ResourcesLibrary.Page ' + page + ' @resx.Library.ResourcesLibrary.To ' + totalPage + '</button>'
+                            str += '<button type="button" class="btn btn-info btn-system" onclick="search(' + 1 + ');"> ...</button>';
+                            str += '<button type="button" class="btn btn-info btn-system" onclick="search(' + prevPage + ');">&laquo;</button>';
+                            str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + page + ')">' + page + ' <span class="sr-only">(current)</span></button>';
+                            str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 1) + ')">' + (page + 1) + ' <span class="sr-only">(current)</span></button>';
+                            str += '<button type="button" class="btn-system btn-medium border-btn" onclick ="search(' + (page + 2) + ')">' + (page + 2) + ' <span class="sr-only">(current)</span></button>';
+                            str += '<button type="button"class="btn btn-info btn-system"  onclick="search(' + nextPage + ');">&raquo;</button>';
+
+                        }
+                        $("#ulSearchResult").html(str).show();
+                    }
+                    else {
+                        $("#ulSearchResult").hide();
+                    }
+                    if (key != "") {
+                        if (data.TotalRecord > 0) {
+                            $("#showTotalRecord").html("Có " + data.TotalRecord + " kết quả gần với từ khóa tìm kiếm");
+                        }
+                        else {
+                            $("#showTotalRecord").html(" Có 0 kết quả gần với từ khóa tìm kiếm ");
+                        }
+                        $("#showTotalRecord").show();
+                    } else {
+                        $("#showTotalRecord").hide();
+                    }
+                }
+                else {
+                }
+            },
+            async: false,
+        });
+    }
+</script>*@

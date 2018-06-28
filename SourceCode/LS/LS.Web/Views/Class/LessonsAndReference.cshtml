@@ -1,0 +1,1052 @@
+﻿@{
+    ViewBag.Title = "LessonsAndReference";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+
+@using LS.Utility
+@using LS.Web.Models
+
+@model List<UniversityViewModel>
+
+@section scripts{
+    <script src="~/Scripts/controller/admin/classController.js"></script>
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javascript:void(0);">Lớp</a></li>
+            <li><a href="#">Đề Cương</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <!--<i class="fa fa-usd"></i>
+                    <span></span>-->
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <div class="box-content">
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Từ ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-from-date" class="form-control" type="text">
+                        </div>
+                        <br><br>
+                    </div>
+
+                    <div class="col-sm-5 col-sm-offset-2 search-right">
+                        <div class="input-group">
+                            <input class="form-control input-lg" placeholder="Tìm kiếm theo tiêu đề hoặc nội dung " id="type-search" type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" id="btn-type-search" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Đến ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-to-date" class="form-control" type="text">
+                        </div>
+                        <br /><br />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Trạng thái:
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="selectStatus"></select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Loại tài liệu:
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="selectDocumentType"></select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn Trường
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="selectSchool">
+                                <option value="@Constants.Document.All">
+                                    Tất cả
+                                </option>
+                                @foreach (var item in Model)
+                                {
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
+                                }
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn lớp:
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="multi-select-class" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4" style="margin-left: 13px;margin-top: 5px;">
+                        <button id="btn-search" class="btn btn-primary btn-sm" style="color:white"><i class="fa fa-search"></i> Tìm kiếm</button>
+                        <button id="btnCreateConspectus" data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-success btn-sm" style="color:white;"><i class="fa fa-plus"></i> Thêm mới</button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th style="width: 190px;">Tiêu đề</th>
+                            <th style="width: 250px;">Nội dung</th>
+                            <th style="width: 240px;">Thông tin tài liệu</th>
+                            <th style="width: 182px;">Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableConspectus">
+                        <!-- Start: list_row -->
+                        <!-- End: list_row -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Tiêu đề</th>
+                            <th>Mô tả</th>
+                            <th>Thông tin tài liệu</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id="pagination" class="pull-right pagination">
+        </div>
+    </div>
+    <div class="col-md-12 ">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỬA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Id<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9" id="edit-id">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="edit-title" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="edit-class"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="edit-status"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Loại tài liệu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="edit-type"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Đính kèm:
+                            </div>
+                            <div class="col-lg-9" id="theDiv">
+                                <label id="see-edit-file"></label><br />
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="edit-file" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="editContent" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert-danger" id="divThongBao_TB" style="margin-top: 5px;">
+                            <span id="spanThongBao_TB" style="margin-left:2%"></span>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="btnEdit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em; height:33px">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="create-class" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM MỚI</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="create-title" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="create-class-name"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="create-status"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Loại tài liệu<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control" id="create-type"></select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Đính kèm:
+                            </div>
+                            <div class="col-lg-9" id="theDiv">
+                                <label id="see-create-file"></label><br />
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="create-file" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="createContent" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert-danger" id="divThongBaoCreate" style="margin-top: 5px;">
+                            <span id="spanThongBaoCreate" style="margin-left:2%"></span>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="btnCreate" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em; height:33px">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade modalshow" id="see-detail" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">GIỚI THIỆU ĐỀ CƯƠNG</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Id
+                            </div>
+                            <div class="col-lg-9" id="see-id">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề
+                            </div>
+                            <div class="col-lg-9" id="see-title">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp
+                            </div>
+                            <div class="col-lg-9" id="see-class">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái:
+                            </div>
+                            <div class="col-lg-9" id="see-status">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Loại tài liệu
+                            </div>
+                            <div class="col-lg-9" id="see-type">
+                            </div>
+                            <br><br>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung
+                            </div>
+                            <div class="col-lg-9" id="see-content">
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em; height:33px">Sửa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .modal-dialog {
+        width: 900px;
+        margin: 30px auto;
+    }
+
+    .img-detail-class img {
+        width: 150px;
+    }
+</style>
+
+<script id="scriptTableConspectus" type="text/x-jquery-tmpl">
+    <tr>
+        <td></td>
+        <td>${Title}</td>
+        <td>
+            {{html textSummary(Content)}}.
+        </td>
+        <td>
+            <strong>Id: </strong> ${Id}<br />
+            <strong>Lớp: </strong> ${ClassCode} - ${ClassName}<br />
+            <strong>Loại: </strong> ${Type}
+        </td>
+        <td>
+            <strong>Trạng thái</strong>:{{if Status==@Constants.Document_Status.ActiveStaus}}
+            <span class="alert alert-success status">Active</span><br />
+            {{/if}}
+            {{if Status==@Constants.Document_Status.InactiveStatus}}
+            <span class="alert alert-warning status">Inactive</span><br />
+            {{/if}}
+            {{if Status==@Constants.Document_Status.DeleteStatus}}
+            <span class="alert alert-danger status">Deleted</span><br />
+            {{/if}}
+            {{if Status==@Constants.Document_Status.CommingStatus}}
+            <span class="alert alert-info status">Comming</span><br />
+            {{/if}}
+            <strong>Người tạo</strong>: ${CreateBy}<br />
+            <strong>Ngày tạo</strong>: ${CreateOn}<br />
+            <strong>Chỉnh sửa bởi</strong>: ${ModifiedBy}<br />
+            <strong>Ngày chỉnh sửa</strong>: ${ModifiedOn}
+        </td>
+        <td>
+            <button class="btn btn-primary btn-app-sm" type="button" id="edit_${Id}" onclick="editClass('${Id}', this)" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-pencil" style="color:white"></i>
+            </button>
+
+            <button class="btn btn-danger btn-app-sm" type="button" id="del_${Id}" onclick="confirmDelete('${Id}')">
+                <i class="fa fa-times" style="color:white"></i>
+            </button>
+
+            <button id="see_${Id}" onclick="seeDetail('${Id}',this)" class="btn btn-success btn-app-sm" type="button" data-toggle="modal" data-target="#see-detail">
+                <i class="fa fa-info-circle" style="color:white"></i>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<script id="scriptDocumentContent" type="text/x-jquery-tmpl">
+    {{html Content}}
+</script>
+
+<script type="text/javascript">
+
+    var tempList; //A global variable to store a list of document when loading
+
+    $(function () {
+        $('#multi-select-class').select2();
+        loadStatus('selectStatus');
+        loadDocumentType('selectDocumentType');
+        loadClass('multi-select-class');
+    });
+
+    $(function () {
+        CKEDITOR.replace('createContent');
+        CKEDITOR.replace('editContent');
+    });
+
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        //TestTable2();
+        //TestTable3();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('select').select2();
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+
+    $(function () {
+        $("#search-from-date").datepicker();
+        $("#search-to-date").datepicker();
+    });
+
+    $('#show-edit').click(function () {
+        $('#see-detail').modal('hide');
+        $('#myModal').modal('show');
+    });
+
+    //#region -- Search --
+
+    $('#btn-search').click(function () {
+        $('#pagination').twbsPagination('destroy');
+        flagTyping = false;//When SearchBySeleted is enble
+        flagSelected = true;
+        searchBySelectedLsit();
+    });
+
+    function searchBySelectedLsit() {
+        $('#tableClass').empty();
+        var fromDate = $('#search-from-date').val();
+        var toDate = $('#search-to-date').val();
+        var status = $('#selectStatus').val();
+        var schoolId = $('#selectSchool').val();
+        var documentType = $('#selectDocumentType').val();
+        var classId = $('#multi-select-class').val();;
+        var data = {
+            FromDate: fromDate,
+            ToDate: toDate,
+            Status: status,
+            SchoolId: schoolId,
+            Type: documentType,
+            ClassId: classId
+        };
+        $('#tableConspectus').empty();
+        $.ajax({
+            url: "@Url.Action("SearchLessonBySelectedLsit", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { model: JSON.stringify(data), pageNumber: pageConfig.pageIndex, pageSize: pageConfig.pageSize },
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptTableConspectus").tmpl(response.listClass).appendTo("#tableConspectus");
+                    tempList = response.listClass; // Store a global list
+                    if (response.total > pageConfig.pageSize) {
+                        paging(response.total, function () {
+                            searchBySelectedLsit();
+                        });
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    function searchByTyping() {
+        $('#tableConspectus').empty();
+        var keyWord = $('#type-search').val();
+        if (keyWord != '' || keyWord != undefined || keyWord != null) {
+            $.ajax({
+                url: "@Url.Action("SearchLessonByTying", "Class")",
+                type: "POST",
+                dataType: "Json",
+                data: { keyWord: keyWord, pageNumber: pageConfig.pageIndex, pageSize: pageConfig.pageSize },
+                success: function (response) {
+                    if (response.status) {
+                        $("#scriptTableConspectus").tmpl(response.listDocument).appendTo("#tableConspectus");
+                        tempList = response.listDocument; // Store a global list
+                        if (response.total > pageConfig.pageSize) {
+                            paging(response.total, function () {
+                                searchByTyping();
+                            });
+                        }
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    $('#btn-type-search').click(function () {
+        $('#pagination').twbsPagination('destroy');
+        flagTyping = true;
+        flagSelected = false;
+        searchByTyping();
+    });
+
+    //#endregion -- Search --
+
+    //#region -- Show --
+
+    function seeDetail(id, object) {
+        var obj = null;
+        $(tempList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $('#see-id').text(id);
+        $('#see-title').text(obj.Title);
+        var className = obj.ClassCode + " - " + obj.ClassName
+        $('#see-class').text(className);
+        $('#see-type').text(obj.Type);
+        switch (obj.Status) {
+            case "@Constants.Class_Status.ActiveStaus":
+                {
+                    $('#see-status').html('<span class="alert alert-success">Active</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.InactiveStatus":
+                {
+                    $('#see-status').html('<span class="alert alert-warning">Inactive</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.CommingStatus":
+                {
+                    $('#see-status').html('<span class="alert alert-info">Comming</span>');
+                    break;
+                }
+            case "@Constants.Class_Status.DeleteStatus":
+                {
+                    $('#see-status').html('<span class="alert alert-danger">Deleted</span>');
+                    break;
+                }
+        }
+        var value = { Content: obj.Content };
+        $("#see-content").empty();
+        $('#scriptDocumentContent').tmpl(value).appendTo('#see-content');
+        document.getElementById("show-edit").onclick = function () { editClass(id, object) };
+    }
+
+    //#endregion -- Show --
+
+    //#region -- Edit --
+
+    function editClass(id, temp) {
+        loadClass('edit-class')
+        loadStatus('edit-status');
+        loadDocumentType('edit-type');
+        $("#divThongBao_TB").hide();
+        //loadSubject();
+        //loadTeacher();
+        $(tempList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $('#edit-id').text(id);
+        $('#see-edit-file').text(obj.FileName);
+        $('#edit-title').val(obj.Title);
+        $('#edit-class').val(obj.ClassId);
+        $('#edit-status').val(obj.Status);
+        $('#edit-type').val(obj.CommonId);
+        CKEDITOR.instances.editContent.setData(obj.Content);
+        document.getElementById("btnEdit").onclick = function () { updateClass(id) };
+    }
+
+    //#endregion -- Edit --
+
+    //#region -- Update --
+
+    function updateClass(id) {
+        var obj = {};
+        obj.Id = id;
+        obj.Status = $("#edit-status").val();
+        obj.Title = $('#edit-title').val();
+        obj.ClassId = $('#edit-class').val();
+        obj.CommonId = $('#edit-type').val();
+        obj.Content = CKEDITOR.instances.editContent.getData();
+
+        if (obj.Status == "10") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Trạng thái không được chon tất cả");
+            return false;
+        }
+
+        if (obj.CommonId == "10") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Loại tài liệu không được chọn tất cả");
+            return false;
+        }
+
+        if (obj.Title.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Tiêu đề không được bỏ trống");
+            return false;
+        }
+
+        if (obj.Content.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Nội dung không được bỏ trống");
+            return false;
+        }
+
+        var file = document.getElementById("edit-file");
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (file.value != "") {
+            formData.append('file', file.files[0]);
+            formData.append('cofile', true);
+            //obj.Images = $('#txtImageEdit').val();
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateConspectusDocument", "Class")",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success == 1) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-success");
+                        $("#spanThongBao_TB").text("Sửa thành công!");
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+                    else if (response.success == -2) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-danger");
+                        $("#spanThongBao_TB").text("Ngày bắt đầu hoặc ngày kết thúc không hợp lệ");
+                    }
+                    else if (response.success == -1) {
+                        $("#divThongBao_TB").show();
+                        $("#divThongBao_TB").removeClass();
+                        $("#divThongBao_TB").addClass("alert-danger");
+                        $("#spanThongBao_TB").text("Có lỗi trong quá trình update. Vui lòng xem lại dữ liệu đầu vào!");
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    //#endregion -- Update --
+
+
+    //#region -- Create --
+
+    $('#btnCreateConspectus').click(function () {
+
+        loadClass('create-class-name')
+        loadStatus('create-status');
+        loadDocumentType('create-type');
+        $("#divThongBaoCreate").hide();
+
+        document.getElementById("btnCreate").onclick = function () { createClass() };
+
+    })
+
+    function createClass() {
+        var obj = {};
+        obj.Status = $("#create-status").val();
+        obj.Title = $('#create-title').val();
+        obj.ClassId = $('#create-class-name').val();
+        obj.CommonId = $('#create-type').val();
+        obj.Content = CKEDITOR.instances.createContent.getData();
+
+        if (obj.Status == "10") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Trạng thái không được chon tất cả");
+            return false;
+        }
+
+        if (obj.CommonId == "10") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Loại tài liệu không được chon tất cả");
+            return false;
+        }
+
+        if (obj.Title.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Tiêu đề không được bỏ trống");
+            return false;
+        }
+
+        if (obj.Content.trim() == "") {
+            $("#divThongBaoCreate").show();
+            $("#divThongBaoCreate").removeClass();
+            $("#divThongBaoCreate").addClass("alert-danger");
+            $("#spanThongBaoCreate").text("Nội dung không được bỏ trống");
+            return false;
+        }
+
+        var file = document.getElementById("create-file");
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (file.value != "") {
+            formData.append('file', file.files[0]);
+            formData.append('cofile', true);
+            //obj.Images = $('#txtImageEdit').val();
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CreateLessonDocument", "Class")",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.success == 1) {
+                        $.alert("Thêm thành công");
+                        $('#create-class').modal('hide');
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+
+                    else if (response.success == -1) {
+                        $("#divThongBaoCreate").show();
+                        $("#divThongBaoCreate").removeClass();
+                        $("#divThongBaoCreate").addClass("alert-danger");
+                        $("#spanThongBaoCreate").text("Có lỗi trong quá trình tạo mới. Vui lòng xem lại dữ liệu đầu vào!");
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    //#endregion -- Create --
+
+    //#region -- Delete --
+
+    function deleteClass(id) {
+        if (id != undefined || id != null || id != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteDocument", "Class")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: id
+                }),
+                success: function (response) {
+                    if (response.success == true) {
+                        $.alert("Xóa thành công");
+                        if (flagTyping) {
+                            setTimeout(function () {
+                                searchByTyping();
+                            }, 300);
+                        }
+                        else {
+                            setTimeout(function () {
+                                searchBySelectedLsit();
+                            }, 300);
+                        }
+                    }
+                    else {
+                        $.alert("Có vấn đề phát khi khi xóa! Vui lòng kiểm tra dữ liệu!");
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function confirmDelete(id) {
+        $.confirm({
+            title: 'Cảnh báo !!!',
+            content: 'Bạn có chắc chắn muốn xóa "ID: ' + id + '" không?',
+            type: 'red',
+            animation: 'Rotate',
+            closeAnimation: 'Rotate',
+            buttons: {
+                ok: {
+                    btnClass: 'btn-red',
+                    text: "Có",
+                    action: function () {
+                        deleteClass(id);
+                    }
+                },
+                close: {
+                    text: "Không",
+                }
+            }
+        });
+    }
+
+    //#endregion -- Delete --
+
+
+    //#region -- Helper --
+
+    ///
+    /// Validate for file formats
+    ///
+
+    $("input[id=edit-file]").change(function () {
+        var fileExtension = ['rar', 'zip', '7z', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'pps', 'ppsx'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $.alert("Định dạng không phù hợp!");
+            $("#edit-file").val("");
+            return false;
+        }
+        if (this.files[0].size >= 4194304) {
+            $.alert("Vui lòng chọn files có dung lượng dưới 4Mb!");
+            this.value = "";
+            return false;
+        }
+    });
+
+    $("input[id=create-file]").change(function () {
+        var fileExtension = ['rar', 'zip', '7z', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'pps', 'ppsx'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $.alert("Định dạng không phù hợp!");
+            this.value = "";
+            return false;
+        }
+        if (this.files[0].size >= 4194304) {
+            $.alert("Vui lòng chọn files có dung lượng dưới 4Mb!");
+            this.value = "";
+            return false;
+        }
+    });
+
+    function loadDocumentType(idType) {
+        $("#" + idType + "").empty();
+        $.ajax({
+            url: '@Url.Action("LoadLessonDocumentType", "Class")',
+            type: 'Post',
+            dataType: 'Json',
+            success: function (response) {
+                if (response.status) {
+                    var option = "<option value='" + @Constants.Document_Status.All + "'>Tất cả</option>";
+                    $(option).appendTo("#" + idType + "");
+                    for (var i = 0; i < response.lstLesson.length; i++) {
+                        option = "<option value='" + response.lstLesson[i].CommonId + "'>" + response.lstLesson[i].Value + "</option>";
+                        $(option).appendTo("#" + idType + "");
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    function loadStatus(idStatus) {
+        var option0 = "<option value='" + @Constants.Document_Status.All + "'>Tất cả</option>";
+        var option1 = "<option value='" + @Constants.Document_Status.ActiveStaus + "'>Active</option>";
+        var option2 = "<option value='" + @Constants.Document_Status.InactiveStatus + "'>Inctive</option>";
+        var option3 = "<option value='" + @Constants.Document_Status.CommingStatus + "'>Comming</option>";
+        var option4 = "<option value='" + @Constants.Document_Status.DeleteStatus + "'>Deleted</option>";
+        $('#' + idStatus + '').html(option0 + option1 + option2 + option3 + option4);
+    }
+
+    $('#selectSchool').change(function () {
+        loadClass('multi-select-class');
+    });
+
+    function loadClass(idClass) {
+        if (idClass == "multi-select-class") {
+            var schoolId = $('#selectSchool').val();
+        }
+        else {
+            var schoolId = null;
+        }
+        $("#" + idClass + "").empty();
+        $.ajax({
+            url: "@Url.Action("LoadClassBySchool", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { schoolId: schoolId },
+            success: function (response) {
+                if (response.status) {
+                    for (var i = 0; i < response.lstClass.length; i++) {
+                        option = "<option value='" + response.lstClass[i].Id + "'>" + response.lstClass[i].Code + " - " + response.lstClass[i].Name + "</option>";
+                        $(option).appendTo("#" + idClass + "");
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    ///
+    ///Pagination for SearchBySelected and SearchByTyping
+    ///
+    var pageConfig = {
+        pageSize: 7, // Lines to show in a page
+        pageIndex: 1, // The position that you choose
+    }
+
+    function paging(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfig.pageSize);
+        $('#pagination').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfig.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    //#endregion
+</script>

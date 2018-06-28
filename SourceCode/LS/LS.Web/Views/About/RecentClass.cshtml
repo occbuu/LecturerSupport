@@ -1,0 +1,33 @@
+﻿@using LS.Model
+@model List<LS.Web.Models.ClassViewModel>
+
+<div class="projects-carousel touch-carousel">
+    <!-- Start Project Item -->
+    @foreach (var item in Model)
+    {
+        <div class="portfolio-item item">
+            <div class="portfolio-border">
+                <!-- Start Project Thumb -->
+                <div class="portfolio-thumb">
+                    <a href="@Url.Action("DetailClass", "About", new { Id = item.Id })">
+                        <div class="thumb-overlay"><i class="fa fa-play"></i></div>
+                        @{
+                            var images = item.Images.Split(';');
+                        }
+                        <img alt="" src="~/Content/images/subject/@images[0]" class="single-galarey">
+                    </a>
+                </div>
+                <!-- End Project Thumb -->
+                <!-- Start Project Details -->
+                <div class="portfolio-details">
+                    <a href="@Url.Action("DetailClass", "About", new { Id = item.Id })">
+                        <h4>@item.Name</h4>
+                    </a>
+                    <a href="#" class="like-link"><i class="fa fa-heart"></i><span>5</span></a>
+                </div>
+                <!-- End Project Details -->
+            </div>
+        </div>
+                            }
+    <!-- End Project Item -->
+</div>

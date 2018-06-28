@@ -1,0 +1,77 @@
+﻿@using resx = LS.Resources.About.ResourcesAbout;
+@using resx1 = LS.Resources.Resources;
+@using LS.Web.Models
+
+@model TeacherViewModel
+
+@{
+    ViewBag.Title = "DelegateStudents";
+}
+
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.DelegateStudents</h2>
+                <p>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Introduction</a></li>
+                    <li>@resx.DelegateStudents</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content" style="background-color: #f9f9f9;">
+    <div class="container">
+        <div class="page-content" style="background-color: #ffffff">
+            <div class="row">
+                <div class="col-md-12 big-title">
+                    <h1 class="title-research accent-color">@resx.DelegateStudents</h1>
+                    @foreach (var result in Model.TeacherDelegateStudentVM)
+                    {
+                        <div class="row">
+                            <div class="col-md-3 single-student">
+                                <img src="~/Content/images/students/@result.Avartar" />
+                            </div>
+                            <div class="col-md-9">
+                                <table class="table table-borderless table-research">
+                                    <thead>
+                                        <tr>
+                                            <td style="width:200px">@result.Name</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>@resx.Degree</td>
+                                            <td>@result.Degree</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@resx.ThesisTopic</td>
+                                            <td>@result.Topic</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@resx.SupervisionType</td>
+                                            <td>@result.SupervisionType</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@resx.CompletionYear</td>
+                                            <td>@result.Time</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="hr1" style="margin-bottom:50px;"></div>
+    </div>
+</div>

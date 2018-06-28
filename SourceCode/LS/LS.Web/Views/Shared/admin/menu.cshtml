@@ -1,0 +1,118 @@
+﻿<ul class="nav main-menu">
+    <li>
+        <a href="@Url.Action("Index","Dashboard")" class="ajax-link">
+            <i class="fa fa-dashboard"></i>
+            <span class="hidden-xs">Dashboard</span>
+        </a>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-bar-chart-o"></i>
+            <span class="hidden-xs">Quản lý thông tin</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Index","Lecturers")">Thông tin cơ bản</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageTeaching","Lecturers")">Quá trình giảng dạy</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageStudies","Lecturers")">Nghiên cứu</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageResearchWorks","Lecturers")">Thành tựu</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageDelegateStudents", "Lecturers")">Sinh viên tiêu biểu</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageGallery","Lecturers")">Kỷ niệm hình ảnh</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageSchedule","Lecturers")">Lịch dạy</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ManageContact","Lecturers")">Thông tin liên hệ</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-table"></i>
+            <span class="hidden-xs">Quản lý lớp</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("ManageInfoClass","Class")">Quản lý thông tin lớp</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Index","Class")">Giới thiệu</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Conspectus","Class")">Đề cương</a></li>
+            <li><a class="ajax-link" href="@Url.Action("LessonsAndReference","Class")">Giáo trình / Tài liệu tham khảo</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ExerciseAndAssignment","Class")">Bài tập và đồ án</a></li>
+            <li><a class="ajax-link" href="@Url.Action("ClassListAndPoint","Class")">Danh sách lớp và điểm</a></li>
+            <li><a class="ajax-link" href="@Url.Action("CheckAttendanceAndEnterPoints","Class")">Điểm danh và nhập điểm</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Discuss","Class")">Trao đổi</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Notification","Class")">Thông báo</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-pencil-square-o"></i>
+            <span class="hidden-xs">Quản lý thành viên</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Index","ManageUser")">Tìm kiếm & chỉnh sửa</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Create","ManageUser")">Thêm mới</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-pencil-square-o"></i>
+            <span class="hidden-xs">Quản lý Giảng Viên</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Create","TeacherManagement")">Thêm mới</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Search","TeacherManagement")">Tìm kiếm & chỉnh sửa</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-desktop"></i>
+            <span class="hidden-xs">Quản lý bài đăng</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Create","PostManagement")">Tạo mới</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Index","PostManagement")">Tìm kiếm & chỉnh sửa</a></li>
+            <li><a class="ajax-link" href="#">Quản lý loại</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-list"></i>
+            <span class="hidden-xs">Quản lý tin tức</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("CreateAnnouncement","PostManagement")">Thêm mới</a></li>
+            <li><a href="@Url.Action("IndexAnnouncement", "PostManagement")">Tìm kiếm & chỉnh sửa</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-map-marker"></i>
+            <span class="hidden-xs">Quản lý thư viện mở</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Create","LibraryBE")">Tạo mới</a></li>
+            <li><a class="ajax-link" href="@Url.Action("Search","LibraryBE")">Tìm kiếm chỉnh sửa</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="@Url.Action("Index","Comment")" class="dropdown-toggle">
+            <i class="fa fa-comments"></i>
+            <span class="hidden-xs">Quản lý bình luận</span>
+        </a>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-book"></i>
+            <span class="hidden-xs">Quản lý môn học</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Create","SubjectManagement")">Tạo mới</a></li>
+            <li><a class="ajax-link" href="@Url.Action("SearchAndEdit","SubjectManagement")">Tìm kiếm chỉnh sửa</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            <i class="fa fa-cog"></i>
+            <span class="hidden-xs">Cài đặt</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="ajax-link" href="@Url.Action("Index","Setting")">Trang chủ</a></li>
+            <li><a class="ajax-link" href="@Url.Action("PostType","Setting")">Loại bài đăng</a></li>
+        </ul>
+    </li>
+</ul>

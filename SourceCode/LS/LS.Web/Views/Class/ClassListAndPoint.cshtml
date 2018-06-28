@@ -1,0 +1,967 @@
+﻿@{
+    ViewBag.Title = "ClassListAndPoint";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javascript:void(0);">Lớp</a></li>
+            <li><a href="#">Danh Sách Lớp & Điểm</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <!--<i class="fa fa-usd"></i>
+                    <span></span>-->
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Từ ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-from-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br><br>
+                </div>
+
+                <div class="col-sm-5 col-sm-offset-2 search-right">
+                    <div class="input-group">
+                        <input class="form-control input-lg" placeholder="Tìm kiếm tên học viên" type="text">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Đến ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-to-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br /><br />
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Trạng thái:
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-control">
+                            <option value="">
+                                Tất cả
+                            </option>
+                            <option value="">
+                                Đang học
+                            </option>
+                            <option value="">
+                                Đã học
+                            </option>
+                            <option value="">
+                                Đã xóa
+                            </option>
+                        </select>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn trường:
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-control">
+                            <option value="">
+                                Tất cả
+                            </option>
+                            <option value="">
+                                ĐH Hutech
+                            </option>
+                            <option value="">
+                                ĐH KHXHNV TPHCM
+                            </option>
+                            <option value="">
+                                ĐH Văn Hóa
+                            </option>
+                        </select>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn lớp:
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="multi-select-class" multiple="multiple">
+                            <option value="1">
+                                HUT-152 Việt Nam Học
+                            </option>
+                            <option value="2">
+                                NV-357 Đông Phương Học
+                            </option>
+                            <option value="2">
+                                VH-432 Kinh Tế Học
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-4" style="margin-left: 13px;margin-top: 5px;">
+                    <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    <button data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Thêm mới</button>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable dataTable" id="datatable-1" role="grid" aria-describedby="datatable-1_info">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 47px;" aria-sort="ascending" aria-label="Rank: activate to sort column descending">#</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 150px;" aria-label="Name: activate to sort column ascending">Tài khoản</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 286px;" aria-label="Net Worth: activate to sort column ascending">Thông tin</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 150px;" aria-label="Age: activate to sort column ascending">Trạng thái</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 125px;" aria-label="Source: activate to sort column ascending">Điểm tổng kết</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-1" rowspan="1" colspan="1" style="width: 185px;" aria-label="Country of Citizenship: activate to sort column ascending"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Start: list_row -->
+                    <!-- End: list_row -->
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">1</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td class="sorting_1">2</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">3</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td class="sorting_1">4</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">5</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td class="sorting_1">6</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td class="sorting_1">7</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td class="sorting_1">8</td>
+                        <td><img class="img-rounded" src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg" alt="">manhtu07</td>
+                        <td>
+                            <strong>Tên: </strong>Nguyễn Văn B<br />
+                            <strong>Ngày sinh: </strong>20/7<br />
+                            <strong>Địa chỉ: </strong>46/3 Bạch Đằng<br />
+                            <strong>Lớp: </strong>HUT 152
+                        </td>
+                        <td>
+                            <strong>Trạng thái: </strong>Đang học<br />
+                            <strong>Người tạo: </strong>Amin<br />
+                            <strong>Ngày tạo: </strong>20/7/2016
+                        </td>
+                        <td>
+                            7.7
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                            </button>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                <a class="ajax-link">Xem</a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th rowspan="1" colspan="1">#</th>
+                        <th rowspan="1" colspan="1">Tài khoản</th>
+                        <th rowspan="1" colspan="1">Thông tin</th>
+                        <th rowspan="1" colspan="1">Trạng thái</th>
+                        <th rowspan="1" colspan="1">Điểm tổng kết</th>
+                        <th rowspan="1" colspan="1"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12 ">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỬA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Họ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <input class="form-control" id="first-name" placeholder="Enter Your First Name" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tên<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="last-name" placeholder="Enter Your Last Name" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Địa chỉ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <input class="form-control" id="address-student" placeholder="Enter Your Address" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày sinh<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="birthday" placeholder="Enter Your birth" type="text" readonly="readonly" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    SĐT<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-8" style="margin-left: -5px;">
+                                    <input class="form-control" id="address-student" placeholder="Enter Your Phone Number" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Chọn Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">ĐH Hutech</option>
+                                    <option value="">ĐH KHXHNV TPHCM</option>
+                                    <option value="">ĐH Văn Hóa</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Chọn Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Việt Nam Học</option>
+                                    <option value="">Đông Phương Học</option>
+                                    <option value="">Kinh Tế Học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Đang học</option>
+                                    <option value="">Sắp nhập học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Hình Ảnh:
+                            </div>
+                            <div class="col-lg-9">
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="txtImage" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="create-class" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM MỚI</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Họ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <input class="form-control" id="first-name" placeholder="Enter Your First Name" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tên<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="last-name" placeholder="Enter Your Last Name" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Địa chỉ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <input class="form-control" id="address-student" placeholder="Enter Your Address" type="text" required>
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày sinh<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6">
+                                    <input class="form-control" id="birthday-create" placeholder="Enter Your birth" type="text" readonly="readonly" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    SĐT<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-8" style="margin-left: -5px;">
+                                    <input class="form-control" id="address-student" placeholder="Enter Your Phone Number" required>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Chọn Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">ĐH Hutech</option>
+                                    <option value="">ĐH KHXHNV TPHCM</option>
+                                    <option value="">ĐH Văn Hóa</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Chọn Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Việt Nam Học</option>
+                                    <option value="">Đông Phương Học</option>
+                                    <option value="">Kinh Tế Học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Đang học</option>
+                                    <option value="">Sắp nhập học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Hình Ảnh:
+                            </div>
+                            <div class="col-lg-9">
+                                <label for="File input">Chọn tệp: </label>
+                                <input type="file" id="txtImage" class="upload" style="display: inline;">
+                                <p class="help-block"></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade modalshow" id="see-detail" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÔNG TIN SINH VIÊN</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tài khoản:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    manhtu07
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Họ tên:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    Nguyễn Văn B
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày sinh:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    20/7/199X
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Địa chỉ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    46/3 Bạch Đằng
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Trường:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    ĐH Hutech
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Lớp:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    HUT 152
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Người Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    manhtu07
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    7/5/2016
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tổng Điểm:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    7.7
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Hình ảnh:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <div class="col-lg-2 img-detail-class">
+                                        <img src="~/Content/images/subject/images.jpg" />
+                                    </div>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Sửa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modalshow" id="show-to-delete" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center; color:#AA8383">BẠN THẬT SỰ MUỐN XÓA SINH VIÊN NÀY?</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tài khoản:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    manhtu07
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Họ tên:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    Nguyễn Văn B
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày sinh:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    20/7/199X
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Địa chỉ<span style="color:red;"> *</span>:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    46/3 Bạch Đằng
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Trường:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    ĐH Hutech
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Lớp:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    HUT 152
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Người Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    manhtu07
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    7/5/2016
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Tổng Điểm:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    7.7
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Hình ảnh:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    <div class="col-lg-2 img-detail-class">
+                                        <img src="~/Content/images/subject/images.jpg" />
+                                    </div>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#AA8383; background-color:#AA8383; color:white;width:5em">Xóa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+
+<style>
+    .modal-dialog {
+        width: 1000px;
+        margin: 30px auto;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#multi-select-class').select2();
+    });
+
+
+    function changeType() {
+        var type = $("#txtType").val();
+        if (type != undefined || type != null || type != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetType", "Library")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    type: type
+                }),
+                success: function (data) {
+                    $("#txtCategory").empty();
+                    for (var i = 0; i < data.data.length; i++) {
+                        var option = "<option value='" + data.data[i].CommonId + "'>" + data.data[i].ValueDisplay + "</option>";
+                        $(option).appendTo("#txtCategory");
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        //TestTable2();
+        //TestTable3();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('select').select2();
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+
+    $(function () {
+        $("#search-from-date").datepicker();
+        $("#search-to-date").datepicker();
+        $("#birthday").datepicker();
+        $("#birthday-create").datepicker();
+    });
+
+    $('#show-edit').click(function () {
+        $('#see-detail').modal('hide');
+        $('#myModal').modal('show')
+
+    });
+
+    $(document).ready(function () {
+        // Load Datatables and run plugin on tables
+        //LoadTimePickerScript(AllTimePickers);
+        //LoadDataTablesScripts(AllTables);
+        // Add Drag-n-Drop feature
+        WinMove();
+    });
+</script>

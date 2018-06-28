@@ -1,0 +1,12 @@
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\LS.Model.dll.config
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\LS.Model.dll
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\LS.Model.pdb
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\EntityFramework.dll
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\EntityFramework.xml
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\obj\Debug\LS.Model.csprojAssemblyReference.cache
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\obj\Debug\LS.Model.csproj.CoreCompileInputs.cache
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\obj\Debug\LS.Model.csproj.CopyComplete
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\obj\Debug\LS.Model.dll
+D:\CTY\Vân\LS\SourceCode\LS\LS.Model\obj\Debug\LS.Model.pdb

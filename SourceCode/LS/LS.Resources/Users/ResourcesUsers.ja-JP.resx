@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllSubjects" xml:space="preserve">
+    <value>すべての科目</value>
+  </data>
+  <data name="Books" xml:space="preserve">
+    <value>書籍</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>変化する</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>パスワードを変更する</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>新しいパスワードを確認する</value>
+  </data>
+  <data name="CourseScore" xml:space="preserve">
+    <value>コースの得点</value>
+  </data>
+  <data name="Diligence" xml:space="preserve">
+    <value>勤勉</value>
+  </data>
+  <data name="Discuss" xml:space="preserve">
+    <value>話し合います</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>意識</value>
+  </data>
+  <data name="Exercise" xml:space="preserve">
+    <value>運動</value>
+  </data>
+  <data name="MyClass" xml:space="preserve">
+    <value>私のクラス</value>
+  </data>
+  <data name="NewestAnnouncements" xml:space="preserve">
+    <value>最新のお知らせ</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>あなたの新しいパスワード</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>次</value>
+  </data>
+  <data name="OldAnnoucements" xml:space="preserve">
+    <value>古いお知らせ</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>あなたの古いパスワード</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>続きを読む</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>スケジュール</value>
+  </data>
+  <data name="ShareAndAnswer" xml:space="preserve">
+    <value>情報を共有して質問に答えることで、より効果的に学習できます</value>
+  </data>
+  <data name="Sincerely" xml:space="preserve">
+    <value>よろしく</value>
+  </data>
+  <data name="StudentsCanSearch" xml:space="preserve">
+    <value>これは学生が勉強のために奉仕している文書を検索できる場所です</value>
+  </data>
+  <data name="StudentsCanUpdate" xml:space="preserve">
+    <value>これにより、学生はスコアに関する情報やあなたの気持ちを更新することができます</value>
+  </data>
+  <data name="Syllabus" xml:space="preserve">
+    <value>レッスンとレファレンス</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="AnotherAnnouncements" xml:space="preserve">
+    <value>別のお知らせ</value>
+  </data>
+  <data name="StudyedSubjects" xml:space="preserve">
+    <value>勉強した科目</value>
+  </data>
+  <data name="StudyingSubjects" xml:space="preserve">
+    <value>授業科目</value>
+  </data>
+  <data name="Base" xml:space="preserve">
+    <value>ベース</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>お誕生日</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>コンテンツ</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DetailClass" xml:space="preserve">
+    <value>詳細クラス</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>拡張</value>
+  </data>
+  <data name="Extra" xml:space="preserve">
+    <value>余分な</value>
+  </data>
+  <data name="NameOfStudent" xml:space="preserve">
+    <value>学生の名前</value>
+  </data>
+  <data name="Obligatory" xml:space="preserve">
+    <value>義務的な</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>一次</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>参照</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>スコア</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+</root>

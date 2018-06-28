@@ -1,0 +1,136 @@
+﻿@using resx = LS.Resources.Users.ResourcesUsers;
+
+@{
+    ViewBag.Title = "MyClass";
+}
+
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.MyClass</h2>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx.User</a></li>
+                    <li>@resx.MyClass</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div id="content">
+        <div class="container">
+            <div class="row sidebar-page">
+                <!-- Page Content -->
+                <div class="col-md-12 page-content">
+                    <!-- Start Recent Posts Carousel -->
+                    <div class="latest-posts" id="studying">
+                        <!-- Classic Heading -->
+                        <h2 class="classic-title"><span>@resx.StudyingSubjects</span></h2>
+                        <div class="latest-posts-classic custom-carousel touch-carousel" data-appeared-items="4" id="studyingSubjects">
+                            <!-- Post 1 -->
+                        </div>
+                        <div id="pagination" class="pull-right pagination">
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="hr1" style="margin-bottom:30px;"></div>
+                    <div class="latest-posts" id="studied">
+                        <!-- Classic Heading -->
+                        <h2 class="classic-title"><span>@resx.StudyedSubjects</span></h2>
+                        <div class="latest-posts-classic custom-carousel touch-carousel" data-appeared-items="4" id="studiedSubjects">
+                            <!-- Post 1 -->
+                        </div>
+                    </div>
+                    @*<div id="pagination" style="float:right">
+                            <span class="all-pages">Page 1 of 3</span>
+                            <span class="current page-num">1</span>
+                            <a class="page-num" href="#">2</a>
+                            <a class="page-num" href="#">3</a>
+                            <a class="next-page" href="#">Next</a>
+                        </div>*@
+                </div>
+                <!-- End Page Content-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pagination > .active > a, .pagination > .active > a:hover {
+        z-index: 2;
+        color: #fff;
+        cursor: default;
+        background-color: indianred;
+        border-color: indianred;
+    }
+</style>
+
+<script id="scriptStudyingSubjects" type="text/x-jquery-tmpl">
+    <div class="post-row item">
+        <div class="left-meta-post">
+            <div class="post-date"><span class="day"> ${StartMonthClass}</span><span class="month">${StartYearClass}</span></div>
+            <div class="post-type"><i class="fa fa-picture-o"></i></div>
+        </div>
+        <h3 class="post-title"><a href="/User/DetailClass?ClassId=${ClassId}"> ${ClassName}</a></h3>
+        <div class="post-content">
+            <strong>Start Date:</strong> ${StartDateClass}<br />
+            <strong>End Date:</strong> ${EndDateClass}
+        </div>
+    </div>
+</script>
+
+<script id="scriptStudiedSubjects" type="text/x-jquery-tmpl">
+    <div class="post-row item">
+        <div class="left-meta-post">
+            <div class="post-date"><span class="day"> ${StartMonthClass}</span><span class="month">${StartYearClass}</span></div>
+            <div class="post-type"><i class="fa fa-picture-o"></i></div>
+        </div>
+        <h3 class="post-title"><a href="/User/DetailClass?ClassId=${ClassId}"> ${ClassName}</a></h3>
+        <div class="post-content">
+            <strong>Start Date:</strong> ${StartDateClass}<br />
+            <strong>End Date:</strong> ${EndDateClass}
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        loadStudyingSubjects();
+        loadStudiedSubjects();
+    });
+
+    function loadStudyingSubjects() {
+        $.ajax({
+            url: "@Url.Action("StudyingSubjects", "Users")",
+            type: "POST",
+            dataType: "Json",
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptStudyingSubjects").tmpl(response.lstSubject).appendTo("#studyingSubjects");
+                    //tempList = response.lstSubject; // Store a global list
+                }
+            },
+            async: false
+        });
+    }
+
+    function loadStudiedSubjects() {
+        $.ajax({
+            url: "@Url.Action("StudiedSubjects", "Users")",
+            type: "POST",
+            dataType: "Json",
+            success: function (response) {
+                if (response.status) {
+                    $("#scriptStudiedSubjects").tmpl(response.lstSubject).appendTo("#studiedSubjects");
+                    //tempList = response.lstSubject; // Store a global list
+                }
+            },
+            async: false
+        });
+    }
+
+</script>

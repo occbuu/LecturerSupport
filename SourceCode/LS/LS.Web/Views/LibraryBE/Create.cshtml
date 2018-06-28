@@ -1,0 +1,543 @@
+﻿@using LS.Web.Models;
+@using LS.Utility;
+
+@model HomeViewModels
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+    var link = ViewBag as LinksViewModel;
+}
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Quản Lý Thư Viện Mở</a></li>
+            <li><a href="#">Tạo mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <form role="form" style="margin-top:10px;">
+        <div class="box-body">
+                <div class="box-body">
+                    <div class="row" id="idArea" style="display:none;">
+                        <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                            Id
+                        </div>
+                        <div class="col-lg-10">
+                            <span id="idLib"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                            Tiêu Đề<span style="color:red;"> *</span>:
+                        </div>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="Nhập tiêu đề" id="txtTitle" class="form-control">
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                            Giới Thiệu<span style="color:red;"> *</span>:
+                        </div>
+                        <div class="col-lg-9">
+                            <form>
+                                <textarea id="txtBrief" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                            Loại tài Liệu:
+                        </div>
+                        <div class="col-lg-9">
+                            <select id="txtType" class="form-control" onchange="changeType();">
+                                <option value="Type"> -- Ngành --</option>
+                                @foreach (var result in Model.CommonCodeVM)
+                                {
+                                    if (result.commonCodeDetailsVM.Count() != 0)
+                                    {
+                                        foreach (var item in result.commonCodeDetailsVM)
+                                        {
+                                            <option value="@item.CommonId">@item.Value1</option>
+                                        }
+                                    }
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                            Hình Ảnh:
+                        </div>
+                        <div class="col-lg-9">
+                            <label for="File input"></label>
+                            <img class="col-lg-2" id="imgLib" />
+                            <input type="file" id="txtImage" accept="image/*" class="upload" style="display: inline;">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                        <div class="col-lg-2" style="font-weight: bold;">
+                            Trạng thái
+                        </div>
+                        <div class="col-lg-9">
+                            <select id="txtStatus" class="form-control">
+                                <option value=@Constants.Libs_Status.ActiveStatus>Hoạt động</option>
+                                <option value=@Constants.Libs_Status.InactiveStatus>Không Hoạt động</option>
+                            </select>
+                        </div>
+                    </div>  
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-lg-2" style="font-weight: bold;">
+                            Mô tả:
+                        </div>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="Nhập mô tả" id="txtDescription" class="form-control">
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="col-lg-2" id="divThongBao_TB" style="margin-top: 5px;">
+                        <span id="spanThongBao_TB"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div style="margin-top:5px;float:right">
+                        <a id="btnSaveNews" class="btn btn-primary" onclick="funcSave();" style="display: inline-block;margin-right:85px;">
+                            Lưu
+                        </a>
+                        <a id="btnReset" class="btn btn-primary" style="display: none;" onclick="reset();">
+                            Trở Lại
+                        </a>
+                        <a id="btnSaveEditNews" class="btn btn-primary" onclick="editSave();" style="display: none;margin-right:85px;">
+                            Lưu
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+        </div>
+    </form>
+</div>
+
+<div class="well" id="addFile" style="display:none;">
+    <div class="row" style="margin-top: 15px">
+        <span id="warning"></span>
+        <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+            Tài Liệu:
+        </div>
+        <div class="col-lg-10">
+            <label for="File input"></label>
+            <input type="file" id="txtAddFlie" class="upload" accept="" style="display: inline;" onchange="UploadFile();">
+        </div>
+    </div>
+    <div class="row" id="txtUploadFile">
+    </div>
+    <div id="idFile ">
+        <div class="row" id="data.id ">
+            <div class="col-xs-12" stype="margin-top: 2%">
+                <div class="box" style="width:92%">
+                    <div class="box-content no-padding">
+                        <table class="table table-striped table-hover table-heading table-datatable" id="datatable-1">
+                            <thead>
+                                <tr>
+                                    <th style="width:170px;font-size: 90%">Tên Tài Liệu </th>
+                                    <th style="width:120px;font-size: 90%"></th>
+                                </tr>
+                            </thead>
+                            <!-- Start: list_row -->
+                            <tbody id="tableLib"></tbody>
+                            <!-- End: list_row -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="scripFile" type="text/x-jquery-tmpl">
+    <tr id="${Id}">
+        <td style="width:170px;font-size: 90%">${FileName}</td>
+        <td style="width:120px;font-size: 90%"><img style="width: 30px" src="/Links/Library/delete.png" onclick="confirmDelete('${Id}')" /></td>
+    </tr>
+</script>
+
+<script type="text/javascript">
+
+    var src = "/Scripts/js/owl.carousel.min.js";
+    var count = 0;
+    var uploadField = document.getElementById("txtAddFlie");
+
+    $(function () {
+        count = 0;
+        CKEDITOR.replace('txtBrief');
+        $("input[id=txtImage]").change(function () {
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                alert("Vui lòng chọn đúng hình ảnh");
+                $("#txtImage").val("");
+                return false;
+            }
+            readURL(this);
+        });
+
+        $('input[id=txtAddFlie]').change(function () {
+            var fileExtension = ['rar', 'zip', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'pptx', 'txt', 'pst'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                alert("Vui lòng chọn File Tài Liệu");
+                $("#txtAddFlie").val("");
+                return false;
+            }
+            if (CheckTotalFile() == true) {
+                UploadFile();
+                $("#warning").hide();
+            }
+            else {
+                $("#warning").show();
+                $("#warning").removeClass();
+                $("#warning").addClass("alert-danger");
+                $("#warning").text("Bạn chỉ được chọn 10 hình. Để chọn thêm hình hãy xóa!");
+            }
+        });
+    });
+
+    function CheckTotalFile() {
+        var n = $("#scripFile").length;
+        if (n >= 10) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
+    function changeType() {
+        //$("#tableLib").empty();
+        var type = $("#txtType").val();
+        if (type != undefined || type != null || type != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetType", "LibraryBE")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    type: type
+                }),
+                success: function (data) {
+                    //$("#scripLib").tmpl(data.data).appendTo("#tableLib");
+                },
+                async: false,
+            });
+        }
+    }
+
+    function funcSave() {
+        var obj = {};
+        obj.Title = $("#txtTitle").val();
+        obj.Brief = CKEDITOR.instances.txtBrief.getData();
+        obj.Type = $("#txtType").val();
+        obj.Description = $("#txtDescription").val();
+        obj.Status = $("#txtStatus").val();
+        var image = document.getElementById("txtImage");
+
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (image.value != "") {
+            formData.append('file1', image.files[0]);
+            var hinh = image.files[0];
+
+            formData.append('cofile', true);
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj.Title.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tiêu đề!");
+            return false;
+        }
+        else if (obj.Brief.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tóm tắt!");
+            return false;
+        }
+        else if (obj.Type == "Type") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng chọn Ngành!");
+            return false;
+        }
+        else if (image.value == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng chọn hình ảnh!");
+            return false;
+        }
+        else {
+            $("#divThongBao_TB").hide();
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddLibrary", "LibraryBE")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.status == 1) {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-success");
+                    $("#spanThongBao_TB").text("Thêm thành công!");
+                    $("#btnSaveNews").hide();
+                    $("#btnSaveEditNews").show();
+                    $("#btnReset").show();
+                    $("#idArea").show();
+                    $("#idLib").text(data.id);
+                    $("#txtImage").val("");
+                    $("#imgLib").attr("src", data.url);
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                    $("#addFile").show();
+                }
+                else {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-danger");
+                    $("#spanThongBao_TB").text("Lỗi khi lưu vào cơ sở dữ liệu.");
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                    $("#addFile").hide();
+                }
+            },
+            async: false,
+        })
+    }
+
+    function editSave() {
+        var obj = {};
+        obj.Id = $("#idLib").text();
+        obj.Title = $("#txtTitle").val();
+        obj.Brief = CKEDITOR.instances.txtBrief.getData();
+        obj.Type = $("#txtType").val();
+        obj.Description = $("#txtDescription").val();
+        obj.Status = $("#txtStatus").val();
+        var image = document.getElementById("txtImage");
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+        if (image.value != "") {
+            formData.append('file1', image.files[0]);
+            var hinh = image.files[0];
+            formData.append('cofile', true);
+        }
+        else {
+            formData.append('cofile', false);
+        }
+
+        if (obj.Title.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tiêu đề!");
+            return false;
+        }
+        else if (obj.Brief.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tóm tắt!");
+            return false;
+        }
+        else if (obj.Type == "Type") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng chọn Ngành!");
+            return false;
+        }
+        //else if (image.value == "") {
+        //    $("#divThongBao_TB").show();
+        //    $("#divThongBao_TB").removeClass();
+        //    $("#divThongBao_TB").addClass("alert-danger");
+        //    $("#spanThongBao_TB").text("Vui lòng chọn hình ảnh!");
+        //    return false;
+        //}
+        else {
+            $("#divThongBao_TB").hide();
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditLib", "LibraryBE")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.status == 1) {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-success");
+                    $("#spanThongBao_TB").text("Sửa thành công!");
+                    $("#btnSaveEditNews").show();
+                    $("#imgLib").attr("src", data.url);
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                    $("#addFile").show();
+                }
+                else {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-danger");
+                    $("#spanThongBao_TB").text("Lỗi khi lưu vào cơ sở dữ liệu.");
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                    $("#addFile").hide();
+                }
+            },
+            async: false,
+        })
+    }
+
+    function UploadFile() {
+        count++;
+        var file = document.getElementById("txtAddFlie");
+        var id = $("#idLib").text();
+        var formData = new FormData();
+        formData.append('file1', file.files[0]);
+        formData.append("idLib", JSON.stringify(id))
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdateFile", "LibraryBE")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (count == 10) {
+                    $("#txtAddFlie").hide();
+                    $("#warning").show();
+                    $("#warning").removeClass();
+                    $("#warning").addClass("alert-danger");
+                    $("#warning").text("Bạn chỉ được chọn 10 file . Để chọn thêm hãy xóa!");
+                }
+                else {
+                    $("#warning").hide();
+                }
+                if (data.status == 1) {
+                    var file = $("#idFile").val();
+                    $("#scripFile").tmpl(data.data).appendTo("#tableLib");
+                    $(file).appendTo("#txtUploadFile");
+                }
+            },
+            async: false,
+        })
+    }
+
+    function deleteFlies(id) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteFiles", "LibraryBE")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                id: id
+            }),
+            success: function (data) {
+                if (data.success == true) {
+                    $("#" + id).empty();
+                }
+            },
+            async: false,
+        });
+    }
+
+    function confirmDelete(id) {
+        $.confirm({
+            title: 'Cảnh báo !!!',
+            content: 'Bạn có chắc chắn muốn xóa không?',
+            animation: 'Rotate',
+            closeAnimation: 'Rotate',
+            buttons: {
+                ok: {
+                    text: "Có",
+                    action: function () {
+                        deleteFlies(id);
+                        $.alert("Đã xóa thành công");
+                        count--;
+                        if (count < 3) {
+                            $("#warning").hide();
+                            $("#txtAddFlie").show();
+                        }
+                    }
+                },
+                close: {
+                    text: "Không",
+                }
+            }
+        });
+    }
+
+    function reset() {
+        $("#txtTitle").val("");
+        CKEDITOR.instances['txtBrief'].setData("");
+        $("#txtImage").val("");
+        $("#txtDescription").val("");
+        $("#btnReset").hide();
+        $("#addFile").hide();
+        changeType();
+        $("#btnSaveNews").show();
+        $("#btnSaveEditNews").hide();
+        $("#tableLib").empty();
+        $("#txtAddFlie").val("");
+        $("#idLib").text("");
+        $("#idArea").empty();
+        $("#imgLib").hide();
+    }
+
+    uploadField.onchange = function () {
+        if (this.files[0].size >= 4194304) {
+            alert("Vui lòng chọn files có dung lượng dưới 4Mb!");
+            this.value = "";
+            return;
+        }
+    };
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgLib').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

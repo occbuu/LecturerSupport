@@ -1,0 +1,738 @@
+﻿@{
+    ViewBag.Title = "Notification";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javascript:void(0);">Lớp</a></li>
+            <li><a href="#">Thông Báo</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <!--<i class="fa fa-usd"></i>
+                    <span></span>-->
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <div class="box-content">
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Từ ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="Enter Date" id="search-from-date" class="form-control" type="text" readonly="readonly">
+                        </div>
+                        <br><br>
+                    </div>
+
+                    <div class="col-sm-5 col-sm-offset-2 search-right">
+                        <div class="input-group">
+                            <input class="form-control input-lg" placeholder="Tìm kiếm theo tên lớp, trường hoặc môn học" type="text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Đến ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="Enter Date" id="search-to-date" class="form-control" type="text" readonly="readonly">
+                        </div>
+                        <br /><br />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Trạng thái:
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control">
+                                <option value="">
+                                    Tất cả
+                                </option>
+                                <option value="">
+                                    Công khai
+                                </option>
+                                <option value="">
+                                    Đang ẩn
+                                </option>
+                                <option value="">
+                                    Đã xóa
+                                </option>
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn Trường
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control">
+                                <option value="">
+                                    Tất cả
+                                </option>
+                                <option value="">
+                                    ĐH Hutech
+                                </option>
+                                <option value="">
+                                    ĐH KHXHNV TPHCM
+                                </option>
+                                <option value="">
+                                    ĐH Văn Hóa
+                                </option>
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn lớp:
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="multi-select-class" style="width:100%">
+                                <option value="1">
+                                    HUT-152 Việt Nam Học
+                                </option>
+                                <option value="2">
+                                    NV-357 Đông Phương Học
+                                </option>
+                                <option value="2">
+                                    VH-432 Kinh Tế Học
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4" style="margin-left: 13px;margin-top: 5px;">
+                        <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Tìm kiếm</button>
+                        <button data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Thêm mới</button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                    <thead>
+                        <tr>
+                            <th style="width:40px;">#</th>
+                            <th style="width: 120px">Tiêu đề</th>
+                            <th style="width:200px;">Tóm tắt</th>
+                            <th style="width:250px">Nội dung</th>
+                            <th style="width:200px">Thông tin TB</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Start: list_row -->
+                        <tr>
+                            <td>1</td>
+                            <td>Đảng CSVN</td>
+                            <td>
+                                Ngày 2/9/1945 Hồ Chí Minh đã đọc bảng tuyên ngôn khai sinh ra nước Việt Nam Dân Chủ Công Hòa.
+                            </td>
+                            <td>Dưới sự chỉ đạo quyết liệt của Đảng....</td>
+                            <td>
+                                <strong>Trạng thái</strong>: Công khai<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017<br />
+                                <strong>Chỉnh sửa bởi: </strong> <br />
+                                <strong>Ngày chỉnh sửa: </strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i> Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-trash-o" style="margin-bottom:2px;margin-right:2px;"></i> Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Đảng CSVN</td>
+                            <td>
+                                Ngày 2/9/1945 Hồ Chí Minh đã đọc bảng tuyên ngôn khai sinh ra nước Việt Nam Dân Chủ Công Hòa.
+                            </td>
+                            <td>Dưới sự chỉ đạo quyết liệt của Đảng....</td>
+                            <td>
+                                <strong>Trạng thái</strong>: Công khai<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017<br />
+                                <strong>Chỉnh sửa bởi: </strong> <br />
+                                <strong>Ngày chỉnh sửa: </strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i> Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-trash-o" style="margin-bottom:2px;margin-right:2px;"></i> Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Đảng CSVN</td>
+                            <td>
+                                Ngày 2/9/1945 Hồ Chí Minh đã đọc bảng tuyên ngôn khai sinh ra nước Việt Nam Dân Chủ Công Hòa.
+                            </td>
+                            <td>Dưới sự chỉ đạo quyết liệt của Đảng....</td>
+                            <td>
+                                <strong>Trạng thái</strong>: Công khai<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017<br />
+                                <strong>Chỉnh sửa bởi: </strong> <br />
+                                <strong>Ngày chỉnh sửa: </strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i> Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-trash-o" style="margin-bottom:2px;margin-right:2px;"></i> Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Đảng CSVN</td>
+                            <td>
+                                Ngày 2/9/1945 Hồ Chí Minh đã đọc bảng tuyên ngôn khai sinh ra nước Việt Nam Dân Chủ Công Hòa.
+                            </td>
+                            <td>Dưới sự chỉ đạo quyết liệt của Đảng....</td>
+                            <td>
+                                <strong>Trạng thái</strong>: Công khai<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017<br />
+                                <strong>Chỉnh sửa bởi: </strong> <br />
+                                <strong>Ngày chỉnh sửa: </strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i> Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-trash-o" style="margin-bottom:2px;margin-right:2px;"></i> Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Đảng CSVN</td>
+                            <td>
+                                Ngày 2/9/1945 Hồ Chí Minh đã đọc bảng tuyên ngôn khai sinh ra nước Việt Nam Dân Chủ Công Hòa.
+                            </td>
+                            <td>Dưới sự chỉ đạo quyết liệt của Đảng....</td>
+                            <td>
+                                <strong>Trạng thái</strong>: Công khai<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017<br />
+                                <strong>Chỉnh sửa bởi: </strong> <br />
+                                <strong>Ngày chỉnh sửa: </strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i> Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-trash-o" style="margin-bottom:2px;margin-right:2px;"></i> Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- End: list_row -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Tiêu đề</th>
+                            <th>Tóm tắt</th>
+                            <th>Nội dung</th>
+                            <th>Thông tin TB</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id="pagination">
+            <span class="all-pages">Page 1 To 3 : </span>
+            <span class="current page-num">1</span>
+            <a class="page-num" href="#">2</a>
+            <a class="page-num" href="#">3</a>
+            <a class="next-page" href="#">Next</a>
+        </div>
+    </div>
+    <div class="col-md-12 ">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỬA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Class" id="txtCodeClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Title" id="txtCodeClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Sắp Mở</option>
+                                    <option value="">Đang Mở</option>
+                                    <option value="">Đã Kết Thúc</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Tóm tắt<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="editorBrief" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="editorBrief-1" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="create-class" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM MỚI</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Class" id="txtCodeClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Title" id="txtCodeClass" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Sắp Mở</option>
+                                    <option value="">Đang Mở</option>
+                                    <option value="">Đã Kết Thúc</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Tóm tắt<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="editorBrief-2" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="editorBrief-3" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade modalshow" id="see-detail" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHI TIẾT THÔNG BÁO</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp:
+                            </div>
+                            <div class="col-lg-9">
+                                KB 152
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề
+                            </div>
+                            <div class="col-lg-9">
+                                Tiếng anh đặc biệt
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng thái
+                            </div>
+                            <div class="col-lg-9">
+                                Công Khai
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Người tạo
+                            </div>
+                            <div class="col-lg-9">
+                                Admin
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Ngày tạo
+                            </div>
+                            <div class="col-lg-9">
+                                01/06/2017
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tóm tắt
+                            </div>
+                            <div class="col-lg-9">
+                                Lớp học phù hợp cho những bạn có khả năng tìm tồi và học hỏi.<br />
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    Lớp học phù hợp cho những bạn có khả năng tìm tồi và học hỏi.<br />
+                                    Năm thứ nhất chính là thời gian lý tưởng nhất của thời sinh viên để học tiếng Anh.
+                                    Nhưng phần nhiều sinh viên mới vào đại học lại sai lầm khi cho rằng năm thứ nhất chưa cần học
+                                    tiếng Anh vì còn nhiều môn học khác phải ưu tiên hơn, còn tiếng Anh thì chờ tới khi ra trường mới cần đến.
+                                    Nhưng đáng tiếc tiếng Anh là một môn học đòi hỏi sự tích lũy trong thời gian dài để các kỹ năng sử dụng tiếng Anh mới trở thuần thục.
+                                    Năm thứ nhất và năm thứ hai đại học thường là những năm học ít vất vả nhất, và đây chính là lúc bạn có thể dành thời gian để học
+                                    tiếng Anh một cách dài hơi, từ gốc và học một cách bài bản
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Sửa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade modalshow" id="show-to-delete" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center; color:#AA8383">BẠN THẬT SỰ MUỐN XÓA LỚP NÀY?</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp:
+                            </div>
+                            <div class="col-lg-9">
+                                KB 152
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề
+                            </div>
+                            <div class="col-lg-9">
+                                Tiếng anh đặc biệt
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng thái
+                            </div>
+                            <div class="col-lg-9">
+                                Công Khai
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Người tạo
+                            </div>
+                            <div class="col-lg-9">
+                                Admin
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Ngày tạo
+                            </div>
+                            <div class="col-lg-9">
+                                01/06/2017
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tóm tắt
+                            </div>
+                            <div class="col-lg-9">
+                                Lớp học phù hợp cho những bạn có khả năng tìm tồi và học hỏi.<br />
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    Lớp học phù hợp cho những bạn có khả năng tìm tồi và học hỏi.<br />
+                                    Năm thứ nhất chính là thời gian lý tưởng nhất của thời sinh viên để học tiếng Anh.
+                                    Nhưng phần nhiều sinh viên mới vào đại học lại sai lầm khi cho rằng năm thứ nhất chưa cần học
+                                    tiếng Anh vì còn nhiều môn học khác phải ưu tiên hơn, còn tiếng Anh thì chờ tới khi ra trường mới cần đến.
+                                    Nhưng đáng tiếc tiếng Anh là một môn học đòi hỏi sự tích lũy trong thời gian dài để các kỹ năng sử dụng tiếng Anh mới trở thuần thục.
+                                    Năm thứ nhất và năm thứ hai đại học thường là những năm học ít vất vả nhất, và đây chính là lúc bạn có thể dành thời gian để học
+                                    tiếng Anh một cách dài hơi, từ gốc và học một cách bài bản
+                                </form>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="del-anou" type="button" style="border-color:#A57171; background-color:#AA8383; color:white;width:5em">Xóa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-dialog {
+        width: 1000px;
+        margin: 30px auto;
+    }
+
+    .img-detail-class img {
+        width: 150px;
+    }
+
+    #dashboard_tabs {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#multi-select-class').select2();
+    });
+
+    $(function () {
+        CKEDITOR.replace('editorBrief');
+    });
+
+    $(function () {
+        CKEDITOR.replace('editorBrief-1');
+    });
+
+    $(function () {
+        CKEDITOR.replace('editorBrief-2');
+    });
+
+    $(function () {
+        CKEDITOR.replace('editorBrief-3');
+    });
+
+
+    function changeType() {
+        var type = $("#txtType").val();
+        if (type != undefined || type != null || type != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetType", "Library")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    type: type
+                }),
+                success: function (data) {
+                    $("#txtCategory").empty();
+                    for (var i = 0; i < data.data.length; i++) {
+                        var option = "<option value='" + data.data[i].CommonId + "'>" + data.data[i].ValueDisplay + "</option>";
+                        $(option).appendTo("#txtCategory");
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        //TestTable2();
+        //TestTable3();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+
+    $(function () {
+        $("#endDate").datepicker();
+        $("#startDate").datepicker();
+        $("#search-from-date").datepicker();
+        $("#search-to-date").datepicker();
+        $("#endDateCreate").datepicker();
+        $("#startDateCreate").datepicker();
+    });
+
+    $('#show-edit').click(function () {
+        $('#see-detail').modal('hide');
+        $('#myModal').modal('show')
+
+    });
+
+    $(document).ready(function () {
+        // Load Datatables and run plugin on tables
+        //LoadTimePickerScript(AllTimePickers);
+        //LoadDataTablesScripts(AllTables);
+        // Add Drag-n-Drop feature
+        WinMove();
+    });
+</script>

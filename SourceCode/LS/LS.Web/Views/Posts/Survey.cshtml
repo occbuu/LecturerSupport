@@ -1,0 +1,256 @@
+﻿@using resx = LS.Resources.Posts.ResourcesPosts
+@using resx1 = LS.Resources.Resources
+
+@{
+    ViewBag.Title = @resx1.Survey;
+}
+
+<div id="container">
+    <!-- Start Page Banner -->
+    <div class="page-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>@resx1.Survey</h2>
+                    <p>@resx1.IAm @resx1.TranThiThanhDieu</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumbs">
+                        <li><a href="#">@resx1.Announcement</a></li>
+                        <li>@resx1.Survey</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner -->
+    <!-- Start Content -->
+    <div id="mainBox">
+        <div id="content">
+            <div class="row">
+                <div class="col-md-9 blog-box" style="background-color:white;padding-left:12%;">
+                    <div class="blog-post quote-post" style="margin-top:10%">
+                        <h1 style="text-align:left ; font-weight:700; padding-bottom:5%" class="accent-color">@resx.Surveying</h1>
+                        <!-- Post Content -->
+                        <!-- Start Pagination -->
+                        <div class="widget widget-popular-posts row">
+                            <ul class="tab col-md-6" id="tab1">
+                                <li>
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//tsan_chu_trung_00.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="changePage(1)">
+                                                Khảo Sát - Sinh Viên Chuyên Ngữ Anh
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li style="margin-top:5%;">
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//chu-trung-qtnsnb.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="changePage(1)">
+                                                Khảo Sát - Sinh Viên Không Chuyên Ngữ Anh
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                            <ul class="tab col-md-6" id="tab1">
+                                <li>
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//tsan_chu_trung_00.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="changePage(1)">
+                                                Khảo Sát - Quy Trình Giảng Dạy Của Cô
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li style="margin-top:5%;">
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//chu-trung-qtnsnb.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="changePage(1)">
+                                                Khảo Sát - Môi trường học tập
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Start Pagination -->
+                        <div id="pagination" style="float:right; margin-top:5%;">
+                            <span class="all-pages">Page 1 of 3</span>
+                            <span class="current page-num">1</span>
+                            <a class="page-num" href="#">2</a>
+                            <a class="page-num" href="#">3</a>
+                            <a class="next-page" href="#">@resx.Next</a>
+                        </div>
+                        <!-- End Pagination -->
+                    </div>
+                    <!-- End Pagination -->
+                    <!--Surveyed-->
+                    <div class="blog-post quote-post">
+                        <h1 style="text-align:left ; font-weight:700; padding-bottom:5%; margin-top:5%;" class="accent-color">@resx.Surveyed</h1>
+                        <!-- Post Content -->
+                        <div class="widget widget-popular-posts row">
+                            <ul class="tab col-md-6" id="tab1">
+                                <li>
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#"><img src="~/Content/images/Library//tsan_chu_trung_00.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600; " onclick="offclick()">
+                                                Khảo Sát - Tài Liệu Học Tập
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li style="margin-top:5%;">
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//chu-trung-qtnsnb.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="offclick()">
+                                                Khảo Sát - Sinh Viên Chuyên Nhật Bản Học
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                            <ul class="tab col-md-6" id="tab1">
+                                <li>
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//tsan_chu_trung_00.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="offclick()">
+                                                Khảo Sát - Sinh Viên Không Chuyên Nhật Bản Học
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li style="margin-top:5%;">
+                                    <div class="widget-thumb row">
+                                        <div class="col-md-2">
+                                            <a href="#" style="z-index:-1"><img src="~/Content/images/Library//chu-trung-qtnsnb.png" alt="" /></a>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <p style="cursor:pointer; font-size:larger; font-weight:600" onclick="offclick()">
+                                                Khảo Sát - Phương Pháp Giảng Dạy
+                                            </p>
+                                            <div class="widget-content">
+                                                <span> May 3, 2016</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Start Pagination -->
+                        <div id="pagination" style="float:right;margin-top:5%">
+                            <span class="all-pages">Page 1 of 3</span>
+                            <span class="current page-num">1</span>
+                            <a class="page-num" href="#">2</a>
+                            <a class="page-num" href="#">3</a>
+                            <a class="next-page" href="#">@resx.Next</a>
+                        </div>
+                        <!-- End Pagination -->
+                    </div>
+                    <!-- End Post -->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- End content -->
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var page1 = '@Html.Raw(Html.Partial("~/Views/Posts/Shared/_PageSurveyPartial.cshtml").ToHtmlString().Replace("\r\n", ""))';
+    var page2 = '@Html.Raw(Html.Partial("~/Views/Posts/Shared/_PageSurvey2Partial.cshtml").ToHtmlString().Replace("\r\n", ""))';
+    var _currTab = 1;
+    var _maxTab = 3;
+    var _count = 1;
+    function changeTab(i) {
+        var preTab = _currTab;
+        _currTab += i;
+        if (_currTab < 1) {
+            _currTab = 1;
+            return;
+        }
+        if (_currTab > _maxTab) {
+            _currTab = _maxTab;
+            return;
+        }
+        $("#tab" + preTab).hide();
+        $("#tab" + _currTab).show(300);
+    };
+
+    function changePage(id) {
+        $("#mainBox").empty();
+        _count = 1;
+        switch (id) {
+            case 1:
+                $("#mainBox").html(page1).fadeIn();
+                break;
+            case 2:
+                $("#mainBox").html(page2).fadeIn();
+                break;
+            default: break;
+        }
+    }
+
+    function offclick() {
+        $(this).off("click");
+    }
+
+</script>

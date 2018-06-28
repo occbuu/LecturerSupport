@@ -1,0 +1,556 @@
+﻿@using LS.Web.Models;
+@using LS.Utility;
+
+@model List<CommonCodeVM>
+
+@{
+    ViewBag.Title = "Management";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javacript:void(0);">Cài đặt</a></li>
+            <li><a href="#">Quản lý</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="well" style="padding-bottom:4%">
+    <div class="dropdown row">
+        <div class="col-xs-2" style="margin-top:12px;">
+            <h3>Cấu hình: </h3>
+        </div>
+        <div class="col-xs-10">
+            <div class="row" style="margin-top:15px;width:70%">
+                <select id="txtType" class="form-control" onchange="changeType();">
+                    <option value="luachon" style="text-align:center;">-- Vui Lòng Lựa Chọn --</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Value1">@item.Value1</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="box" style="margin-top:5%; display:none" id="boxData">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:45px;">ID</th>
+                        <th style="width:160px;">Name</th>
+                        <th style="width:125px;">Brief</th>
+                        <th style="width:110px;">Type</th>
+                        <th>Value</th>
+                        <th style="width:120px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableSiteInfo"></tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:45px;">ID</th>
+                        <th style="width:160px;">Name</th>
+                        <th style="width:125px;">Brief</th>
+                        <th style="width:110px;">Type</th>
+                        <th>Value</th>
+                        <th style="width:120px;">Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="row" style="margin-right:3%;float:right; margin-top:1%">
+            <a id="btnInsert" name="Add " class="btn btn-primary" onclick="add(this);" style="display: none;">
+                Thêm mới
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="float:left">
+        <!-- Modal content-->
+        <div class="modal-content" id="modalContent" style="width:882px;height:665px;margin-left:280px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="Title">Update TopBar</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-6" style="margin-top: 5px; font-weight: bold;">
+                                <div class="row">
+                                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;" disabled="true">
+                                        ID<span style="color:red;"> *</span>:
+                                    </div>
+                                    <div class="col-lg-9" style="width: 330px; padding-left: 59px;">
+                                        <input type="text" placeholder="Enter ID" id="txtId" class="form-control">
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" style="margin-top: 5px; font-weight: bold; height:65px">
+                                <div class="row">
+                                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                                        Tên<span style="color:red;"> *</span>:
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <input type="text" placeholder="Enter Name" id="txtName" class="form-control" style="width: 226px;" required>
+                                    </div>
+                                    <div id="showThongBaoTen" style="margin-top:30px">
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Loại:
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="text" placeholder="Enter Type" id="txtTypeModal" class="form-control">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                                Nội dung:<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <form>
+                                    <textarea id="txtValue" style="visibility: hidden; display: none; min-height:50%"></textarea>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="showThongBaoNoiDung" style="margin-top:15px;font-weight: bold">
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                            <div class="col-lg-2" style="font-weight: bold;">
+                                Tóm tắt:<span style="color:red;"> *</span>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="text" placeholder="Enter Brief" id="txtBrief" class="form-control">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div id="showThongBaoTomTat" style="font-weight: bold">
+                        </div>
+                        <div class="row" style="margin-top : 15px">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                ParentId:
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="text" placeholder="Enter ParentId" id="txtParentId" class="form-control">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div id="divThongBao_TB">
+                            <span id="spanThongBao_TB"></span>
+                        </div>
+                        <div class="row" style="margin-right:92px;float:right;">
+                            <a id="btnSave" class="btn btn-primary" style="display: inline-block;">
+                                Lưu
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" role="dialog">
+    <div class="modal-dialog" style="float:left">
+        <!-- Modal content-->
+        <div class="modal-content" style="margin-left:70%; width:100%; height:auto">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="viewTitle"></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                ID: <span style="color:dodgerblue;margin-left:2%" id="idView"></span>
+                            </div>
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                Tên:<span style="color:dodgerblue;margin-left:2%" id="nameView"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" style="margin-top: 5%; font-weight: bold;">
+                                Nội dung:
+                            </div>
+                            <div class="col-xs-9" style="margin-top: 5px; font-weight: bold;" id="contentView">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5%">
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                Loại: <span style="color:dodgerblue;margin-left:2%" id="typeView"></span>
+                            </div>
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                Tóm tắt:<span style="color:dodgerblue;margin-left:2%" id="briefView"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5%">
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                Trạng thái: <span style="color:dodgerblue;margin-left:2%" id="statusView"></span>
+                            </div>
+                            <div class="col-xs-6" style="margin-top: 5px; font-weight: bold;">
+                                Có thể xóa:<span style="color:dodgerblue;margin-left:2%" id="canDeleteView"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="scriptSiteInfo" type="text/x-jquery-tmpl">
+    <tr>
+        <td id="tableId">${Id}</td>
+        <td id="tableName">${Name}</td>
+        <td id="tableBrief">${Brief}</td>
+        <td id="tableType">${Type}</td>
+        <td id="tableValue">{{html Value}}</td>
+        <td>
+            <div class="row">
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="edit('${Id}',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                   
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}',this)"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-danger btn-app-sm" style="margin-left:10px;display:none" id="${Id}" onclick="confirmDelete(this)"><i class="fa fa-times" style="color:white"></i></button>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script id="scriptView" type="text/x-jquery-tmpl">
+
+    <span style="color:dodgerblue;margin-left:2%" id="valueView">{{html Value}}</span>
+
+</script>
+
+<script type="text/javascript">
+
+    var curList;
+    var getAllSetting;
+    $(function () {
+        CKEDITOR.replace('txtValue');
+    });
+
+    function changeType() {
+        $("#tableSiteInfo").empty();
+        $("#boxData").slideDown(500);
+        $("#boxData").css("display", "block");
+
+        var type = $("#txtType").val();
+        if (type != undefined || type != null || type != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ChangeSiteInfo", "Setting")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    item: type
+                }),
+                success: function (data) {
+                    console.log(data.lstSiteInfo);
+                    $("#scriptSiteInfo").tmpl(data.lstSiteInfo).appendTo("#tableSiteInfo");
+                    console.log(data.typeCommonCode);
+                    for (var item = 0; item < data.lstSiteInfo.length ; item++) {
+                        if (data.lstSiteInfo[item].CanDelete == true) {
+                            $("#" + data.lstSiteInfo[item].Id + "").css("display", "block");
+                        }
+                    }
+                    console.log(data.typeCommonCode)
+                    if (data.lstSiteInfo.length < data.typeCommonCode[0].Qty) {
+                        $("#btnInsert").css("display", "block");
+                    }
+                    else
+                    {
+                        $("#btnInsert").css("display", "none");
+                    }
+                    curList = data.allResult;
+                },
+                async: false,
+            });
+        }
+    }
+
+    function edit(id, temp) {
+        var obj = null;
+        $(curList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $("#cke_1_contents").css("height", "80px");
+        $("#Title").text("Chỉnh sửa "+ obj.Name);
+        $("#txtId").val(obj.Id);
+        $("#txtName").val(obj.Name);
+        $("#txtBrief").val(obj.Brief);
+        $("#txtTypeModal").val(obj.Type);
+        CKEDITOR.instances.txtValue.setData(obj.Value);
+        document.getElementById("btnSave").onclick = function () { editSiteInfo(obj) };
+        $("#myModal").modal("show");
+    }
+
+    function view(id, temp) {
+        $("#contentView").empty();
+        var obj = null;
+        $(curList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $("#viewTitle").text(temp.name + curList[0].Name);
+        $("#idView").text(obj.Id);
+        $("#nameView").text(obj.Name);
+        $("#briefView").text(obj.Brief);
+        $("#typeView").text(obj.Type);
+        var valueView = { Value: obj.Value };
+        $("#scriptView").tmpl(valueView).appendTo("#contentView");
+        if (obj.Status == "@Constants.SiteInfo_Status.ActiveStatus") {
+            $("#statusView").text("Có trên trang chủ");
+        }
+        else {
+            $("#statusView").text("Không có trên trang chủ");
+        }
+
+        if (obj.CanDelete == true) {
+            $("#canDeleteView").text("Được xóa");
+        }
+        else {
+            $("#canDeleteView").text("Không được xóa");
+        }
+
+        $("#viewModal").modal("show");
+    }
+
+    function add() {
+        $("#cke_1_contents").css("height", "80px");
+        $("#Title").text("Thêm mới " + $("#tableType").text());
+        $("#txtId").val(curList.length + 1);
+        $("#txtName").val(null);
+        $("#txtBrief").val(null);
+        $("#txtTypeModal").val(curList[0].Type);
+        CKEDITOR.instances.txtValue.setData(null);
+        document.getElementById('txtTypeModal').setAttribute("disabled", "disabled");
+        document.getElementById('txtId').setAttribute("disabled", "disabled");
+        $("#txtTypeModal").css("disabled", "false");
+        document.getElementById("btnSave").onclick = function () { save() };
+        $("#myModal").modal("show");
+    }
+
+    function save()
+    {
+        $("#modalContent").css("height", "715");
+        var name = $("#txtName").val();
+        var value = CKEDITOR.instances.txtValue.getData();
+        var brief = $("#txtBrief").val();
+        var result = true;
+        var obj= {};
+        $(curList).each(function () {
+            obj = this;
+            if (obj.Name == name || value == "" || name == "" || brief == "") {
+                result = false;
+                return result;
+            }
+        });
+        if(result == true)
+        {
+            addSiteInfo();
+        }
+        else
+        {
+            if(name == "")
+            {
+                $("#showThongBaoTen").show();
+                $("#showThongBaoTen").removeClass();
+                $("#showThongBaoTen").addClass("alert-danger");
+                $("#showThongBaoTen").text("Tên không được trống !!!");
+            }
+            else 
+            {
+                $(curList).each(function () {
+                    var item = this;
+                    if (item.Name == name) {
+                        $("#showThongBaoTen").show();
+                        $("#showThongBaoTen").removeClass();
+                        $("#showThongBaoTen").addClass("alert-danger");
+                        $("#showThongBaoTen").text("Tên đã tồn tại !!!. Vui lòng chọn tên khác");
+                        return false;
+                    }
+                    else {
+                        $("#showThongBaoTen").hide();
+                    }
+                });
+            }
+
+            if(value == "")
+            {
+                $("#showThongBaoNoiDung").show();
+                $("#showThongBaoNoiDung").removeClass();
+                $("#showThongBaoNoiDung").addClass("alert-danger");
+                $("#showThongBaoNoiDung").text("Nội dung không được trống !!!");
+            }
+            else {
+                $("#showThongBaoNoiDung").hide();
+            }
+
+            if (brief == "") {
+                $("#showThongBaoTomTat").show();
+                $("#showThongBaoTomTat").removeClass();
+                $("#showThongBaoTomTat").addClass("alert-danger");
+                $("#showThongBaoTomTat").text("Tóm tắt không được trống !!!");
+            }
+            else {
+                $("#showThongBaoTomTat").hide();
+            }
+
+        }
+    }
+
+    function editSiteInfo(item) {
+        var obj = {};
+        obj.Id = $("#txtId").val();
+        obj.brief = $("#txtBrief").val();
+        obj.type = $("#txtTypeModal").val();
+        obj.Name = $("#txtName").val();
+        obj.Value = CKEDITOR.instances.txtValue.getData();
+        if ($("#" + obj.Id).css("display") == "block")
+        {
+            obj.CanDelete = true;
+        }
+        obj.Status = item.Status;
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateSiteInfo", "Setting")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    siteInfo: obj
+                }),
+                success: function (data) {
+                    if (data.success == true) {
+                        showSuccess("Chỉnh sửa");
+                        $("#myModal").modal("hide");
+                        changeType();
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function addSiteInfo() {
+        var obj = {};
+        obj.Id = $("#txtId").val();
+        obj.brief = $("#txtBrief").val();
+        obj.type = $("#txtTypeModal").val();
+        obj.Name = $("#txtName").val();
+        obj.Value = CKEDITOR.instances.txtValue.getData();
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("CreateSiteInfo", "Setting")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    siteInfo: obj
+                }),
+                success: function (data) {
+                    if (data.success == true) {
+                        showSuccess("Thêm");
+                        $("#myModal").modal("hide");
+                        changeType();
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function deleteSiteInfo(item) {
+        var obj = {};
+        obj.Id = item.id;
+        if (obj != undefined || obj != null || obj != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteSiteInfo", "Setting")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    siteInfo: obj
+                }),
+                success: function (data) {
+                    if (data.success == true) {
+                        changeType();
+                    }
+                },
+                async: false,
+            });
+        }
+    }
+
+    function confirmDelete(item) {
+        console.log(item.id);
+        $.confirm({
+            title: 'Cảnh báo !!!',
+            content: 'Bạn có chắc chắn muốn xóa "ID: '+item.id + '" không?',
+            type: 'red',
+            animation: 'Rotate',
+            closeAnimation: 'Rotate',
+            buttons: {
+                ok: {
+                    btnClass: 'btn-red',
+                    text: "Có",
+                    action: function () {
+                        deleteSiteInfo(item);
+                        $.alert("Đã xóa thành công");
+                    }
+                },
+                close:{
+                    text: "Không",
+                }
+            }
+        });
+    }
+
+    function showSuccess(item) {
+        $.alert(item + " thành công");
+    }
+
+</script>

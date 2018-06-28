@@ -1,0 +1,495 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+@section scripts{
+    <script src="~/Scripts/admin/plugins/twbs-pagination/jquery.twbsPagination.min.js"></script>
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Dasboard</a></li>
+            <li><a href="#">Quản lí bài đăng</a></li>
+            <li><a href="#">Tìm kiếm và chỉnh sửa</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="search">
+                <input id="txtKeyword" type="text" placeholder="Tìm kiếm theo tiêu đề" style="background-color:white!important" />
+                <i class="fa fa-search" style="top:8px;color:red!important" onclick="search(1)"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9" style="margin-top:15px;">
+            <div class="col-lg-2" style="margin-left:-12px;font-weight:bold">
+                Từ ngày
+            </div>
+            <div class="col-lg-3">
+                <input id="fromDate" class="form-control calendar" data-date-format="dd/mm/yyyy" readonly="readonly" placeholder="Từ ngày">
+            </div>
+            <div class="col-lg-2" style="font-weight:bold">
+                Đến ngày
+            </div>
+            <div class="col-lg-3" style="margin-left:3px;">
+                <input id="toDate" class="form-control calendar" data-date-format="dd/mm/yyyy" readonly="readonly" placeholder="Đến ngày">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9" style="margin-top:15px">
+            <span id="checkDate"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchPost();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create","PostManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
+        </div>
+    </div>
+</div>
+
+<div class="well" style="padding-bottom:4%">
+    <span id="showTotalRecord" class="help-block"></span>
+    <hr />
+    <div class="box" id="boxData">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:20px;">
+                            <input id="cbTotal" type="checkbox" value="checkTotalRecord" onclick="clickCb();">
+                        </th>
+                        <th style="width:40px;">STT</th>
+                        <th style="width:40px;">Id</th>
+                        <th style="width:500px;">Tiêu đề</th>
+                        <th style="width:110px;">Loại tin tức</th>
+                        <th style="width:80px;">Ngày tạo</th>
+                        <th style="width:100px;">Người tạo</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="listPost"></tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:20px;"></th>
+                        <th style="width:40px;">STT</th>
+                        <th style="width:40px;">Id</th>
+                        <th style="width:500px;">Tiêu đề</th>
+                        <th style="width:110px;">Loại tin tức</th>
+                        <th style="width:80px;">Ngày tạo</th>
+                        <th style="width:100px;">Người tạo</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <ul id="ulSearchResult" class="pagination" style="background-color:red !important; display:none;text-align:center;float:right"></ul>
+        </div>
+        <div id="pagination" class="pagination">
+        </div>
+        <div class="row" style="margin-right:3%;float:right; margin-top:1%">
+            <a id="btnInsert" name="Add " class="btn btn-primary" onclick="add(this);" style="display: none;">
+                Thêm mới
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" role="dialog">
+    <div class="modal-dialog" style="float:left">
+        <!-- Modal content-->
+        <div class="modal-content" style="width:882px;margin-left:280px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="Title">CHI TIẾT BÀI ĐĂNG</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <h2 id="txtSubject" style="text-align:center; font-weight:700 !important; font-size:30px;color:black!important;"></h2>
+                            </div>
+                            <div class="col-xs-1"></div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10" style="font-style:italic" id="txtTime"></div>
+                            <di class="col-xs-1"></di>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10" id="txtContent">
+                                <span class="panel-group"></span>
+                            </div>
+                            <div class="col-xs-1"></div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10" style="float:right; font-weight:bold;">
+                                <span class="panel-group" style="float:right;" id="txtEditor"></span>
+                            </div>
+                            <div class="col-xs-1"></div>
+                            <br><br>
+                        </div>
+                        <div class="recent-projects" style="margin-top:70px;">
+                            <h4><span>OTHER IMAGES</span></h4>
+                            <div class="row" id="txtLstImages">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .designImage {
+        width: 600px !important;
+        height: 400px !important;
+    }
+</style>
+
+<script id="tmplLstImages" type="text/x-jquery-tmpl">
+    <div class="col-xs-3">
+        <a class="lightbox" href="${Url}">
+            <img alt="" src="${Url}" style="height:150px;" />
+        </a>
+    </div>
+</script>
+
+<script id="tmplContent" type="text/x-jquery-tmpl">
+    <tr id="rowPost_${Id}">
+        <th style="width:20px;">
+            <input id="cbChild_${Id}" type="checkbox" value="checkChildRecord">
+        </th>
+        <td id="idSTT">${index}</td>
+        <td>${Id}</td>
+        <td>${Title}</td>
+        <td>${CategoryId}</td>
+        <td>${Time}</td>
+        <td data-toggle="tooltip" data-html="true" title="${ FullName} &#13; ${Birthday} &#13; ${Hometown}">${CreatedBy}</td>
+        <td>
+            <div class="row">
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="Edit('${Id}');" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}',this)"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<script type="text/javascript">
+
+    var pageConfig = {
+        pageSize: 7,
+        pageIndex: 1
+    }
+    var arrId = [];
+    var src = "/Scripts/js/owl.carousel.min.js";
+    var curList;
+    var arrChecked = [];
+
+    $(function () {
+        search(1);
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.tooltip').tooltip({ html: true })
+    })
+
+    var src = "/Scripts/js/owl.carousel.min.js";
+
+    function searchPost() {
+        $('#pagination').twbsPagination('destroy');
+        searchDate();
+    }
+
+    function searchDate() {
+        var ftt = $("#fromDate").datepicker("getDate");
+        var ttt = $("#toDate").datepicker("getDate");
+
+        if (ftt >= ttt && ftt != null && ttt != null) {
+            $("#checkDate").show();
+            $("#checkDate").removeClass();
+            $("#checkDate").addClass("alert-danger");
+            $("#checkDate").text("Vui lòng kiểm tra ngày chính xác!");
+            return;
+        }
+        else {
+            $("#checkDate").hide();
+            search();
+        }
+    }
+
+    function search() {
+        $("#listPost").empty();
+        var key = $("#txtKeyword").val();
+        var ftt = $("#fromDate").datepicker("getDate");
+        var ttt = $("#toDate").datepicker("getDate");
+        var fromCount = 0;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Search", "PostManagement")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                keyWord: key,
+                page: pageConfig.pageIndex,
+                ftt: ftt,
+                ttt: ttt,
+                pageSize: pageConfig.pageSize
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+
+                    var stt = (pageConfig.pageIndex - 1) * pageConfig.pageSize;
+                    stt = stt + 1;
+                    for (var i = 0; i < data.data.length; i++) {
+                        data.data[i].index = stt; //
+                        stt++;
+
+                        arrId[i] = data.data[i].Id; //
+                    }
+
+                    curList = data.data;
+                    $("#tmplContent").tmpl(data.data).appendTo("#listPost");
+                    if (data.TotalRecord > 0) {
+                        $("#showTotalRecord").html("Có <b>" + data.TotalRecord + "</b> kết quả tìm kiếm");
+                    }
+                    else {
+                        $("#showTotalRecord").html("Có 0 kết quả tìm kiếm ");
+                    }
+                    $("#showTotalRecord").show();
+                    paging(data.TotalRecord, function () {
+                        search();
+                    });
+
+                }
+                else {
+                }
+            },
+            async: false,
+        });
+    }
+
+    function paging(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfig.pageSize);
+        $('#pagination').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 5,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfig.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    function clickCb() {
+        if (cbTotal.checked == false) {
+            for (i = 0; i < arrId.length; i++) {
+                $('#cbChild_' + arrId[i]).prop('checked', false);
+            }
+        }
+        else {
+            for (i = 0; i < arrId.length; i++) {
+                $('#cbChild_' + arrId[i]).prop('checked', true);
+            }
+        }
+    }
+
+    function confirmDelete() {
+        var dem = 0;
+        var idTodelete = "";
+        for (i = 0; i < arrId.length; i++) {
+            if ($('#cbChild_' + arrId[i]).is(':checked')) {
+                dem++;
+                idTodelete += "'" + arrId[i] + "' ";
+            }
+        }
+        if (dem > 0) {
+            $.confirm({
+                title: 'Cảnh báo !!!',
+                content: 'Bạn có chắc chắn muốn xóa bài đăng mã ' + idTodelete + ' không?',
+                animation: 'Rotate',
+                closeAnimation: 'Rotate',
+                buttons: {
+                    ok: {
+                        btnClass: 'btn-red',
+                        text: "Có",
+                        action: function () {
+                            deletePost();
+                            $.alert("Đã xóa thành công");
+                            $('#cbTotal').attr('checked', false);
+                            $('#pagination').twbsPagination('destroy');
+                        }
+                    },
+                    close: {
+                        text: "Không",
+                    }
+                }
+            });
+        } else {
+            $.confirm({
+                title: 'Cảnh báo !!!',
+                content: 'Bạn chưa chọn bài đăng nào để xóa?',
+                animation: 'Rotate',
+                closeAnimation: 'Rotate',
+                buttons: {
+                    close: {
+                        text: "OK",
+                    }
+                }
+            });
+        }
+    }
+
+    function deletePost() {
+        arrChecked.length = 0;
+        var j=-1;
+        for (i = 0; i < arrId.length; i++) {
+            if ($('#cbChild_' + arrId[i]).is(':checked')) {
+                arrChecked[++j] = arrId[i];
+            }
+        }
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(arrChecked));
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeletePost", "PostManagement")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.status == 1) {
+                    for (i = 0; i < arrChecked.length; i++) {
+                        $("#rowPost_" + arrChecked[i]).remove();
+                    }
+                    search();
+                }
+            }
+        })
+    }
+
+    function Edit(id) {
+        window.location.href = "@Url.Action("Edit", "PostManagement")" + "?id=" + id;
+    }
+
+    function changeType() {
+        var type = $("#txtType").val();
+        if (type != undefined || type != null || type != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCategory", "PostManagement")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    type: type
+                }),
+                success: function (data) {
+                    $("#txtCategory").empty();
+                    for (var i = 0; i < data.data.length; i++) {
+                        var option = "<option value='" + data.data[i].CommonId + "'>" + data.data[i].ValueDisplay + "</option>";
+                        $(option).appendTo("#txtCategory");
+                    }
+                },
+                async: false,
+            });
+        }
+        changeCommonCode();
+    }
+
+    function changeCommonCode() {
+        var category = $("#txtCategory").val();
+        if (category != undefined || category != null || category != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCategoryChild","PostManagement")',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    commonId: category
+                }),
+                success: function (data) {
+                    $("#txtCategoryChild").empty();
+                    if (data.data.length > 0) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            var option = "<option value='" + data.data[i].CommonId + "'>" + data.data[i].ValueDisplay + "</option>";
+                            $(option).appendTo("#txtCategoryChild");
+                        }
+                        $("#danhmuccon").show();
+                    } else {
+                        $("#danhmuccon").hide();
+                    }
+
+                },
+                async: false,
+            });
+        }
+    }
+
+    function view(id, temp) {
+        var obj = null;
+        $(curList).each(function () {
+            if (this.Id == id) {
+                obj = this;
+                return false;
+            }
+        });
+        $("#txtTime").text(obj.Time);
+        $("#txtSubject").text(obj.Title);
+        $("#txtBrief").html(obj.NewsBrief);
+        $("#txtContent").html(obj.NewsDetail);
+        $("#txtEditor").text(obj.Editor);
+
+        $("#tmplLstImages").tmpl(obj.LstImages).appendTo("#txtLstImages");
+
+        $("#viewModal").modal("show");
+
+        jQuery('#txtContent img').each(function () {
+            jQuery(this).addClass("designImage");
+        });
+    }
+
+    $('.calendar').datepicker({
+        startDate: '-3d'
+    });
+
+</script>

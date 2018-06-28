@@ -1,0 +1,137 @@
+﻿@using resx = LS.Resources.About.ResourcesAbout;
+@using resx1 = LS.Resources.Resources;
+@using LS.Web.Models
+@using LS.Utility
+
+@model TeacherViewModel
+
+@{
+    ViewBag.Title = "About";
+    var count = 0;
+}
+<!-- Start Page Banner -->
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.AboutMe</h2>
+                <p>@resx1.IAm @resx1.DR @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Introduction</a></li>
+                    <li>@resx.AboutMe</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page Banner -->
+<!-- Start Content -->
+<div id="content">
+    <div class="container">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-7">
+                    <!-- Classic Heading -->
+                    <h4 class="classic-title"><span>@resx.WhoAmI</span></h4>
+                    <!-- Some Text -->
+                    @foreach (var item in Model.TeacherVM)
+                    {
+                        @(Html.Raw(item.Description))
+                    }
+                </div>
+                <div class="col-md-5">
+                    <!-- Start Touch Slider -->
+                    <div class="touch-slider" data-slider-navigation="true" data-slider-pagination="true">
+                        @foreach (var item in Model.TeacherMemoryVM)
+                        {
+                            if (item.Type == Constants.Teacher.Avartar)
+                            {
+                                <div class="item"><img alt="" src="@item.Url@item.FileName@item.FileExtension"></div>
+                            }
+                        }
+                    </div>
+                    <!-- End Touch Slider -->
+                </div>
+            </div>
+            <!-- Divider -->
+            <div class="hr1" style="margin-bottom:50px;"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Classic Heading -->
+                    <h4 class="classic-title"><span>@resx.Education</span></h4>
+                    <div class="skill-shortcode">
+                        <div class="panel-group" id="accordion">
+                            <!-- Start Accordion 1 -->
+                            @foreach (var result in Model.TeacherMemoryVM)
+                            {
+                                if (result.Type == Constants.Teacher.EducationBackground)
+                                {
+                                    count++;
+                                    <div class="panel-group" id="accordion1" style="margin-top:2%">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion1" href="#collapse-@count">
+                                                        <i class="fa fa-angle-up control-icon"></i>
+                                                        <i class="fa fa-desktop"></i> @result.Background.Title
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapse-@count" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div>
+                                                        <img class="img-thumbnail image-text" style="float:left; width:150px; height:76.875px" alt="" src="@result.Url@result.FileName@result.FileExtension" />
+                                                        @(Html.Raw(result.Background.Description))
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Classic Heading -->
+                    <h4 class="classic-title"><span>@resx.CurrentJob</span></h4>
+                    @foreach (var result in Model.TeacherMemoryVM)
+                    {
+                        if (result.Type == Constants.Teacher.CurrentJob)
+                        {
+                            <div class="panel-group" id="accordion1">
+                                <!-- Start Accordion 1 -->
+                                <div class="panel panel-default">
+                                    <!-- Toggle Heading -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse-6">
+                                                <i class="fa fa-angle-up control-icon"></i>
+                                                <i class="fa fa-desktop"></i> @result.Background.Title
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <!-- Toggle Content -->
+                                    <div id="collapse-6" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div>
+                                                <img class="img-thumbnail image-text" style="float:left; width:150px; height:76.875px" alt="" src="@result.Url@result.FileName@result.FileExtension" />
+                                                @(Html.Raw(result.Background.Description))
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Accordion 1 -->
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <!-- Divider -->
+            <div class="hr1" style="margin-bottom:50px;"></div>
+        </div>
+    </div>
+</div>
+<!-- End content -->

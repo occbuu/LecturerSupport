@@ -1,0 +1,465 @@
+﻿@using LS.Web.Models
+
+@model List<CommonCodeViewModel>
+
+@{
+    ViewBag.Title = "PostType";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javacript:void(0);">Cài đặt</a></li>
+            <li><a href="#">Thêm mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="well" style="margin-left: 10px;padding-bottom:70px">
+    <h3>Loại cấp 1</h3>
+    <div class="box-content no-padding" style="margin-top:15px">
+        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+            <thead>
+                <tr>
+                    <th style="width:10px;">STT</th>
+                    <th style="width:150px;">ID</th>
+                    <th style="width:400px;">Nội dung</th>
+                    <th>Người tạo</th>
+                    <th>Ngày tạo</th>
+                    <th style="width:120px;">Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="tableType"></tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-xs-9" style="margin-top:15px" id="btnThem">
+            <button type="button" class="btn btn-success" style="width:70px;float:right" onclick="showCreateModal(1)"><i class="fa fa-plus"></i> Thêm</button>
+        </div>
+        <div class="col-xs-3" style="float:right">
+            <button id="showAll" type="button" class="btn btn-primary" style="width:auto;display:none;margin-top:15px;margin-left:50px" onclick="showAll()"> Hiện tất cả</button>
+            <div id="pagination" class="pagination" style="margin-top:0px; float:right">
+            </div>
+        </div>
+    </div>
+    <!-- Type Level 2-->
+    <div style="margin-top:30px; display:none" id="typeLevel2">
+        <h3>Loại cấp 2</h3>
+        <div class="box-content no-padding" style="margin-top:15px">
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:10px;">STT</th>
+                        <th style="width:150px;">ID</th>
+                        <th style="width:400px;">Nội dung</th>
+                        <th>Người tạo</th>
+                        <th>Ngày tạo</th>
+                        <th style="width:120px;">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="tableTypeLevel2"></tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-xs-9" style="margin-top:15px" id="divbtnThem">
+                <button type="button" class="btn btn-success" id="btnThemLevel2" style="width:70px;float:right" onclick="showCreateModal(2,this)"><i class="fa fa-plus"></i> Thêm</button>
+            </div>
+            <div class="col-xs-3" style="float:right">
+                <div id="paginationLevel2" class="pagination" style="margin-top:0px; float:right">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal Create-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="float:left">
+        <!-- Modal content-->
+        <div class="modal-content" id="modalContent" style="width:882px;padding-bottom:35px;margin-left:280px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="Title"></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-6" style="margin-top: 5px; font-weight: bold;">
+                                <div class="row">
+                                    <div class="col-xs-3" style="margin-top: 5px; font-weight: bold;">
+                                        CommonTypeId
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input type="text" placeholder="Enter CommonTypeID" id="txtCommonTypeId" class="form-control" style="margin-left:38px" disabled>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="chooseType">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Chọn loại:
+                            </div>
+                            <div class="col-lg-9">
+                                <select id="txtType" class="form-control" onchange="changeType(1,null);">
+                                    <option value="luachon" style="text-align:center;">-- Vui Lòng Lựa Chọn --</option>
+                                    @foreach (var result in Model)
+                                    {
+                                        <option value="@result.CommonId">@result.ValueDisplay</option>
+                                    }
+                                    <option value="OtherType">Loại khác</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row" id="parentCommonId">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                ParentCommonId:
+                            </div>
+                            <div class="col-lg-3" id="commonId">
+                                <input type="text" id="txtParentCommonId" class="form-control" style="width: 226px;" disabled>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row" id="divCommonId">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                CommonId:
+                            </div>
+                            <div class="col-lg-3" id="commonId">
+                                <input type="text" placeholder="Nhập CommonId" id="txtCommonId" class="form-control" style="width: 226px;" disabled>
+                                <input type="text" placeholder="Nhập CommonId" id="txtOtherType" class="form-control" style="width: 226px;display:none">
+                            </div>
+                            <div class="col-lg-6" style="margin-top: 5px; font-weight: bold;">
+                                <span id="numberOtherType" style="margin-left:10px" hidden>-1</span>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tên hiển thị:
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="text" placeholder="Enter Type" id="txtStrValue1" class="form-control" style="white-space:nowrap">
+                            </div>
+                            <br><br>
+                        </div>
+                        <div id="showThongBaoTenHienThi" style="margin-top:15px;font-weight: bold">
+                        </div>
+                        <div class="row" style="margin-right:92px;float:right;">
+                            <a id="btnSave" class="btn btn-primary" style="display: inline-block;" onclick="addType()">
+                                Thêm
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--End Breadcrumb-->
+<script id="loadType" type="text/x-jquery-tmpl">
+
+    <tr id="${CommonId}" onclick="temp('${CommonId}')">
+        <td>${index}</td>
+        <td>${CommonId}</td>
+        <td>${ValueDisplay}</td>
+        <td>${CreateBy}</td>
+        <td>${CreateDate}</td>
+        <td>
+            <div class="row">
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="edit('${Id}',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}',this)"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-danger btn-app-sm" style="margin-left:10px;display:none" id="${Id}" onclick="confirmDelete(this)"><i class="fa fa-times" style="color:white"></i></button>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script id="loadTypeLevel2" type="text/x-jquery-tmpl">
+
+    <tr id="${CommonId}">
+        <td>${index}</td>
+        <td>${CommonId}</td>
+        <td>${ValueDisplay}</td>
+        <td>${CreateBy}</td>
+        <td>${CreateDate}</td>
+        <td>
+            <div class="row">
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="edit('${Id}',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}',this)"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-danger btn-app-sm" style="margin-left:10px;display:none" id="${Id}" onclick="confirmDelete(this)"><i class="fa fa-times" style="color:white"></i></button>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        //CKEDITOR.replace('editor1');
+        load();
+    });
+    var curList;
+    function temp (obj)
+    {
+        $('#paginationLevel2').twbsPagination('destroy');
+        loadTypeLevel2(obj);
+    }
+    function load() {
+        $("#tableType").empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadType", "Setting")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                level: 1,
+                page: pageConfig.pageIndex,
+                pageSize: pageConfig.pageSize
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    var stt = (pageConfig.pageIndex - 1) * pageConfig.pageSize;
+                    stt = stt + 1;
+                    for (var i = 0; i < data.data.length; i++) {
+                        data.data[i].index = stt;
+                        stt++;
+                    }
+                    $("#loadType").tmpl(data.data).appendTo("#tableType");
+                    paging(data.listCommonCodeLevel.length, function () {
+                        load();
+                    });
+                    curList = data.data;
+                }
+            },
+            async: false,
+        });
+    }
+
+    var pageConfig = {
+        pageSize: 5, // Lines to show in a page
+        pageIndex: 1 // The position that you choose
+    }
+
+    function paging(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfig.pageSize);
+        $('#pagination').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 3,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfig.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    function pagingLevel2(totalRow, callBack) {
+        var totalPage = Math.ceil(totalRow / pageConfig.pageSize);
+        $('#paginationLevel2').twbsPagination({
+            totalPages: totalPage,
+            first: '<span aria-hidden="true">&laquo;</span>',
+            next: '<span aria-hidden="true" style="font-size: 12px;">&gt;</span>',
+            last: '<span aria-hidden="true">&raquo;</span>',
+            prev: '<span aria-hidden="true" style="font-size: 12px;">&lt;</span>',
+            visiblePages: 3,// numbers of pagination
+            onPageClick: function (event, page) {
+                pageConfig.pageIndex = page;
+                setTimeout(callBack, 200);
+            }
+        });
+    }
+
+    function loadTypeLevel2(obj) {
+        $("#tableTypeLevel2").empty();
+        var item;
+        $(curList).each(function () {
+            item = this;
+            if (obj != item.CommonId) {
+                $("#" + item.CommonId).css("display", "none");
+                $("#pagination").hide();
+                $("#showAll").css("display", "block");
+                $("#divbtnThem").css("marign-left", "240px");
+                $("#btnThemLevel2").attr("name", obj);
+            }
+        });
+        $("#typeLevel2").css("display", "block");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadType", "Setting")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                commonId: obj,
+                level: 2,
+                page: pageConfig.pageIndex,
+                pageSize: pageConfig.pageSize
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    var stt = (pageConfig.pageIndex - 1) * pageConfig.pageSize;
+                    stt = stt + 1;
+                    for (var i = 0; i < data.data.length; i++) {
+                        if ((data.data[i].CommonId.indexOf(obj) > -1)) {
+                            data.data[i].index = stt;
+                            stt++;
+                            $("#loadTypeLevel2").tmpl(data.data[i]).appendTo("#tableTypeLevel2");
+                            pagingLevel2(data.lstCommonCodeDetails.length, function () {
+                                loadTypeLevel2(obj);
+                            });
+                        }
+                    }
+                }
+            },
+            async: false,
+        });
+    }
+
+    function showAll() {
+        $('#pagination').twbsPagination('destroy');
+        load();
+        $("#pagination").show();
+        $("#showAll").hide();
+        $("#typeLevel2").hide();
+        $("#tableTypeLevel2").empty();
+    }
+
+    function showCreateModal(level, itemDetails) {
+        $("#txtCommonTypeId").val(curList[0].CommonTypeId);
+        $("#myModal").modal("show");
+        $("#Title").text("Thêm loại cấp " + level);
+        $("#txtType").val("luachon");
+        $("#txtCommonId").val(null);
+        $("#txtStrValue1").val(null);
+        if (level == 1) {
+            $("#parentCommonId").hide();
+            $("#divCommonId").show();
+            $("#chooseType").show();
+        }
+        else {
+            $("#parentCommonId").show();
+            $("#chooseType").hide();
+            $("#txtParentCommonId").val(itemDetails.name);
+            changeType(2, itemDetails.name);
+        }
+    }
+
+    function changeType(typelevel, item) {
+        var type = $("#txtType").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadType", "Setting")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                level: typelevel,
+                commonId: item,
+                page: 0,
+                pageSize: 0
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    var count = 0;
+                    if (typelevel == 1) {
+                        for (var i = 0; i < data.listCommonCodeLevel.length; i++) {
+                            if (data.listCommonCodeLevel[i].CommonId.indexOf(type) > -1) {
+                                count++;
+                            }
+                            else if (type == "OtherType") {
+                                $("#txtCommonId").hide();
+                                $("#txtOtherType").show();
+                                $("#numberOtherType").show();
+                                return false;
+                            }
+                        }
+                        count++;
+                        var newTypeCommonId = type + "-" + count;
+                        for (var i = 0; i < data.allCommonCode.length; i++) {
+                            if (data.allCommonCode[i].CommonId == newTypeCommonId) {
+                                count++;
+                                newTypeCommonId = type + "-" + count;
+                            }
+                        }
+                        $("#txtCommonId").show();
+                        $("#txtOtherType").hide();
+                        $("#numberOtherType").hide();
+                        $("#txtCommonId").val(type + "-" + count);
+                    }
+                    else {
+                        for (var i = 0; i < data.listCommonCodeLevel.length; i++) {
+                            if (data.listCommonCodeLevel[i].CommonId.indexOf(item) > -1) {
+                                count++;
+                            }
+                        }
+                        count++;
+                        $("#txtCommonId").val(item + "-" + count);
+                    }
+                }
+            },
+            async: false,
+        });
+    }
+
+    function addType() {
+        var commonId = $("#txtCommonId").val();
+        var parentCommonId = $("#txtParentCommonId").val();
+        console.log(commonId);
+        var titleSubString = $("#Title").text();
+        var obj = {};
+        obj.CommonTypeId = $("#txtCommonTypeId").val();
+        if (commonId != undefined || commonId != null || commonId != "") {
+            obj.CommonId = $("#txtCommonId").val();
+        }
+        else {
+            obj.CommonId = $("#txtOtherType").val();
+        }
+        obj.StrValue1 = $("#txtStrValue1").val();
+        obj.NumValue1 = titleSubString.substring(14, 15);
+        obj.CreatedBy = "@UserFrontVM.CurrentUser.Name";
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddType", "Setting")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                commonCode: obj
+            }),
+            success: function (data) {
+                if (data.success == true) {
+                    $.alert("Thêm thành công");
+                    $("#myModal").modal("hide");
+                    load();
+                    $("#typeLevel2").hide();
+                    $("#pagination").show();
+                    $("#showAll").hide(); 
+                }
+            },
+            async: false,
+        });
+    }
+
+</script>

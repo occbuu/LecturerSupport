@@ -1,0 +1,1746 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="LSDBEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(LSDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(LSDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="AddressUniversities" EntityType="LSDBModel.AddressUniversity" />
+    <EntitySet Name="AssignmentConfigs" EntityType="LSDBModel.AssignmentConfig" />
+    <EntitySet Name="Attachments" EntityType="LSDBModel.Attachment" />
+    <EntitySet Name="Classes" EntityType="LSDBModel.Class" />
+    <EntitySet Name="ClassAnnouncements" EntityType="LSDBModel.ClassAnnouncement" />
+    <EntitySet Name="ClassDiscusses" EntityType="LSDBModel.ClassDiscuss" />
+    <EntitySet Name="Comments" EntityType="LSDBModel.Comment" />
+    <EntitySet Name="CommonCodes" EntityType="LSDBModel.CommonCode" />
+    <EntitySet Name="CommonTypes" EntityType="LSDBModel.CommonType" />
+    <EntitySet Name="Courses" EntityType="LSDBModel.Course" />
+    <EntitySet Name="CourseScores" EntityType="LSDBModel.CourseScore" />
+    <EntitySet Name="Documents" EntityType="LSDBModel.Document" />
+    <EntitySet Name="Evaluations" EntityType="LSDBModel.Evaluation" />
+    <EntitySet Name="EvaluationItems" EntityType="LSDBModel.EvaluationItem" />
+    <EntitySet Name="Functions" EntityType="LSDBModel.Function" />
+    <EntitySet Name="FunctionRoles" EntityType="LSDBModel.FunctionRole" />
+    <EntitySet Name="Infomations" EntityType="LSDBModel.Infomation" />
+    <EntitySet Name="Libraries" EntityType="LSDBModel.Library" />
+    <EntitySet Name="Links" EntityType="LSDBModel.Link" />
+    <EntitySet Name="Logs" EntityType="LSDBModel.Log" />
+    <EntitySet Name="Messages" EntityType="LSDBModel.Message" />
+    <EntitySet Name="News" EntityType="LSDBModel.News" />
+    <EntitySet Name="Objects" EntityType="LSDBModel.Object" />
+    <EntitySet Name="QAs" EntityType="LSDBModel.QA" />
+    <EntitySet Name="Questionnaires" EntityType="LSDBModel.Questionnaire" />
+    <EntitySet Name="QuestionnaireItems" EntityType="LSDBModel.QuestionnaireItem" />
+    <EntitySet Name="Roles" EntityType="LSDBModel.Role" />
+    <EntitySet Name="Schedules" EntityType="LSDBModel.Schedule" />
+    <EntitySet Name="ScoreConfigs" EntityType="LSDBModel.ScoreConfig" />
+    <EntitySet Name="SiteInfoes" EntityType="LSDBModel.SiteInfo" />
+    <EntitySet Name="Students" EntityType="LSDBModel.Student" />
+    <EntitySet Name="StudentAttendances" EntityType="LSDBModel.StudentAttendance" />
+    <EntitySet Name="StudentClasses" EntityType="LSDBModel.StudentClass" />
+    <EntitySet Name="StudentExcercises" EntityType="LSDBModel.StudentExcercise" />
+    <EntitySet Name="Subjects" EntityType="LSDBModel.Subject" />
+    <EntitySet Name="sysdiagrams" EntityType="LSDBModel.sysdiagram" />
+    <EntitySet Name="Tags" EntityType="LSDBModel.Tag" />
+    <EntitySet Name="Teachers" EntityType="LSDBModel.Teacher" />
+    <EntitySet Name="TeacherBackgrounds" EntityType="LSDBModel.TeacherBackground" />
+    <EntitySet Name="TeacherDelegateStudents" EntityType="LSDBModel.TeacherDelegateStudent" />
+    <EntitySet Name="TeacherMajors" EntityType="LSDBModel.TeacherMajor" />
+    <EntitySet Name="TeacherMemories" EntityType="LSDBModel.TeacherMemory" />
+    <EntitySet Name="TeacherResearchWorks" EntityType="LSDBModel.TeacherResearchWork" />
+    <EntitySet Name="TeacherStudies" EntityType="LSDBModel.TeacherStudy" />
+    <EntitySet Name="Universities" EntityType="LSDBModel.University" />
+    <EntitySet Name="UserRoles" EntityType="LSDBModel.UserRole" />
+    <EntitySet Name="Users" EntityType="LSDBModel.User" />
+    <EntitySet Name="UserSocialNetworks" EntityType="LSDBModel.UserSocialNetwork" />
+    <AssociationSet Name="dk_AddressUniversity_University" Association="LSDBModel.dk_AddressUniversity_University">
+      <End Role="University" EntitySet="Universities" />
+      <End Role="AddressUniversity" EntitySet="AddressUniversities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Schedule_AddressUniversity" Association="LSDBModel.fk_Schedule_AddressUniversity">
+      <End Role="AddressUniversity" EntitySet="AddressUniversities" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AssignmentConfig_Class" Association="LSDBModel.fk_AssignmentConfig_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfigs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AssignmentConfig_Document" Association="LSDBModel.fk_AssignmentConfig_Document">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfigs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_AssignmentConfig" Association="LSDBModel.fk_StudentExcercise_AssignmentConfig">
+      <End Role="AssignmentConfig" EntitySet="AssignmentConfigs" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercises" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_subject" Association="LSDBModel.fk_class_subject">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Class" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_teacher" Association="LSDBModel.fk_class_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Class" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_class_teacherassitant" Association="LSDBModel.fk_class_teacherassitant">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Class" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Class_University" Association="LSDBModel.FK_Class_University">
+      <End Role="University" EntitySet="Universities" />
+      <End Role="Class" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ClassAnnouncement_Class" Association="LSDBModel.fk_ClassAnnouncement_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="ClassAnnouncement" EntitySet="ClassAnnouncements" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ClassDiscuss_Class" Association="LSDBModel.fk_ClassDiscuss_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="ClassDiscuss" EntitySet="ClassDiscusses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseScore_Class" Association="LSDBModel.FK_CourseScore_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="CourseScore" EntitySet="CourseScores" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Document_Class" Association="LSDBModel.fk_Document_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Class" Association="LSDBModel.FK_Schedule_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ScoreConfig_Class" Association="LSDBModel.fk_ScoreConfig_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="ScoreConfig" EntitySet="ScoreConfigs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentClass_Class" Association="LSDBModel.FK_StudentClass_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="StudentClass" EntitySet="StudentClasses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Class" Association="LSDBModel.fk_StudentExcercise_Class">
+      <End Role="Class" EntitySet="Classes" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercises" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Comment" Association="LSDBModel.FK_Comment_Comment">
+      <End Role="Comment" EntitySet="Comments" />
+      <End Role="Comment1" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Comment_News" Association="LSDBModel.fk_Comment_News">
+      <End Role="News" EntitySet="News" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Users" Association="LSDBModel.FK_Comment_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Course_Course" Association="LSDBModel.FK_Course_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Course1" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_CourseScore_Student" Association="LSDBModel.fk_CourseScore_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="CourseScore" EntitySet="CourseScores" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Document" Association="LSDBModel.fk_StudentExcercise_Document">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercises" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Evaluation_Questionnaire" Association="LSDBModel.FK_Evaluation_Questionnaire">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="Evaluation" EntitySet="Evaluations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluationItem_Evaluation" Association="LSDBModel.FK_EvaluationItem_Evaluation">
+      <End Role="Evaluation" EntitySet="Evaluations" />
+      <End Role="EvaluationItem" EntitySet="EvaluationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EvaluationItem_QuestionnaireItem" Association="LSDBModel.FK_EvaluationItem_QuestionnaireItem">
+      <End Role="QuestionnaireItem" EntitySet="QuestionnaireItems" />
+      <End Role="EvaluationItem" EntitySet="EvaluationItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FunctionRole_Function" Association="LSDBModel.FK_FunctionRole_Function">
+      <End Role="Function" EntitySet="Functions" />
+      <End Role="FunctionRole" EntitySet="FunctionRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FunctionRole_Role" Association="LSDBModel.FK_FunctionRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="FunctionRole" EntitySet="FunctionRoles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_news_user" Association="LSDBModel.fk_news_user">
+      <End Role="User" EntitySet="Users" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_Object" Association="LSDBModel.fk_Student_Object">
+      <End Role="Object" EntitySet="Objects" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_Objects" Association="LSDBModel.fk_Student_Objects">
+      <End Role="Object" EntitySet="Objects" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Teacher_Object" Association="LSDBModel.fk_Teacher_Object">
+      <End Role="Object" EntitySet="Objects" />
+      <End Role="Teacher" EntitySet="Teachers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Object" Association="LSDBModel.FK_Users_Object">
+      <End Role="Object" EntitySet="Objects" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuestionnaireItem_Questionnaire" Association="LSDBModel.FK_QuestionnaireItem_Questionnaire">
+      <End Role="Questionnaire" EntitySet="Questionnaires" />
+      <End Role="QuestionnaireItem" EntitySet="QuestionnaireItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="LSDBModel.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Attendance_Schedule" Association="LSDBModel.FK_Attendance_Schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="StudentAttendance" EntitySet="StudentAttendances" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule_teacher" Association="LSDBModel.fk_schedule_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Student_University" Association="LSDBModel.fk_Student_University">
+      <End Role="University" EntitySet="Universities" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentAttendance_Student" Association="LSDBModel.fk_StudentAttendance_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentAttendance" EntitySet="StudentAttendances" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentClass_Student" Association="LSDBModel.fk_StudentClass_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentClass" EntitySet="StudentClasses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_StudentExcercise_Student" Association="LSDBModel.fk_StudentExcercise_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="StudentExcercise" EntitySet="StudentExcercises" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherdelegatestudent_student" Association="LSDBModel.fk_teacherdelegatestudent_student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="TeacherDelegateStudent" EntitySet="TeacherDelegateStudents" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Teacher_University" Association="LSDBModel.fk_Teacher_University">
+      <End Role="University" EntitySet="Universities" />
+      <End Role="Teacher" EntitySet="Teachers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherdelegatestudent_teacher" Association="LSDBModel.fk_teacherdelegatestudent_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="TeacherDelegateStudent" EntitySet="TeacherDelegateStudents" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teachermemory_teacher" Association="LSDBModel.fk_teachermemory_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="TeacherMemory" EntitySet="TeacherMemories" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherresearchwork_teacher" Association="LSDBModel.fk_teacherresearchwork_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="TeacherResearchWork" EntitySet="TeacherResearchWorks" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teacherstudies_teacher" Association="LSDBModel.fk_teacherstudies_teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="TeacherStudy" EntitySet="TeacherStudies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_teachermemory_teacherbackground" Association="LSDBModel.fk_teachermemory_teacherbackground">
+      <End Role="TeacherBackground" EntitySet="TeacherBackgrounds" />
+      <End Role="TeacherMemory" EntitySet="TeacherMemories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Users" Association="LSDBModel.FK_UserRole_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="AddressUniversity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UniversityId" Type="Int64" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="University" Relationship="LSDBModel.dk_AddressUniversity_University" FromRole="AddressUniversity" ToRole="University" />
+    <NavigationProperty Name="Schedules" Relationship="LSDBModel.fk_Schedule_AddressUniversity" FromRole="AddressUniversity" ToRole="Schedule" />
+  </EntityType>
+  <EntityType Name="AssignmentConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="Int64" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_AssignmentConfig_Class" FromRole="AssignmentConfig" ToRole="Class" />
+    <NavigationProperty Name="Document" Relationship="LSDBModel.fk_AssignmentConfig_Document" FromRole="AssignmentConfig" ToRole="Document" />
+    <NavigationProperty Name="StudentExcercises" Relationship="LSDBModel.fk_StudentExcercise_AssignmentConfig" FromRole="AssignmentConfig" ToRole="StudentExcercise" />
+  </EntityType>
+  <EntityType Name="Attachment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DisplayName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Extension" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Data" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="SubjectId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="VenueId" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Prerequisition" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="TeacherId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UniversityId" Type="Int64" />
+    <Property Name="TeachingAssistantId" Type="Int64" />
+    <NavigationProperty Name="AssignmentConfigs" Relationship="LSDBModel.fk_AssignmentConfig_Class" FromRole="Class" ToRole="AssignmentConfig" />
+    <NavigationProperty Name="Subject" Relationship="LSDBModel.fk_class_subject" FromRole="Class" ToRole="Subject" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_class_teacher" FromRole="Class" ToRole="Teacher" />
+    <NavigationProperty Name="Teacher1" Relationship="LSDBModel.fk_class_teacherassitant" FromRole="Class" ToRole="Teacher" />
+    <NavigationProperty Name="University" Relationship="LSDBModel.FK_Class_University" FromRole="Class" ToRole="University" />
+    <NavigationProperty Name="ClassAnnouncements" Relationship="LSDBModel.fk_ClassAnnouncement_Class" FromRole="Class" ToRole="ClassAnnouncement" />
+    <NavigationProperty Name="ClassDiscusses" Relationship="LSDBModel.fk_ClassDiscuss_Class" FromRole="Class" ToRole="ClassDiscuss" />
+    <NavigationProperty Name="CourseScores" Relationship="LSDBModel.FK_CourseScore_Class" FromRole="Class" ToRole="CourseScore" />
+    <NavigationProperty Name="Documents" Relationship="LSDBModel.fk_Document_Class" FromRole="Class" ToRole="Document" />
+    <NavigationProperty Name="Schedules" Relationship="LSDBModel.FK_Schedule_Class" FromRole="Class" ToRole="Schedule" />
+    <NavigationProperty Name="ScoreConfigs" Relationship="LSDBModel.fk_ScoreConfig_Class" FromRole="Class" ToRole="ScoreConfig" />
+    <NavigationProperty Name="StudentClasses" Relationship="LSDBModel.FK_StudentClass_Class" FromRole="Class" ToRole="StudentClass" />
+    <NavigationProperty Name="StudentExcercises" Relationship="LSDBModel.fk_StudentExcercise_Class" FromRole="Class" ToRole="StudentExcercise" />
+  </EntityType>
+  <EntityType Name="ClassAnnouncement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Brief" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MofidiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_ClassAnnouncement_Class" FromRole="ClassAnnouncement" ToRole="Class" />
+  </EntityType>
+  <EntityType Name="ClassDiscuss">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="ParentId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Level" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_ClassDiscuss_Class" FromRole="ClassDiscuss" ToRole="Class" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ParentId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+    <Property Name="ObjectLinkID" Type="Int64" />
+    <Property Name="Level" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comment1" Relationship="LSDBModel.FK_Comment_Comment" FromRole="Comment" ToRole="Comment1" />
+    <NavigationProperty Name="Comment2" Relationship="LSDBModel.FK_Comment_Comment" FromRole="Comment1" ToRole="Comment" />
+    <NavigationProperty Name="News" Relationship="LSDBModel.fk_Comment_News" FromRole="Comment" ToRole="News" />
+    <NavigationProperty Name="User" Relationship="LSDBModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
+  </EntityType>
+  <EntityType Name="CommonCode">
+    <Key>
+      <PropertyRef Name="CommonTypeId" />
+      <PropertyRef Name="CommonId" />
+    </Key>
+    <Property Name="CommonTypeId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CommonId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="StrValue1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StrValue2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StrValue3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NumValue1" Type="Decimal" Precision="20" Scale="0" />
+    <Property Name="NumValue2" Type="Decimal" Precision="20" Scale="0" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Sequence" Type="Int32" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CommonType">
+    <Key>
+      <PropertyRef Name="CommonTypeId" />
+    </Key>
+    <Property Name="CommonTypeId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CourseOrganiserId" Type="Int64" />
+    <Property Name="VenueId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Course1" Relationship="LSDBModel.FK_Course_Course" FromRole="Course" ToRole="Course1" />
+    <NavigationProperty Name="Course2" Relationship="LSDBModel.FK_Course_Course" FromRole="Course1" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="CourseScore">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Score" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="TypeScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PercentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StudentId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.FK_CourseScore_Class" FromRole="CourseScore" ToRole="Class" />
+    <NavigationProperty Name="Student" Relationship="LSDBModel.fk_CourseScore_Student" FromRole="CourseScore" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ModidiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModidiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FileExtension" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Linkl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AssignmentConfigs" Relationship="LSDBModel.fk_AssignmentConfig_Document" FromRole="Document" ToRole="AssignmentConfig" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_Document_Class" FromRole="Document" ToRole="Class" />
+    <NavigationProperty Name="StudentExcercises" Relationship="LSDBModel.fk_StudentExcercise_Document" FromRole="Document" ToRole="StudentExcercise" />
+  </EntityType>
+  <EntityType Name="Evaluation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionnaireId" Type="Int64" />
+    <Property Name="StudentId" Type="Int64" />
+    <Property Name="Posting" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StartOn" Type="DateTime" Precision="7" />
+    <Property Name="EndOn" Type="DateTime" Precision="7" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NoOfLearner" Type="Int32" Nullable="false" />
+    <Property Name="OverallAverageScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Questionnaire" Relationship="LSDBModel.FK_Evaluation_Questionnaire" FromRole="Evaluation" ToRole="Questionnaire" />
+    <NavigationProperty Name="EvaluationItems" Relationship="LSDBModel.FK_EvaluationItem_Evaluation" FromRole="Evaluation" ToRole="EvaluationItem" />
+  </EntityType>
+  <EntityType Name="EvaluationItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EvaluationId" Type="Int64" />
+    <Property Name="QuestionnaireItemId" Type="Int64" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Percentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NofResponse" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Evaluation" Relationship="LSDBModel.FK_EvaluationItem_Evaluation" FromRole="EvaluationItem" ToRole="Evaluation" />
+    <NavigationProperty Name="QuestionnaireItem" Relationship="LSDBModel.FK_EvaluationItem_QuestionnaireItem" FromRole="EvaluationItem" ToRole="QuestionnaireItem" />
+  </EntityType>
+  <EntityType Name="Function">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DisplayAs" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FunctionRoles" Relationship="LSDBModel.FK_FunctionRole_Function" FromRole="Function" ToRole="FunctionRole" />
+  </EntityType>
+  <EntityType Name="FunctionRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="FunctionId" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Function" Relationship="LSDBModel.FK_FunctionRole_Function" FromRole="FunctionRole" ToRole="Function" />
+    <NavigationProperty Name="Role" Relationship="LSDBModel.FK_FunctionRole_Role" FromRole="FunctionRole" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Infomation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Images" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TeacherId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Library">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Brief" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Links" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Keyword" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Images" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+    <Property Name="Download" Type="Int64" />
+    <Property Name="TypeId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Link">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ObjectId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FileExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UploadedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LogType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MessageType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Time" Type="DateTime" Precision="3" />
+    <Property Name="CategoryId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Title" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="NewsBrief" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NewsDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Editor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Links" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Keyword" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Images" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Comments" Relationship="LSDBModel.fk_Comment_News" FromRole="News" ToRole="Comment" />
+    <NavigationProperty Name="User" Relationship="LSDBModel.fk_news_user" FromRole="News" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Object">
+    <Key>
+      <PropertyRef Name="ObjectId" />
+    </Key>
+    <Property Name="ObjectId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ObjectGroup" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ObjectType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ObjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="PIDDate" Type="DateTime" Precision="3" />
+    <Property Name="PIDIssue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DoB" Type="DateTime" Precision="3" />
+    <Property Name="PoB" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PerAdd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TemAdd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="Boolean" />
+    <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProvieneId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Students" Relationship="LSDBModel.fk_Student_Object" FromRole="Object" ToRole="Student" />
+    <NavigationProperty Name="Students1" Relationship="LSDBModel.fk_Student_Objects" FromRole="Object" ToRole="Student" />
+    <NavigationProperty Name="Teachers" Relationship="LSDBModel.fk_Teacher_Object" FromRole="Object" ToRole="Teacher" />
+    <NavigationProperty Name="Users" Relationship="LSDBModel.FK_Users_Object" FromRole="Object" ToRole="User" />
+  </EntityType>
+  <EntityType Name="QA">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AskedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AskedDate" Type="DateTime" Precision="0" />
+    <Property Name="AnsweredBy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="AnsweredDate" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Highlight" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Questionnaire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Evaluations" Relationship="LSDBModel.FK_Evaluation_Questionnaire" FromRole="Questionnaire" ToRole="Evaluation" />
+    <NavigationProperty Name="QuestionnaireItems" Relationship="LSDBModel.FK_QuestionnaireItem_Questionnaire" FromRole="Questionnaire" ToRole="QuestionnaireItem" />
+  </EntityType>
+  <EntityType Name="QuestionnaireItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionnaireId" Type="Int64" />
+    <Property Name="SectionHeader" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Question" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MaxScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EvaluationItems" Relationship="LSDBModel.FK_EvaluationItem_QuestionnaireItem" FromRole="QuestionnaireItem" ToRole="EvaluationItem" />
+    <NavigationProperty Name="Questionnaire" Relationship="LSDBModel.FK_QuestionnaireItem_Questionnaire" FromRole="QuestionnaireItem" ToRole="Questionnaire" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SystemRole" Type="Boolean" />
+    <Property Name="DefaultRole" Type="Boolean" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FunctionRoles" Relationship="LSDBModel.FK_FunctionRole_Role" FromRole="Role" ToRole="FunctionRole" />
+    <NavigationProperty Name="UserRoles" Relationship="LSDBModel.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="EndTime" Type="Time" Precision="7" />
+    <Property Name="Contents" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="UniversityId" Type="Int64" />
+    <Property Name="AddressUniversityId" Type="Int64" />
+    <Property Name="TeacherId" Type="Int64" />
+    <NavigationProperty Name="AddressUniversity" Relationship="LSDBModel.fk_Schedule_AddressUniversity" FromRole="Schedule" ToRole="AddressUniversity" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.FK_Schedule_Class" FromRole="Schedule" ToRole="Class" />
+    <NavigationProperty Name="StudentAttendances" Relationship="LSDBModel.FK_Attendance_Schedule" FromRole="Schedule" ToRole="StudentAttendance" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_schedule_teacher" FromRole="Schedule" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="ScoreConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="TypeScore" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PercentScore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_ScoreConfig_Class" FromRole="ScoreConfig" ToRole="Class" />
+  </EntityType>
+  <EntityType Name="SiteInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="lang" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="brief" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="URL1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="URL2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="qty" Type="Int32" />
+    <Property Name="Sequence" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="ParentId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ObjectId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SchoolId" Type="Int64" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CourseScores" Relationship="LSDBModel.fk_CourseScore_Student" FromRole="Student" ToRole="CourseScore" />
+    <NavigationProperty Name="Object" Relationship="LSDBModel.fk_Student_Object" FromRole="Student" ToRole="Object" />
+    <NavigationProperty Name="Object1" Relationship="LSDBModel.fk_Student_Objects" FromRole="Student" ToRole="Object" />
+    <NavigationProperty Name="University" Relationship="LSDBModel.fk_Student_University" FromRole="Student" ToRole="University" />
+    <NavigationProperty Name="StudentAttendances" Relationship="LSDBModel.fk_StudentAttendance_Student" FromRole="Student" ToRole="StudentAttendance" />
+    <NavigationProperty Name="StudentClasses" Relationship="LSDBModel.fk_StudentClass_Student" FromRole="Student" ToRole="StudentClass" />
+    <NavigationProperty Name="StudentExcercises" Relationship="LSDBModel.fk_StudentExcercise_Student" FromRole="Student" ToRole="StudentExcercise" />
+    <NavigationProperty Name="TeacherDelegateStudents" Relationship="LSDBModel.fk_teacherdelegatestudent_student" FromRole="Student" ToRole="TeacherDelegateStudent" />
+  </EntityType>
+  <EntityType Name="StudentAttendance">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ScheduleId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="StudentId" Type="Int64" />
+    <NavigationProperty Name="Schedule" Relationship="LSDBModel.FK_Attendance_Schedule" FromRole="StudentAttendance" ToRole="Schedule" />
+    <NavigationProperty Name="Student" Relationship="LSDBModel.fk_StudentAttendance_Student" FromRole="StudentAttendance" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="StudentClass">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Score" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="StudentId" Type="Int64" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.FK_StudentClass_Class" FromRole="StudentClass" ToRole="Class" />
+    <NavigationProperty Name="Student" Relationship="LSDBModel.fk_StudentClass_Student" FromRole="StudentClass" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="StudentExcercise">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DocumentId" Type="Int64" />
+    <Property Name="ClassId" Type="Int64" />
+    <Property Name="StudentId" Type="Int64" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FileExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="AssignmentConfigId" Type="Int64" />
+    <NavigationProperty Name="AssignmentConfig" Relationship="LSDBModel.fk_StudentExcercise_AssignmentConfig" FromRole="StudentExcercise" ToRole="AssignmentConfig" />
+    <NavigationProperty Name="Class" Relationship="LSDBModel.fk_StudentExcercise_Class" FromRole="StudentExcercise" ToRole="Class" />
+    <NavigationProperty Name="Document" Relationship="LSDBModel.fk_StudentExcercise_Document" FromRole="StudentExcercise" ToRole="Document" />
+    <NavigationProperty Name="Student" Relationship="LSDBModel.fk_StudentExcercise_Student" FromRole="StudentExcercise" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SubjectType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="Int32" />
+    <Property Name="Practice" Type="Int32" />
+    <Property Name="Theory" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <NavigationProperty Name="Classes" Relationship="LSDBModel.fk_class_subject" FromRole="Subject" ToRole="Class" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TagName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TagId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Birthday" Type="DateTime" Precision="3" />
+    <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="TypeTeacherId" Type="Int64" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ObjectId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SchoolId" Type="Int64" />
+    <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Classes" Relationship="LSDBModel.fk_class_teacher" FromRole="Teacher" ToRole="Class" />
+    <NavigationProperty Name="Classes1" Relationship="LSDBModel.fk_class_teacherassitant" FromRole="Teacher" ToRole="Class" />
+    <NavigationProperty Name="Object" Relationship="LSDBModel.fk_Teacher_Object" FromRole="Teacher" ToRole="Object" />
+    <NavigationProperty Name="Schedules" Relationship="LSDBModel.fk_schedule_teacher" FromRole="Teacher" ToRole="Schedule" />
+    <NavigationProperty Name="University" Relationship="LSDBModel.fk_Teacher_University" FromRole="Teacher" ToRole="University" />
+    <NavigationProperty Name="TeacherDelegateStudents" Relationship="LSDBModel.fk_teacherdelegatestudent_teacher" FromRole="Teacher" ToRole="TeacherDelegateStudent" />
+    <NavigationProperty Name="TeacherMemories" Relationship="LSDBModel.fk_teachermemory_teacher" FromRole="Teacher" ToRole="TeacherMemory" />
+    <NavigationProperty Name="TeacherResearchWorks" Relationship="LSDBModel.fk_teacherresearchwork_teacher" FromRole="Teacher" ToRole="TeacherResearchWork" />
+    <NavigationProperty Name="TeacherStudies" Relationship="LSDBModel.fk_teacherstudies_teacher" FromRole="Teacher" ToRole="TeacherStudy" />
+  </EntityType>
+  <EntityType Name="TeacherBackground">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TeacherId" Type="Int64" />
+    <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TeacherMemories" Relationship="LSDBModel.fk_teachermemory_teacherbackground" FromRole="TeacherBackground" ToRole="TeacherMemory" />
+  </EntityType>
+  <EntityType Name="TeacherDelegateStudent">
+    <Key>
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="StudentId" Type="Int64" Nullable="false" />
+    <Property Name="TeacherId" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Topic" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SupervisionType" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Degree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Student" Relationship="LSDBModel.fk_teacherdelegatestudent_student" FromRole="TeacherDelegateStudent" ToRole="Student" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_teacherdelegatestudent_teacher" FromRole="TeacherDelegateStudent" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="TeacherMajor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ObjectId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TeacherMemory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="TeacherId" Type="Int64" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FileExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UploadedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="BackgroundId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_teachermemory_teacher" FromRole="TeacherMemory" ToRole="Teacher" />
+    <NavigationProperty Name="TeacherBackground" Relationship="LSDBModel.fk_teachermemory_teacherbackground" FromRole="TeacherMemory" ToRole="TeacherBackground" />
+  </EntityType>
+  <EntityType Name="TeacherResearchWork">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TeacherId" Type="Int64" />
+    <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Level" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Member" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_teacherresearchwork_teacher" FromRole="TeacherResearchWork" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="TeacherStudy">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="TeacherId" Type="Int64" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CanDelete" Type="Boolean" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Teacher" Relationship="LSDBModel.fk_teacherstudies_teacher" FromRole="TeacherStudy" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="University">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AddressUniversities" Relationship="LSDBModel.dk_AddressUniversity_University" FromRole="University" ToRole="AddressUniversity" />
+    <NavigationProperty Name="Classes" Relationship="LSDBModel.FK_Class_University" FromRole="University" ToRole="Class" />
+    <NavigationProperty Name="Students" Relationship="LSDBModel.fk_Student_University" FromRole="University" ToRole="Student" />
+    <NavigationProperty Name="Teachers" Relationship="LSDBModel.fk_Teacher_University" FromRole="University" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="UserId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Role" Relationship="LSDBModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+    <NavigationProperty Name="User" Relationship="LSDBModel.FK_UserRole_Users" FromRole="UserRole" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Pwd" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ObjectId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="HackTimes" Type="Int32" />
+    <Property Name="LastIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Birthday" Type="DateTime" Precision="3" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Address1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Comments" Relationship="LSDBModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
+    <NavigationProperty Name="News" Relationship="LSDBModel.fk_news_user" FromRole="User" ToRole="News" />
+    <NavigationProperty Name="Object" Relationship="LSDBModel.FK_Users_Object" FromRole="User" ToRole="Object" />
+    <NavigationProperty Name="UserRoles" Relationship="LSDBModel.FK_UserRole_Users" FromRole="User" ToRole="UserRole" />
+  </EntityType>
+  <EntityType Name="UserSocialNetwork">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ThirdParty_ID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ThirdPartyType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="dk_AddressUniversity_University">
+    <End Type="LSDBModel.University" Role="University" Multiplicity="0..1" />
+    <End Type="LSDBModel.AddressUniversity" Role="AddressUniversity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AddressUniversity">
+        <PropertyRef Name="UniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Schedule_AddressUniversity">
+    <End Type="LSDBModel.AddressUniversity" Role="AddressUniversity" Multiplicity="0..1" />
+    <End Type="LSDBModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AddressUniversity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="AddressUniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AssignmentConfig_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.AssignmentConfig" Role="AssignmentConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignmentConfig">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AssignmentConfig_Document">
+    <End Type="LSDBModel.Document" Role="Document" Multiplicity="0..1" />
+    <End Type="LSDBModel.AssignmentConfig" Role="AssignmentConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignmentConfig">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_AssignmentConfig">
+    <End Type="LSDBModel.AssignmentConfig" Role="AssignmentConfig" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentExcercise" Role="StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssignmentConfig">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="AssignmentConfigId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_subject">
+    <End Type="LSDBModel.Subject" Role="Subject" Multiplicity="0..1" />
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="SubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_class_teacherassitant">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="TeachingAssistantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Class_University">
+    <End Type="LSDBModel.University" Role="University" Multiplicity="0..1" />
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="UniversityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ClassAnnouncement_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.ClassAnnouncement" Role="ClassAnnouncement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassAnnouncement">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ClassDiscuss_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.ClassDiscuss" Role="ClassDiscuss" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassDiscuss">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseScore_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.CourseScore" Role="CourseScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseScore">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Document_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.Document" Role="Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ScoreConfig_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.ScoreConfig" Role="ScoreConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScoreConfig">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentClass_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentClass" Role="StudentClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentClass">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Class">
+    <End Type="LSDBModel.Class" Role="Class" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentExcercise" Role="StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Comment">
+    <End Type="LSDBModel.Comment" Role="Comment" Multiplicity="1" />
+    <End Type="LSDBModel.Comment" Role="Comment1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Comment">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Comment_News">
+    <End Type="LSDBModel.News" Role="News" Multiplicity="0..1" />
+    <End Type="LSDBModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="News">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="ObjectLinkID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Users">
+    <End Type="LSDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="LSDBModel.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Course_Course">
+    <End Type="LSDBModel.Course" Role="Course" Multiplicity="1" />
+    <End Type="LSDBModel.Course" Role="Course1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Course1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_CourseScore_Student">
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="LSDBModel.CourseScore" Role="CourseScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseScore">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Document">
+    <End Type="LSDBModel.Document" Role="Document" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentExcercise" Role="StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Evaluation_Questionnaire">
+    <End Type="LSDBModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1" />
+    <End Type="LSDBModel.Evaluation" Role="Evaluation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Evaluation">
+        <PropertyRef Name="QuestionnaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluationItem_Evaluation">
+    <End Type="LSDBModel.Evaluation" Role="Evaluation" Multiplicity="0..1" />
+    <End Type="LSDBModel.EvaluationItem" Role="EvaluationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evaluation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EvaluationItem">
+        <PropertyRef Name="EvaluationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EvaluationItem_QuestionnaireItem">
+    <End Type="LSDBModel.QuestionnaireItem" Role="QuestionnaireItem" Multiplicity="0..1" />
+    <End Type="LSDBModel.EvaluationItem" Role="EvaluationItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QuestionnaireItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EvaluationItem">
+        <PropertyRef Name="QuestionnaireItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FunctionRole_Function">
+    <End Type="LSDBModel.Function" Role="Function" Multiplicity="1" />
+    <End Type="LSDBModel.FunctionRole" Role="FunctionRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Function">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FunctionRole">
+        <PropertyRef Name="FunctionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FunctionRole_Role">
+    <End Type="LSDBModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="LSDBModel.FunctionRole" Role="FunctionRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FunctionRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_news_user">
+    <End Type="LSDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="LSDBModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_Object">
+    <End Type="LSDBModel.Object" Role="Object" Multiplicity="0..1" />
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_Objects">
+    <End Type="LSDBModel.Object" Role="Object" Multiplicity="0..1" />
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Teacher_Object">
+    <End Type="LSDBModel.Object" Role="Object" Multiplicity="0..1" />
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Object">
+    <End Type="LSDBModel.Object" Role="Object" Multiplicity="0..1" />
+    <End Type="LSDBModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Object">
+        <PropertyRef Name="ObjectId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ObjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuestionnaireItem_Questionnaire">
+    <End Type="LSDBModel.Questionnaire" Role="Questionnaire" Multiplicity="0..1" />
+    <End Type="LSDBModel.QuestionnaireItem" Role="QuestionnaireItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questionnaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="QuestionnaireItem">
+        <PropertyRef Name="QuestionnaireId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Type="LSDBModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="LSDBModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Attendance_Schedule">
+    <End Type="LSDBModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentAttendance" Role="StudentAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentAttendance">
+        <PropertyRef Name="ScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+    <End Type="LSDBModel.Schedule" Role="Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Student_University">
+    <End Type="LSDBModel.University" Role="University" Multiplicity="0..1" />
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentAttendance_Student">
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentAttendance" Role="StudentAttendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentAttendance">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentClass_Student">
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentClass" Role="StudentClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentClass">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_StudentExcercise_Student">
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="LSDBModel.StudentExcercise" Role="StudentExcercise" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentExcercise">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherdelegatestudent_student">
+    <End Type="LSDBModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="LSDBModel.TeacherDelegateStudent" Role="TeacherDelegateStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherDelegateStudent">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Teacher_University">
+    <End Type="LSDBModel.University" Role="University" Multiplicity="0..1" />
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="University">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherdelegatestudent_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="1" />
+    <End Type="LSDBModel.TeacherDelegateStudent" Role="TeacherDelegateStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherDelegateStudent">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teachermemory_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="1" />
+    <End Type="LSDBModel.TeacherMemory" Role="TeacherMemory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherMemory">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherresearchwork_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+    <End Type="LSDBModel.TeacherResearchWork" Role="TeacherResearchWork" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherResearchWork">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teacherstudies_teacher">
+    <End Type="LSDBModel.Teacher" Role="Teacher" Multiplicity="1" />
+    <End Type="LSDBModel.TeacherStudy" Role="TeacherStudy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherStudy">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_teachermemory_teacherbackground">
+    <End Type="LSDBModel.TeacherBackground" Role="TeacherBackground" Multiplicity="0..1" />
+    <End Type="LSDBModel.TeacherMemory" Role="TeacherMemory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TeacherBackground">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherMemory">
+        <PropertyRef Name="BackgroundId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Users">
+    <End Type="LSDBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="LSDBModel.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

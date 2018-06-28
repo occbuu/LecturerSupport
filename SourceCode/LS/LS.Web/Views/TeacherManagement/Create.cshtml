@@ -1,0 +1,274 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Quản Lý Giảng Viên - Trợ Giảng</a></li>
+            <li><a href="#">Tạo mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <form role="form" style="margin-top:10px;">
+        <div class="box-body" style="margin-left:10%;">
+            <div class="row" id="idArea" style="display:none;">
+                <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                    Id
+                </div>
+                <div class="col-lg-8">
+                    <span id="idTeacher"></span>
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Tên Giảng Viên <span style="color:red;"> *</span> :
+                </div>
+                <div class="col-lg-8">
+                    <input type="text" placeholder="Nhập tên giảng viên" id="txtName" class="form-control">
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                <div class="col-lg-2" style="font-weight:bold;">
+                    Địa chỉ <span style="color:red;"> *</span>:
+                </div>
+                <div class="col-lg-8">
+                    <input type="text" placeholder="Nhập địa chỉ" id="txtAddress" class="form-control" />
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4" style="font-weight:bold;">
+                    Ngày sinh : <input id="birthDate" type="date" min="1980-01-01" max="2000-12-31" data-date-format="dd/mm/yyyy" style="height:24px;" />
+                </div>
+                <div class="col-lg-4" style="font-weight:bold;">
+                    <div class="col-sm-6">
+                        Giới Tính :
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="radio" name="genderS" value="Nam" /> Nam
+                        <input type="radio" name="genderS" value="Nữ" style="margin-left:10%" /> Nữ
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                <div class="col-lg-2" style="font-weight:bold;">
+                    Số điện thoại <span style="color:red;"> *</span>:
+                </div>
+                <div class="col-lg-8">
+                    <input type="tel" placeholder="Nhập số điện thoại" id="txtPhone" class="form-control" />
+                </div>
+            </div>
+            <div class="row" style="margin-top:2%;">
+                <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                    Mô Tả :
+                </div>
+                <div class="col-lg-8">
+                    <textarea id="txtDescription" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-2" id="divThongBao_TB" style="margin-top: 5px;">
+                <span id="spanThongBao_TB"></span>
+            </div>
+            <div class="clearfix"></div>
+            <div style="margin-top:5px;float:right">
+                <a id="btnSaveNews" class="btn btn-primary" onclick="funcSave();" style="display: inline-block;margin-right:85px;">
+                    Lưu
+                </a>
+                <a id="btnReset" class="btn btn-primary" style="display: none;" onclick="reset();">
+                    Trở Lại
+                </a>
+                <a id="btnSaveEditNews" class="btn btn-primary" onclick="funcEdit();" style="display: none;margin-right:85px;">
+                    Lưu
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    var src = "/Scripts/js/owl.carousel.min.js";
+    $(function () {
+        CKEDITOR.replace('txtDescription');
+    });
+
+    function funcSave(){
+        var obj = {};
+        obj.FullName = $("#txtName").val();
+        obj.Address = $("#txtAddress").val();
+        obj.Birthday = $("#birthDate").val();
+        obj.PhoneNumber = $("#txtPhone").val();
+        obj.Description = CKEDITOR.instances.txtDescription.getData();
+        var radios = document.getElementsByName('genderS');
+        for (var i = 0, length = radios.length; i < length; i++)
+        {
+            if (radios[i].checked) {
+                obj.Gender=radios[i].value;
+                break;
+            }
+        }
+
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (obj.FullName.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tên!");
+            return false;
+        }
+        else if (obj.Address.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Địa chỉ!");
+            return false;
+        }
+        else if (obj.PhoneNumber.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Số ĐT!");
+            return false;
+        }
+        //else if (obj.Birthday.trim() == ??){
+
+        //}
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddTeacher", "TeacherManagement")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.success) {
+                $("#divThongBao_TB").show();
+                $("#divThongBao_TB").removeClass();
+                $("#divThongBao_TB").addClass("alert-success");
+                $("#spanThongBao_TB").text("Thêm thành công!");
+                $("#btnSaveNews").hide();
+                $("#btnSaveEditNews").show();
+                $("#btnReset").show();
+                $("#idArea").show();
+                $("#idTeacher").text(data.id);
+                }
+                else {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-danger");
+                    $("#spanThongBao_TB").text("Lỗi khi lưu vào cơ sở dữ liệu.");
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                }
+            },
+            async: false,
+        })
+    }
+
+    function funcEdit() {
+        var obj = {};
+        obj.Id = $("#idTeacher").text();
+        obj.FullName = $("#txtName").val();
+        obj.Address = $("#txtAddress").val();
+        obj.Birthday = $("#birthDate").val();
+        obj.PhoneNumber = $("#txtPhone").val();
+        obj.Description = CKEDITOR.instances.txtDescription.getData();
+        var radios = document.getElementsByName('genderS');
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+                obj.Gender = radios[i].value;
+                break;
+            }
+        }
+
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        if (obj.FullName.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Tên!");
+            return false;
+        }
+        else if (obj.Address.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Địa chỉ!");
+            return false;
+        }
+        else if (obj.PhoneNumber.trim() == "") {
+            $("#divThongBao_TB").show();
+            $("#divThongBao_TB").removeClass();
+            $("#divThongBao_TB").addClass("alert-danger");
+            $("#spanThongBao_TB").text("Vui lòng nhập Số ĐT!");
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditTeacher", "TeacherManagement")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.success) {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-success");
+                    $("#spanThongBao_TB").text("Sửa thông tin thành công!");
+                    $("#btnSaveNews").hide();
+                    $("#btnSaveEditNews").show();
+                    $("#btnReset").show();
+                    $("#idArea").show();
+                    $("#idTeacher").text(data.id);
+                }
+                else {
+                    $("#divThongBao_TB").show();
+                    $("#divThongBao_TB").removeClass();
+                    $("#divThongBao_TB").addClass("alert-danger");
+                    $("#spanThongBao_TB").text("Lỗi khi lưu vào cơ sở dữ liệu.");
+                    setTimeout(function () {
+                        $("#divThongBao_TB").hide();
+                        $("#spanThongBao_TB").val("");
+                    }, 5000);
+                }
+            },
+            async: false,
+        })
+    }
+
+    function reset() {
+        $("#txtName").val("");
+        $("#txtAddress").val("");
+        $("#birthDate").val("");
+        $("#txtPhone").val("");
+        $("#idTeacher").text("");
+        CKEDITOR.instances['txtDescription'].setData("");
+        $("#idArea").empty();
+        $("#btnSaveNews").show();
+        $("#btnSaveEditNews").hide();
+        $("#btnReset").hide();
+        $("input:radio").removeAttr("checked");
+    }
+</script>

@@ -1,0 +1,60 @@
+﻿<Window x:Class="WpfApplication1.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Title="MainWindow" Height="350" Width="500">
+    <FlowDocumentScrollViewer>
+        <FlowDocument>
+            <Paragraph FontSize="20pt">Here is an example of a flow document paragraph.</Paragraph>
+            <Table>
+                <TableRowGroup>
+                    <TableRow>
+                        <TableCell>
+                            <Paragraph>
+                                Cell one
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Cell Two
+                            </Paragraph>
+
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Cell Three
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Cell Four
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>
+                            <Paragraph>
+                                Data one
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Data Two
+                            </Paragraph>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Data Three
+                            </Paragraph>
+
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph>
+                                Data Four
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                </TableRowGroup>
+            </Table>
+        </FlowDocument>
+    </FlowDocumentScrollViewer>
+</Window>    

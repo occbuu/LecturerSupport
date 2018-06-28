@@ -1,0 +1,1131 @@
+﻿@using resx = LS.Resources.Users.ResourcesUsers;
+@using resx1 = LS.Resources.Resources;
+
+@{
+    ViewBag.Title = resx.DetailClass;
+}
+
+@using LS.Web.Models;
+@using LS.Utility;
+
+@section scripts {
+    <script src="~/Scripts/controller/usersController.js"></script>
+}
+@model ClassViewModel
+
+<div class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.DetailClass</h2>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx.User</a></li>
+                    <li>@resx.MyClass / @resx.DetailClass </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div class="container">
+        <div class="col-md-12">
+            <ul class="menu-list-tab nav nav-pills">
+                <li class="active"><a data-toggle="pill" href="#introduction">@resx1.Introduction</a></li>
+                <li><a data-toggle="pill" href="#syllabus" style="width:180px!important">@resx.Syllabus</a></li>
+                <li><a data-toggle="pill" href="#exercise">@resx.Exercise</a></li>
+                <li><a data-toggle="pill" href="#document">@resx.Document</a></li>
+                <li><a data-toggle="pill" href="#schedule">@resx.Schedule</a></li>
+                <li><a data-toggle="pill" href="#diligence">@resx.Diligence</a></li>
+                <li><a data-toggle="pill" href="#score">@resx.CourseScore</a></li>
+                <li><a data-toggle="pill" href="#discuss">@resx.Discuss</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="introduction" class="sharing-doc tab-pane fade in active">
+                    <h3>@Model.Name</h3><br />
+                    <strong>Teacher: </strong>@Model.Teacher<br />
+                    <strong>Teacher Assignment: </strong>@Model.TeacherAssistant<br />
+                    <br /><br />
+                    @Html.Raw(Model.Value)
+                </div>
+                <div id="syllabus" class="sharing-doc tab-pane fade">
+                    <div class="tabs-section">
+                        <!-- Nav Tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#sys-tab-1" data-toggle="tab"><i class="fa fa-desktop"></i>@resx.Primary</a></li>
+                            <li><a href="#sys-tab-2" data-toggle="tab"><i class="fa fa-leaf"></i>@resx.Reference</a></li>
+                            <li><a href="#sys-tab-3" data-toggle="tab"><i class="fa fa-rocket"></i>@resx.Extension</a></li>
+                        </ul>
+                        <!-- Tab panels -->
+                        <div class="tab-content">
+                            <!-- Tab Content 1 -->
+                            <div class="tab-pane fade in active" id="sys-tab-1">
+                                <ul id="ulLessonPrimary"></ul>
+                                <div id="paginationLP" class="pull-right pagination"></div>
+                            </div>
+                            <!-- Tab Content 2 -->
+                            <div class="tab-pane fade" id="sys-tab-2">
+                                <ul id="ulLessonReferences"></ul>
+                                <div id="paginationLR" class="pull-right pagination"></div>
+                            </div>
+                            <!-- Tab Content 3 -->
+                            <div class="tab-pane fade" id="sys-tab-3">
+                                <ul id="ulLessonExtension"></ul>
+                                <div id="paginationLE" class="pull-right pagination"></div>
+                            </div>
+                        </div>
+                        <!-- End Tab Panels -->
+                    </div>
+                </div>
+                <div id="exercise" class="sharing-doc tab-pane fade">
+                    <div class="tabs-section">
+                        <!-- Nav Tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#exe-tab-1" data-toggle="tab"><i class="fa fa-desktop"></i>@resx.Obligatory</a></li>
+                            <li><a href="#exe-tab-3" data-toggle="tab"><i class="fa fa-rocket"></i>@resx.Extension</a></li>
+                        </ul>
+                        <!-- Tab panels -->
+                        <div class="tab-content">
+                            <!-- Tab Content 1 -->
+                            <div class="tab-pane fade in active" id="exe-tab-1">
+                                <ul id="ulExerciseObligatory"></ul>
+                                <div id="paginationEO" class="pull-right pagination"></div>
+                            </div>
+                            <!-- Tab Content 3 -->
+                            <div class="tab-pane fade" id="exe-tab-3">
+                                <ul id="ulExerciseExtension"></ul>
+                                <div id="paginationEE" class="pull-right pagination"></div>
+                            </div>
+                        </div>
+                        <!-- End Tab Panels -->
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="modal fade" id="submit-file" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content" style="margin-top:85px">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">SUBMIT</h3>
+                                    </div>
+                                    <div class="modal-body box-body">
+                                        <div class="row">
+                                            <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                                Choose Content<span style="color:red;"> *</span>:
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <select class="form-control" id="submit-type"></select>
+                                            </div>
+                                            <br><br>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                                Choose File<span style="color:red;"> *</span>:
+                                            </div>
+                                            <div class="col-lg-6" style="margin-top: 5px;">
+                                                <input type="file" class="upload" id="upload-file" />
+                                            </div>
+                                            <br /><br />
+                                        </div>
+                                        <br />
+                                        <div class="alert-danger" id="divThongBaoEditConfig" style="margin-top: 5px;">
+                                            <span id="spanThongBaoEditConfig" style="margin-left:2%"></span>
+                                        </div>
+                                        <br />
+                                        <div style="float:right">
+                                            <button id="btnSubmit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em; height:33px">Submit</button>
+                                        </div>
+                                        <br />
+                                        <legend></legend>
+                                        <div class="container-fluid">
+                                            <div id="dashboard_links">
+                                                <ul class="nav nav-pills">
+                                                    <li class="active"><a id="overview" class="tab-link" data-toggle="pill" href="#home">Your History</a></li>
+                                                </ul>
+                                            </div>
+                                            <div id="dashboard_tabs" class="tab-content">
+                                                <div id="home" class="tab-pane fade in active">
+                                                    <div class="row">
+                                                        <div class="box">
+                                                            <div class="box-header">
+                                                                <div class="box-name ui-draggable-handle">
+                                                                    <i class="fa fa-table"></i>
+                                                                </div>
+                                                                <div class="no-move"></div>
+                                                            </div>
+                                                            <div class="box-content no-padding">
+                                                                <table class="table table-striped table-bordered table-hover table-heading no-border-bottom">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Content</th>
+                                                                            <th>Status</th>
+                                                                            <th>File</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="tableSubmitFile"></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="document" class="sharing-doc tab-pane fade">
+                    <div class="tabs-section">
+                        <!-- Nav Tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#doc-tab-1" data-toggle="tab"><i class="fa fa-desktop"></i>@resx.Primary</a></li>
+                            <li><a href="#doc-tab-2" data-toggle="tab"><i class="fa fa-leaf"></i>@resx.Reference</a></li>
+                        </ul>
+                        <!-- Tab panels -->
+                        <div class="tab-content">
+                            <!-- Tab Content 1 -->
+                            <div class="tab-pane fade in active" id="doc-tab-1">
+                                <ul id="ulConspectusPrimary"></ul>
+                                <div id="paginationCP" class="pull-right pagination"></div>
+                            </div>
+                            <!-- Tab Content 2 -->
+                            <div class="tab-pane fade" id="doc-tab-2">
+                                <ul id="ulConspectusReferences"></ul>
+                                <div id="paginationCR" class="pull-right pagination"></div>
+                            </div>
+                        </div>
+                        <!-- End Tab Panels -->
+                    </div>
+                </div>
+                <div id="schedule" class="tab-pane fade">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@resx.Date</th>
+                                <th>@resx.Time</th>
+                                <th>@resx.Content</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>03/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <p><span style="color: #ffbb04;"><strong><span style="font-size: small;">Bài giảng 1. Tổng quan về kinh tế học môi trường và chính sách môi trường</span></strong></span></p>
+                                    <p><span style="font-size: small;">Bài giảng này thảo luận vai trò của kinh tế học môi trường và chính sách môi trường, và mối quan hệ giữa kinh tế học môi trường với các nhánh kinh tế học khác, kèm theo một số ví dụ thực tiễn về chính sách môi trường.</span></p>
+                                    <p><strong><span style="font-size: small;">Bài đọc bắt buộc:</span></strong></p>
+                                    <p><span style="font-size: small;">*Perkins, Dwight, Steven Radelet and David Lindauer (2006). Economics of Development, New York: WW Norton and Company, 6th edition. Chương 20. [Bản dịch tiếng Việt]</span></p>
+                                    <p><em><span style="font-size: small;">Tài liệu tham khảo thêm:</span></em></p>
+                                    <p><span style="font-size: small;">- Hussen, Ahmed (2004). Principles of Environmental Economics, Routledge London 2nd Edition, ISBN 0-203-57050-2. Chương 4, 5, 6. [Bản dịch tiếng Việt]</span></p>
+                                    <p><strong><em><span style="font-size: small;">Phát bài viết chính sách 1</span></em></strong></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <p><span style="color: #ffbb04;"><strong><span style="font-size: small;">Bài giảng 2. Các công cụ chính sách môi trường</span></strong></span></p>
+                                    <p><span style="font-size: small;">Bài giảng này giới thiệu các nguyên lý nền tảng của chính sách môi trường, và cách thức chính phủ có thể chỉnh sửa thất bại thị trường và ngoại tác môi trường thông qua các công cụ chính sách dựa vào thị trường và luật pháp.</span></p>
+                                    <p><strong><span style="font-size: small;">Bài đọc bắt buộc:</span></strong></p>
+                                    <p><span style="font-size: small;">*Hussen (2004). Chương 4, 5, 6. [Bản dịch tiếng Việt]</span></p>
+                                    <p><em><span style="font-size: small;">Tài liệu tham khảo thêm:</span></em></p>
+                                    <p><span style="font-size: small;">- Field, Barry C. (1997). Environmental Economics: An Introduction, 2nd Edition. McGraw-Hill, ISBN 0-07-021498-0. Chương 9-13. [Bản dịch tiếng Việt]</span></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="float:right">
+                        <span class="all-pages">Page 1 of 3</span>
+                        <span class="current page-num">1</span>
+                        <a class="page-num" href="#">2</a>
+                        <a class="page-num" href="#">3</a>
+                        <a class="next-page" href="#">Next</a>
+                    </div>
+                </div>
+                <div id="diligence" class="tab-pane fade">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@resx.Date</th>
+                                <th>@resx.Time</th>
+                                <th>@resx.Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>03/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" disabled value="">Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" disabled checked value="">Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>17/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" disabled value="">Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>24/05/2016</td>
+                                <td>15:30 - 17:00</td>
+                                <td>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" disabled checked value="">Absent</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="float:right">
+                        <span class="all-pages">Page 1 of 3</span>
+                        <span class="current page-num">1</span>
+                        <a class="page-num" href="#">2</a>
+                        <a class="page-num" href="#">3</a>
+                        <a class="next-page" href="#">@resx.Next</a>
+                    </div>
+                </div>
+                <div id="score" class="tab-pane fade">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@resx.NameOfStudent</th>
+                                <th>@resx.Score 30%</th>
+                                <th>@resx.Score 70%</th>
+                                <th>@resx.Total (@resx.Base 10)</th>
+                                <th>@resx.Total (@resx.Base 4)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nguyên Văn A</td>
+                                <td>7.5</td>
+                                <td>7.5</td>
+                                <td>7.5</td>
+                                <td>B+</td>
+                            </tr>
+                            <tr>
+                                <td>Trần Văn B</td>
+                                <td>8.5</td>
+                                <td>8.5</td>
+                                <td>8.5</td>
+                                <td>A</td>
+                            </tr>
+                            <tr>
+                                <td>Dương Văn C</td>
+                                <td>7</td>
+                                <td>7</td>
+                                <td>7</td>
+                                <td>B</td>
+                            </tr>
+                            <tr>
+                                <td>Phạm Tuấn K</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>9</td>
+                                <td>A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="float:right">
+                        <span class="all-pages">Page 1 of 3</span>
+                        <span class="current page-num">1</span>
+                        <a class="page-num" href="#">2</a>
+                        <a class="page-num" href="#">3</a>
+                        <a class="next-page" href="#">@resx.Next</a>
+                    </div>
+                </div>
+                <div id="discuss" class="tab-pane fade">
+                    <!--CHAT TOPIC 1-->
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" id="accordion">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <i class="fa fa-angle-up control-icon"></i>
+                                        <i class="glyphicon glyphicon-comment"></i>why the Earth is a sphere?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapseOne">
+                                <div class="panel-body">
+                                    <ul class="chat">
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">12 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">13 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">14 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">15 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                                Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--CHAT TOPIC 2-->
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" id="accordion">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        <i class="fa fa-angle-up control-icon"></i>
+                                        <i class="glyphicon glyphicon-comment"></i> why do humans breathe?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapseTwo">
+                                <div class="panel-body">
+                                    <ul class="chat">
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">12 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">13 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">14 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">15 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                                Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END TOPIC 2-->
+                    <!--CHAT TOPIC 3-->
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" id="accordion">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        <i class="fa fa-angle-up control-icon"></i>
+                                        <i class="glyphicon glyphicon-comment"></i>who are ancestors of humans?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapseThree">
+                                <div class="panel-body">
+                                    <ul class="chat">
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">12 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">13 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">14 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted"><span class="glyphicon glyphicon-@resx.Time"></span><span class="@resx.Time-cmt-ago">15 mins ago</span></small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                                Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END TOPIC 3-->
+                    <!--CHAT TOPIC 4-->
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" id="accordion">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                                        <i class="fa fa-angle-up control-icon"></i>
+                                        <i class="glyphicon glyphicon-comment"></i>Who is Jesus'?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="collapseFour">
+                                <div class="panel-body">
+                                    <ul class="chat">
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">12 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">13 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="left clearfix">
+                                            <span class="chat-img pull-left">
+                                                <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong>
+                                                    <small class="pull-right text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">14 mins ago</span>
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix">
+                                            <span class="chat-img pull-right">
+                                                <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                                            </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class="text-muted">
+                                                        <span class="glyphicon glyphicon-@resx.Time"></span>
+                                                        <span class="@resx.Time-cmt-ago">15 mins ago</span>
+                                                    </small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                                Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--END TOPIC 4-->
+                        </div>
+                    </div>
+                    <!--END CHAT-->
+                    <div id="pagination" style="float:right">
+                        <span class="all-pages">Page 1 of 3</span>
+                        <span class="current page-num">1</span>
+                        <a class="page-num" href="#">2</a>
+                        <a class="page-num" href="#">3</a>
+                        <a class="next-page" href="#">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tab-content {
+        border: none;
+        color: #666;
+    }
+
+    a {
+        color: #666;
+    }
+
+    .menu-list-tab li a {
+        width: 120px !important;
+    }
+
+    #introduction p {
+        text-align: justify;
+    }
+
+    .pagination > .active > a, .pagination > .active > a:hover {
+        z-index: 2;
+        color: #fff;
+        cursor: default;
+        background-color: indianred;
+        border-color: indianred;
+    }
+</style>
+
+<script id="scriptLessonPrimary" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptLessonReferences" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptLessonExtension" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptConspectusPrimary" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptConspectusReferences" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptExerciseObligatory" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" type="button" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <button id="btnShowSubmit" onclick="loadSubmit('${Id}','${ClassId}')" type="button" data-toggle="modal" data-target="#submit-file" class="btn btn-default btn-mini pull-right">Submit</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script id="scriptExerciseExtension" type="text/x-jquery-tmpl">
+    <li>
+        <h3>${Title}</h3>
+        <span>${CreateOn}</span><br />
+        <span>${CreateBy}</span><br />
+        <span class="read-more-2" onclick="showToggle('${Id}');" id="rm_${Id}">@resx.ReadMore...</span>
+        <br /><br />
+        <div id="tg_${Id}" class="collapse">
+            {{html Content}}
+            <div class="attachments">
+                <div class="atmContent">
+                    <strong>Attachments:</strong>
+                    <div class="filename">
+                        <a href="${Link}">Download here</a>
+                    </div>
+                </div>
+            </div>
+            <button id="btnClose" onclick="hideToggle('${Id}');" class="btn btn-default btn-mini pull-right">Close</button>
+            <br />
+        </div>
+    </li>
+    <hr />
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        loadLessonReferences();
+        loadConspectus();
+        loadExercise();
+    });
+
+    function showToggle(id) {
+        $('#rm_' + id + '').css("display", "none");
+        $('#tg_' + id + '').toggle(300);
+    }
+
+    function hideToggle(id) {
+        $('#tg_' + id + '').toggle(300);
+        $('#rm_' + id + '').css("display", "block");
+    }
+
+    function loadLessonReferences() {
+        var classId = "@Model.Id";
+        loadDocLP(classId, '@Constants.Document.DocLessonPrimary');
+        loadDocLR(classId, '@Constants.Document.DocLessonReferences');
+        loadDocLE(classId, '@Constants.Document.DocLessonExtention');
+    }
+
+    function loadConspectus() {
+        var classId = "@Model.Id";
+        loadDocCP(classId, '@Constants.Document.DocConspectusPrimary');
+        loadDocCR(classId, '@Constants.Document.DocConspectusReferences');
+    }
+
+    function loadExercise() {
+        var classId = "@Model.Id";
+        loadDocEO(classId, '@Constants.Document.DocExercisePrimary');
+        loadDocEE(classId, '@Constants.Document.DocExerciseExtention');
+    }
+
+
+    function getAssignmentConfig(idStatus, docId, classId) {
+        $('#' + idStatus + '').empty();
+        if ((docId != undefined && docId != null && docId != "") && (classId != undefined && classId != null && classId != "")) {
+            $.ajax({
+                url: "@Url.Action("GetAssignmentConfig", "Class")",
+                type: "POST",
+                dataType: "Json",
+                data: { docId: docId, classId: classId },
+                success: function (response) {
+                    if (response.status) {
+                        for (var i = 0; i < response.lstAgC.length; i++) {
+                            option = "<option value='" + response.lstAgC[i].Id + "'>" + response.lstAgC[i].Content + "</option>";
+                            $(option).appendTo("#" + idStatus + "");
+                        }
+                    }
+                },
+                async: false
+            });
+        }
+    }
+
+    function loadSubmit(docId, classId) {
+        getAssignmentConfig('submit-type', docId, classId);
+        $('#divThongBaoEditConfig').hide();
+        document.getElementById("btnSubmit").onclick = function () { submitFile(docId, classId) };
+    }
+
+    function submitFile(docId, classId) {
+        if ((docId != undefined && docId != null && docId != "") && (classId != undefined && classId != null && classId != "")) {
+            var obj = {};
+            obj.DocumentId = docId;
+            obj.ClassId = classId;
+            if(@UserFrontVM.CurrentUser.StudentId==null){
+                $("#divThongBaoEditConfig").show();
+                $("#divThongBaoEditConfig").removeClass();
+                $("#divThongBaoEditConfig").addClass("alert-danger");
+                $("#spanThongBaoEditConfig").text("You cannt upload!");
+                return false;
+            }
+            else {
+                obj.StudentId = @UserFrontVM.CurrentUser.StudentId;
+            }
+
+            obj.AssignmentConfigId = $('#submit-type').val();
+
+            if (obj.AssignmentConfigId.trim() == "") {
+                $("#divThongBaoEditConfig").show();
+                $("#divThongBaoEditConfig").removeClass();
+                $("#divThongBaoEditConfig").addClass("alert-danger");
+                $("#spanThongBaoEditConfig").text("Please choose content before submiting");
+                return false;
+            }
+
+            var file = document.getElementById("upload-file");
+            var formData = new FormData();
+            formData.append("obj", JSON.stringify(obj));
+
+            if (file.value != "") {
+                formData.append('file', file.files[0]);
+                formData.append('cofile', true);
+            }
+            else {
+                return false;
+                formData.append('cofile', false);
+            }
+
+            if (obj != undefined || obj != null || obj != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("CreateStudentExercise", "Users")",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) {
+                        if (response.success == 1) {
+                            $('#submit-file').val("");
+                            $("#divThongBaoEditConfig").show();
+                            $("#divThongBaoEditConfig").removeClass();
+                            $("#divThongBaoEditConfig").addClass("alert-success");
+                            $("#spanThongBaoEditConfig").text("Success");
+
+                        }
+
+                        else if (response.success == -1) {
+                            $("#divThongBaoEditConfig").show();
+                            $("#divThongBaoEditConfig").removeClass();
+                            $("#divThongBaoEditConfig").addClass("alert-danger");
+                            $("#spanThongBaoEditConfig").text("We found some problems when creating");
+                        }
+                    },
+                    async: false
+                });
+            }
+        }
+    }
+
+    //#region -- Helper --
+
+    $("input[id=submit-file]").change(function () {
+        var fileExtension = ['rar', 'zip', '7z', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'pps', 'ppsx'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $("#divThongBaoEditConfig").show();
+            $("#divThongBaoEditConfig").removeClass();
+            $("#divThongBaoEditConfig").addClass("alert-danger");
+            $("#spanThongBaoEditConfig").text("Invalid format");
+            this.value = "";
+            return false;
+        }
+        if (this.files[0].size >= 4194304) {
+            $("#divThongBaoEditConfig").show();
+            $("#divThongBaoEditConfig").removeClass();
+            $("#divThongBaoEditConfig").addClass("alert-danger");
+            $("#spanThongBaoEditConfig").text("please choose file that less than 4 MB");
+            this.value = "";
+            return false;
+        }
+    });
+
+    //#endregion -- Helper --
+
+</script>

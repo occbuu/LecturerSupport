@@ -1,0 +1,383 @@
+﻿@using resx = LS.Resources.Users.ResourcesUsers
+@using resx1 = LS.Resources.Resources
+@using resx2 = LS.Resources.About.ResourcesAbout
+@using LS.Web.Models;
+@using LS.Utility;
+
+@model UserFrontVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}
+
+@{
+    var tmp = HttpContext.Current.Session["IsLogin"];
+    var isLogin = tmp != null;
+    if (isLogin)
+    {
+        var name = UserFrontVM.CurrentUser.Name;
+    }
+    <!-- Start Page Banner -->
+        <div class="page-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>@resx.Profile</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="breadcrumbs">
+                            <li><a href="#">@resx.User</a></li>
+                            <li>@resx.Profile</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End Page Banner -->
+    <!-- Start Content -->
+        <div id="content">
+            <div class="container">
+                <div class="row blog-page">
+                    <!--Sidebar-->
+                    <div class="col-md-3 sidebar left-sidebar" style="float:left">
+                        <!-- Search Widget -->
+                        <div class="container" id="img">
+                            @{var avatar = Constants.UserFront.DirImagesUser + UserFrontVM.CurrentUser.Avatar;}
+                            <img src="@UserFrontVM.CurrentUser.Avatar" alt="Norway" width="1000" height="300" class="img-thumbnail">
+                        </div>
+                        <!-- Categories Widget -->
+                        <div class="widget widget-categories" style="margin-top:5%">
+                            <h4 id="username" style="font-weight:700" class="accent-color">
+                                <span>@UserFrontVM.CurrentUser.Name</span>
+                                <button id="btnEdit" class="glyphicon glyphicon-pencil" style="display:none" data-toggle="modal" data-target="#myModal"></button><span class="head-line"></span>
+                            </h4>
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)" style="font-weight:600">@resx.Birthday: <span></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" style="font-weight:600">@resx2.Address: <span></span></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" style="font-weight:600">@resx2.Email: <span>@UserFrontVM.CurrentUser.UserId</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--End sidebar-->
+                    <!-- Start Blog Posts -->
+                    <div class="col-md-9 blog-box">
+                        <h1 style="text-align:center;font-size: 3.5em; font-weight:700" class="accent-color">@resx1.Announcement</h1>
+                        <div class="blog-post quote-post" style="margin-top:10%">
+                            <h1 style="text-align:left ; font-weight:700; padding-bottom:5%" class="accent-color">@resx.NewestAnnouncements:</h1>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a style="cursor:pointer" data-toggle="modal" data-target="#ModalAnnouncement">
+                                        <h2>This week, We will absent ^^, because I wil travel with my old studens. Last week, we will come back.</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>December 24, 2016</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, 30/12/2016 You wil fee for me :D .</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>December 30, 2016</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, 1/1/2017 We wil absent, because Lunar New Year. 3/1/2017 We will come back :D .</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>January 1, 2017</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, Tonight. We will have party at New World restaurant. </h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>January 10, 2017</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, 8/3/2017 I send good wishes for the girls .</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>March 8, 2017</li>
+                                </ul>
+                            </div>
+                            <!-- Start Pagination -->
+                            <div id="pagination" style="float:right">
+                                <span class="all-pages">Page 1 of 3</span>
+                                <span class="current page-num">1</span>
+                                <a class="page-num" href="#">2</a>
+                                <a class="page-num" href="#">3</a>
+                                <a class="next-page" href="#">@resx.Next</a>
+                            </div>
+                        </div>
+                        <!-- End Pagination -->
+                        <!--Another Announcement-->
+                        <div class="blog-post quote-post" style="margin-top:5%">
+                            <h1 style="text-align:left ; font-weight:700; padding-bottom:5%" class="accent-color">@resx.AnotherAnnouncements:</h1>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>This week, We will absent ^^, because I wil travel with my old studens. Last week, we will come back.</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>December 24, 2016</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, 30/12/2016 You wil fee for me :D .</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>December 30, 2016</li>
+                                </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-quote-left"></i></div>
+                                <div class="qoute-box">
+                                    <a href="#">
+                                        <h2>Hello Every my student, 30/12/2016 You wil fee for me :D .</h2>
+                                    </a>
+                                </div>
+                                <ul class="post-meta">
+                                    <li>By <a href="#">Thanh Dieu</a></li>
+                                    <li>December 30, 2016</li>
+                                </ul>
+                            </div>
+                            <!-- Start Pagination -->
+                            <div id="pagination" style="float:right">
+                                <span class="all-pages">Page 1 of 3</span>
+                                <span class="current page-num">1</span>
+                                <a class="page-num" href="#">2</a>
+                                <a class="page-num" href="#">3</a>
+                                <a class="next-page" href="#">@resx.Next</a>
+                            </div>
+                            <!-- End Pagination -->
+                        </div>
+                        <!-- End Post -->
+                    </div>
+                    <!-- End Blog Posts -->
+                </div>
+            </div>
+        </div>
+    <!--Modal -->
+                                <div class="container">
+                                    <!-- Modal Edit-->
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            @using (Html.BeginForm("UpdateProfile", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="modal-content" style="margin-top:85px">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">EDIT INFORMATION</h3>
+                                                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                                                        @Html.Hidden("userId", UserFrontVM.CurrentUser.UserId)
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group input-group input-group-btn">
+                                                            <label class="control-label col-md-2"><strong>First Name</strong></label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" id="fName" name="fName" value="@UserFrontVM.CurrentUser.Name" class="form-control" required>
+                                                            </div>
+                                                        </div><br />
+                                                        @*<div class="form-group input-group input-group-btn">
+                                                            <label class="control-label col-md-2"><strong>Last Name</strong></label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" id="lName" name="lName" value="@lastName" class="form-control" required>
+                                                            </div>
+                                                        </div><br />*@
+                                                        <div class="form-group input-group input-group-btn">
+                                                            <label class="control-label col-md-2"><strong>Birthday</strong></label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" id="datepicker" value="@String.Format("{0:MM/dd/yyyy}")" name="birthday" class="form-control">
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="form-group input-group input-group-btn">
+                                                            <label class="control-label col-md-2"><strong>Address</strong></label>
+                                                            <div class="col-md-10">
+                                                                <input type="text" id="eAddress" value="" name="Address1" class="form-control">
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="form-group input-group input-group-btn">
+                                                            <label class="control-label col-md-2"><strong>Avatar</strong></label>
+                                                            <div class="col-md-10">
+                                                                <input type="file" id="eAvatar" name="avt" style="height: 80%" class="form-control">
+                                                            </div>
+                                                        </div><br />
+                                                        <div class="container" id="img">
+                                                            <img src="@avatar" alt="Norway" style="width: 250px; height: 250px;" class="img-thumbnail">
+                                                        </div>
+                                                        <br />
+                                                        <!--<div class="input-group input-group-btn">
+                                                            <h4>First Name: <input type="text" id="fName" name="" style="width:80%;margin-left:20px" class="form-control"></h4>
+                                                        </div><br />
+                                                        <div class="input-group input-group-btn">
+                                                            <h4>Last Name: <input type="text" id="lName" name="" style="width:80%;margin-left:20px" class="form-control"></h4>
+                                                        </div><br />
+                                                        <div class="input-group input-group-btn">
+                                                            <h4>Birthday: <input type="text" name="Birthday" id="eBirthday" style="width:80%" class="form-control"></h4>
+                                                        </div><br />
+                                                        <div class="input-group input-group-btn">
+                                                            <h4>Address: <input type="text" id="eAddress" name="Address1" style="width:80%;margin-left:4px" class="form-control"></h4>
+                                                        </div><br />
+                                                        <div class="input-group input-group-btn">
+                                                            <h4>Email: <input type="text" name="Email" id="eEmail" style="width:80%;margin-left:24px" class="form-control"></h4>
+                                                        </div><br />
+                                                        <div class="input-group input-group-btn">
+                                                            <h4>Avatar: <input type="file" name="Avatar" id="eAvatar" style="width:80%;margin-left:24px" class="form-control"></h4>
+                                                        </div>-->
+                                                        <br />
+                                                        <div style="float:right">
+                                                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Edit</button>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+
+                                                    @*<div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>*@
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <!-- Modal Announcement-->
+                                    <div class="modal fade" id="ModalAnnouncement" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content" style="margin-top:85px">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">ANNOUNCEMENT</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="post-content">
+                                                        <div class="post-type"></div>
+                                                        <div class="qoute-box">
+                                                            <a style="cursor:pointer" data-toggle="modal" data-target="#ModalAnnouncement">
+                                                                <h2>This week, We will absent ^^, because I wil travel with my old studens. Last week, we will come back.</h2>
+                                                            </a>
+                                                        </div>
+                                                        <ul class="post-meta">
+                                                            <li>By <a href="#">Thanh Dieu</a></li>
+                                                            <li>December 24, 2016</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <!-- End Content -->
+                                }
+}
+<style>
+    .owl-buttons {
+        margin-top: 12%;
+    }
+
+    .container {
+        position: relative;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+</style>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+
+    //Avatar
+    $("#img").mouseenter(function () {
+        var a = $("#img").children()[0];
+        $(a).css("opacity", "0.3");
+        $("#topleft").slideDown(1);
+    });
+
+    $("#img").mouseleave(function () {
+        var a = $("#img").children()[0];
+        $(a).css("opacity", "1");
+        $("#topleft").slideUp(1);
+    });
+
+    //UserName
+    $("#username").mouseenter(function () {
+        $("#btnEdit").show();
+    });
+
+    $("#username").mouseleave(function () {
+        $("#btnEdit").hide();
+    });
+</script>

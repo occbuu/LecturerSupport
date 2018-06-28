@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Thông tin về tôi</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="ComparativeLinguistic" xml:space="preserve">
+    <value>Ngôn ngữ học so sánh đối chiếu</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="DelegateStudents" xml:space="preserve">
+    <value>Sinh viên tiêu biểu</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Địa chỉ Email</value>
+  </data>
+  <data name="EnglishLanguage" xml:space="preserve">
+    <value>Tiếng Anh</value>
+  </data>
+  <data name="EnglishLinguistic" xml:space="preserve">
+    <value>Ngữ học Anh</value>
+  </data>
+  <data name="EnglishSkill" xml:space="preserve">
+    <value>Kĩ năng</value>
+  </data>
+  <data name="EnglishTeachingMethodology" xml:space="preserve">
+    <value>Phương pháp giảng dạy</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Quên mật khẩu</value>
+  </data>
+  <data name="Grammar" xml:space="preserve">
+    <value>Ngữ pháp</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Trang chủ</value>
+  </data>
+  <data name="Introduction" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="JapaneseCulture" xml:space="preserve">
+    <value>Văn hóa Nhật Bản</value>
+  </data>
+  <data name="JapaneseLanguage" xml:space="preserve">
+    <value>Tiếng Nhật</value>
+  </data>
+  <data name="JapaneseLinguistic" xml:space="preserve">
+    <value>Nhật ngữ</value>
+  </data>
+  <data name="JapaneseLiterature" xml:space="preserve">
+    <value>Văn học Nhật Bản</value>
+  </data>
+  <data name="JapanHistory" xml:space="preserve">
+    <value>Lịch sử Nhật Bản</value>
+  </data>
+  <data name="JapanStudies" xml:space="preserve">
+    <value>Nhật Bản học</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="MemoryAndGallery" xml:space="preserve">
+    <value>Kỉ niệm đó đây</value>
+  </data>
+  <data name="MyClass" xml:space="preserve">
+    <value>Các lớp học</value>
+  </data>
+  <data name="OpenPost" xml:space="preserve">
+    <value>Tài liệu mở</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="PleaseSignIn" xml:space="preserve">
+    <value>Vui lòng đăng nhập</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Thông tin cá nhân</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Đăng ký</value>
+  </data>
+  <data name="ResearchWork" xml:space="preserve">
+    <value>Thành tựu nghiên cứu</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Lịch dạy</value>
+  </data>
+  <data name="Studies" xml:space="preserve">
+    <value>Hướng nghiên cứu</value>
+  </data>
+  <data name="Survey" xml:space="preserve">
+    <value>Khảo sát</value>
+  </data>
+  <data name="Teaching" xml:space="preserve">
+    <value>Quá trình giảng dạy</value>
+  </data>
+  <data name="Translation" xml:space="preserve">
+    <value>Dịch thuật</value>
+  </data>
+  <data name="VietnameseLanguage" xml:space="preserve">
+    <value>Tiếng Việt</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Chào mừng đến với trang thông tin của TS. Thanh Diệu</value>
+  </data>
+  <data name="DR" xml:space="preserve">
+    <value>TS</value>
+  </data>
+  <data name="FunctionalGrammar" xml:space="preserve">
+    <value>Ngữ pháp chức năng</value>
+  </data>
+  <data name="LiteratureLinguistic" xml:space="preserve">
+    <value>Ngôn ngữ văn chương và phong cách học</value>
+  </data>
+  <data name="Morphology" xml:space="preserve">
+    <value>Hình thái học</value>
+  </data>
+  <data name="Phonology" xml:space="preserve">
+    <value>Âm vị học</value>
+  </data>
+  <data name="Pragmatic" xml:space="preserve">
+    <value>Ngữ dụng học</value>
+  </data>
+  <data name="Semantic" xml:space="preserve">
+    <value>Ngữ nghĩa học</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="Syntax" xml:space="preserve">
+    <value>Cú pháp học</value>
+  </data>
+  <data name="TranThiThanhDieu" xml:space="preserve">
+    <value>TRẦN THỊ THANH DIỆU</value>
+  </data>
+  <data name="TitleHome" xml:space="preserve">
+    <value>:: TS Thanh Dieu :: Chào mừng bạn !</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Bản quyền cá nhân</value>
+  </data>
+  <data name="Conditions" xml:space="preserve">
+    <value>Điều kiện</value>
+  </data>
+  <data name="FollowMe" xml:space="preserve">
+    <value>Liên kết cá nhân</value>
+  </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>Liên Lạc</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Chính sách bảo mật</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Điều khoản</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Trang cá nhân</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Hình Ảnh</value>
+  </data>
+  <data name="SocialNetwork" xml:space="preserve">
+    <value>Mạng xã hội</value>
+  </data>
+  <data name="IAm" xml:space="preserve">
+    <value>Tôi là</value>
+  </data>
+  <data name="MoreAboutLecturers" xml:space="preserve">
+    <value>Nhiều hơn về giảng viên</value>
+  </data>
+  <data name="MoreImportant" xml:space="preserve">
+    <value>là quan trọng hơn</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Chất lượng</value>
+  </data>
+  <data name="ReadMoreAboutUs" xml:space="preserve">
+    <value>Đọc nhiều hơn về chúng tôi</value>
+  </data>
+  <data name="ThisisMyClasses" xml:space="preserve">
+    <value>Đây là lớp của chúng tôi</value>
+  </data>
+  <data name="University" xml:space="preserve">
+    <value>Đại học khoa học xã hội và nhân văn</value>
+  </data>
+  <data name="ViewFullPortfolio" xml:space="preserve">
+    <value>Xem đầy đủ</value>
+  </data>
+  <data name="WeAlwaysSatisfyYou" xml:space="preserve">
+    <value>Chúng tôi luôn luôn làm hài lòng bạn</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="Diplomas" xml:space="preserve">
+    <value>Bằng cấp</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="SchoolsTaught" xml:space="preserve">
+    <value>Trường đã dạy</value>
+  </data>
+  <data name="Students" xml:space="preserve">
+    <value>Học sinh</value>
+  </data>
+  <data name="WorkYears" xml:space="preserve">
+    <value>Nhiều năm làm việc</value>
+  </data>
+  <data name="IfYouNeed" xml:space="preserve">
+    <value>Nếu bạn cần tài liệu, xin vui lòng để lại địa chỉ email của bạn dưới đây</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Đính kèm</value>
+  </data>
+</root>

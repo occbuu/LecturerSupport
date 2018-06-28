@@ -1,0 +1,135 @@
+﻿@model LS.Model.News
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="#">Quản lí tin tức</a></li>
+            <li><a href="#">Thêm mới</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <form role="form" style="margin-top:10px;">
+        <div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                    Tiêu đề<span style="color:red;"> *</span>:
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Enter Subject" id="txtSubject" class="form-control">
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Tóm tắt<span style="color:red;"> *</span>:
+                </div>
+                <div class="col-lg-10">
+                    <form>
+                        <textarea id="editorBrief" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Nội dung<span style="color:red;"> *</span>:
+                </div>
+                <div class="col-lg-10">
+                    <form>
+                        <textarea id="editorContent" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                    </form>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Danh mục:
+                </div>
+                <div class="col-lg-10">
+                    <select id="txtCategory" class="form-control"></select>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                    Hình ảnh:
+                </div>
+                <div class="col-lg-10">
+                    <label for="File input">Chọn tệp: </label>
+                    <input type="file" id="txtImage" class="upload" accept="images/*" style="display: inline;">
+                    <p class="help-block"></p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Người tạo:
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Enter News By" id="txtNewsBy" class="form-control">
+                </div>
+                <br><br>
+            </div>
+            <div class="row" style="margin-top: 5px; ">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Links:
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Enter Links" id="txtLinks" class="form-control">
+                </div>
+                <br><br>
+            </div>
+            <div class="row" style="margin-top: 5px; ">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Từ khóa:
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Enter Key word" id="txtKeyword" class="form-control">
+                </div>
+                <br><br>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+                <div class="col-lg-2" style="font-weight: bold;">
+                    Mô tả:
+                </div>
+                <div class="col-lg-10">
+                    <input type="text" placeholder="Enter Description" id="txtDescription" class="form-control">
+                </div>
+                <br><br>
+            </div>
+            <div id="divThongBao_TB" style="margin-top: 5px;">
+                <span id="spanThongBao_TB"></span>
+            </div>
+            <div style="margin-top:5px;float:right">
+                <a id="btnSaveNews" class="btn btn-primary" onclick="funcSave();" style="display: inline-block;">
+                    Lưu
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        CKEDITOR.replace('editorContent');
+        CKEDITOR.replace('editorBrief');
+    });
+
+</script>

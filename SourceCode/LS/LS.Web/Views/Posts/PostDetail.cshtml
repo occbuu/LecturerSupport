@@ -1,0 +1,491 @@
+﻿@using LS.Web.Models
+@using LS.Utility
+@using resx = LS.Resources.Resources;
+@using resx1 = LS.Resources.Posts.ResourcesPosts;
+
+@model CategoryViewModel
+
+@{
+    ViewBag.Title = ViewBag.Category;
+    var uri = new Uri(Request.Url.AbsoluteUri);
+    var url = uri.Scheme + "://" + uri.Host + ":" + uri.Port.ToString() + "/";
+}
+
+<style>
+    .flickr-widget ul li:nth-child(3n+1) {
+        margin-left: 8px;
+    }
+</style>
+
+<div id="container">
+    <!-- Start Page Banner -->
+    <div class="page-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>@ViewBag.Category</h2>
+                    <span>@resx.IAm @resx.DR @resx.TranThiThanhDieu</span>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumbs">
+                        <li><a href="#">@resx.EnglishLanguage</a></li>
+                        @if (Model.Category.NumValue1 > 1)
+                        {
+                            <li><a href="#">@Model.Category_Parent.StrValue1</a></li>
+                        }
+                        <li>@ViewBag.Category</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Banner -->
+</div>
+
+<div id="content">
+    <div class="container">
+        <div class="row blog-post-page">
+            <div class="col-md-9 blog-box tab-content">
+                <div id="Cul1" class="tab-pane in active">
+                    <!-- Start Single Post Area -->
+                    <div class="blog-post gallery-post" style="padding-bottom: 80px;">
+                        <!-- Start Single Post (Gallery Slider) -->
+                        <div class="post-head">
+                            <div class="touch-slider post-slider">
+                                <div class="text-center">
+                                    <img src="@UrlImages.ImagesPost@Model.DetailNew.Id/@Model.DetailNew.Images" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-type"><i class="fa fa-newspaper-o"></i></div>
+                            <h2 style="font-weight:700 !important; font-size:30px;color:black!important;">@Model.DetailNew.Title</h2>
+                            <ul class="post-meta">
+                                <li>@Model.DetailNew.Time</li>
+                            </ul>
+                            <div id="txtContent">
+                                @Html.Raw(Model.DetailNew.NewsDetail)
+                            </div>
+                            <div class="pull-right" style="font-weight:bold;padding-top:20px;">@Model.DetailNew.Editor</div>
+                            <!--IMAGE-->
+                            <div class="recent-projects" style="margin-top:70px;">
+                                <h4 class="title"><span>OTHER IMAGES</span></h4>
+                                <div class="projects-carousel touch-carousel">
+                                    @if (Model.ListImage.Count() > 0)
+                                    {
+                                        foreach (var item in Model.ListImage)
+                                        {
+                                            <div class="portfolio-item item">
+                                                <div class="portfolio-border">
+                                                    <div class="portfolio-thumb">
+                                                        <a class="lightbox" data-lightbox-type="ajax" href="@item.Url">
+                                                            <div class="thumb-overlay"><i class="fa fa-play"></i></div>
+                                                            <img alt="" src="@item.Url" style="height:150px;" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="portfolio-details">
+                                                        <a href="#">
+                                                            <h4>IMAGES</h4>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <!--END IMAGE-->
+                    </div>
+
+                    <!-- End Single Post Content -->
+                </div>
+                <!-- End Single Post Area -->
+                <!-- Start Comment Area -->
+                <div id="comments">
+                    <h2 class="comments-title">(@Model.TotalComment) @resx1.Comments</h2>
+                    <ol class="comments-list" id="commentlist">
+                        @for (int i = 0; i < Model.ListComment.Count(); i++)
+                        {
+                            <li>
+                                <div class='clearfix'>
+                                    <div class='avatar'><img alt="" src="@UrlImages.ImageAvatar@Model.ListComment[i].Avatar" /></div>
+                                    <div class='comment-content'>
+                                        <div class='comment-meta'>
+                                            <span class='comment-by'>@Model.ListComment[i].CreatedBy</span>
+                                            <span class='comment-date'>@Model.ListComment[i].CreateDate</span>
+                                            <span class='reply-link' onclick="moreChildren(@Model.ListComment[i].Id);">@resx1.Reply</span>
+                                        </div>
+                                        <p>@Model.ListComment[i].Content</p>
+                                        <a id="read_@Model.ListComment[i].Id" style='cursor:pointer' onclick="moreChildren(@Model.ListComment[i].Id);">@resx1.MoreAns...</a>
+                                        <a id="hide_@Model.ListComment[i].Id" style='cursor:pointer;display:none;' onclick="hideAll(@Model.ListComment[i].Id);">@resx1.HideAll...</a>
+                                        <div id="childrenComment_@Model.ListComment[i].Id"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ol>
+                    @if (Model.ListComment.Count() > 0)
+                    {
+                        <div class="post-tags-list">
+                            <a id="moreComments" style="cursor:pointer" onclick="moreComments(@Model.DetailNew.Id)" ;>@resx1.MoreQuestion</a>
+                        </div>
+                    }
+                    <!-- Start Respond Form -->
+                    @if (!string.IsNullOrEmpty(UserFrontVM.CurrentUser.UserId))
+                    {
+                        <div id="respond">
+                            <h2 class="respond-title">@resx1.LeaveAReply</h2>
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="comment">@resx1.AddYourComment</label>
+                                        <div class="comments-list">
+                                            <div>
+                                                <div class='avatar'><img alt="" src="~/Content/images/avatar-user/member-03.jpg" style="width:40px;height:40px;" /></div>
+                                            </div>
+                                            <div class="comment-content">
+                                                <textarea id="txtComment" name="comment" cols="30" rows="1" style="resize: none;"></textarea>
+                                                <input class="accent-color" type="button" id="submit" value="Send" onclick="insertCommentParent();">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <!-- End Respond Form -->
+                    }
+
+                </div>
+                <!-- End Comment Area -->
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar right-sidebar">
+                <!-- Popular Posts widget -->
+                <div class="widget widget-popular-posts" style="margin-top:50px;">
+                    <h4 class="accent-color">
+                        OTHER POST
+                        <span class="head-line"></span>
+                    </h4>
+                    <ul id="ulListCategory">
+                        @{
+                            foreach (var item in Model.LstNews)
+                            {
+                                <li>
+                                    <div class="widget-thumb">
+                                        <a href="@(url)ViewPost/@(item.Links)"><img src="@UrlImages.ImagesPost@item.Id/@item.Images" alt="" /></a>
+                                    </div>
+                                    <div class="widget-content">
+                                        <h5><a href="@(url)ViewPost/@(item.Links)" style="cursor:pointer;font-weight:600">@item.Title</a></h5>
+                                        <div>@item.Time</div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    @if (Model.TotalNews > 4)
+                    {
+                        <ul id="NewsPagination" class="pagination accent-color" style="float:right">
+                            <li><a href="javascript:void(0);" onclick="goBack();"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                            <li><a href="javascript:void(0);">1</a></li>
+                            <li><a href="javascript:void(0);" onclick="goNext()"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                        </ul>
+                    }
+                </div>
+                <br />
+                @if (Model.ListTags.Count() > 0)
+                {
+                    <div class="widget widget-tags">
+                        <h4 class="accent-color">Tags <span class="head-line"></span></h4>
+                        <div class="tagcloud">
+                            @foreach (var item in Model.ListTags)
+                            {
+                                <a href="#">@item.TagName</a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <!--End sidebar-->
+        </div>
+    </div>
+</div>
+
+<style>
+    .designImage {
+        max-width: 843px !important;
+    }
+</style>
+
+<script id="tmplContentChildrenComment" type="text/x-jquery-tmpl">
+    <div style="margin-left:5%;">
+        <div class='avatar'><img alt="" src="@UrlImages.ImageAvatar${Avatar}" /></div>
+        <div class='comment-content'>
+            <div class='comment-meta'>
+                <span class='comment-by'>${CreatedBy}</span>
+                <span class='comment-date'>${CreateDate}</span>
+                <p>${Content}</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</script>
+
+<script id="tmplContentPage" type="text/x-jquery-tmpl">
+    <li>
+        <div class='clearfix'>
+            <div class='avatar'><img alt="" src="@UrlImages.ImageAvatar${Avatar}" /></div>
+            <div class='comment-content'>
+                <div class='comment-meta'>
+                    <span class='comment-by'>${CreatedBy}</span>
+                    <span class='comment-date'>${CreateDate}</span>
+                    <span class='reply-link' onclick="moreChildren('${Id}');">@resx1.Reply</span>
+                </div>
+                <p>${Content}</p>
+                <a id="read_${Id}" style='cursor:pointer' onclick="moreChildren('${Id}');">@resx1.MoreAns...</a>
+                <a id="hide_${Id}" style="cursor:pointer;display:none;" onclick="hideAll('${Id}');">@resx1.HideAll...</a>
+                <div id="childrenComment_${Id}"></div>
+            </div>
+        </div>
+    </li>
+</script>
+
+<script id="tmplListNews" type="text/x-jquery-tmpl">
+    <li>
+        <div class="widget-thumb">
+            <a href="@Url.Action(" Index","Posts")?categoryid=${Category}&&id =${Id}"><img src="@UrlImages.ImagesPost${Id}/${Images}" alt="" /></a>
+        </div>
+        <div class="widget-content">
+            <h5><a href="@Url.Action(" Index","Posts")?categoryid=${Category}&&id =${Id}" style="cursor:pointer;font-weight:600">${Title}</a></h5>
+            <div>${Time}</div>
+        </div>
+        <div class="clearfix"></div>
+    </li>
+</script>
+
+<script type="text/javascript">
+
+    var pageSize1 = 4;
+    var timesViewMore = 0;
+    var timesViewMoreChild=0;
+
+    $(function () {
+        jQuery('#txtContent img').each(function () {
+            jQuery(this).addClass("designImage");
+        });
+
+        $("#txtComment").keypress(function (event) {
+            if (event.keyCode == 13) {
+                insertCommentParent();
+            }
+        });
+    })
+
+    function moreChildren(id) {
+        if (id == null || id == undefined || id == "") {
+            alert("Error load comment ");
+            return;
+        }
+
+        timesViewMoreChild++;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SearchChildrenComment", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                objectLinkId: @Model.DetailNew.Id,
+                parentId: id,
+                commentNumber: timesViewMoreChild,
+                commentSize: 2
+            }),
+            success: function (data) {
+                if (data.success == true) {
+                    $("#hide_"+id).show();
+                    if(data.data.length<=0){
+                        $("#read_"+id).hide();
+                    }
+                    $($("#replyComment_"+ id).parent()).remove();
+                    $("#tmplContentChildrenComment").tmpl(data.data).appendTo("#childrenComment_" + id);
+                }
+                else {
+                }
+            },
+            async: false,
+        });
+        $("#childrenComment_" + id).show();
+
+        // Add txtCmt
+        if ("@UserFrontVM.CurrentUser.UserId"){
+            var input='<div class="row" style="margin-top:1%;margin-left:5%; margin-right: 5%;"><div class="col-xs-1"><img alt="" src="/Content/images/avatar-user/member-03.jpg" style="width:40px;height:40px;" /></div><div class="col-xs-9"><textarea style="resize: none;" class="form-control" rows="1" id="replyComment_'+id+'" onkeypress="replyComment(event,'+id+');"></textarea></div><div class="col-xs-2">'+
+                '<input class="accent-color" type="button" id="submit" value="Send" onclick="repCmt('+id+');"</div></div>';
+            $(input).appendTo("#childrenComment_" + id);
+        }
+    }
+
+    function hideAll(id) {
+        $("#childrenComment_" + id).empty();
+        $("#hide_" + id).hide();
+        $("#read_" + id).show();
+        timesViewMoreChild=0;
+    }
+
+    function moreComments(id) {
+        if (id == null || id == undefined || id == "") {
+            alert("Error load comment");
+            return;
+        }
+
+        timesViewMore++;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SearchCommentByNewsLimit", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                newsId: id,
+                commentNumber: timesViewMore,
+                commentSize: 2
+            }),
+            success: function (data) {
+                if (data.success == true) {
+                    $("#tmplContentPage").tmpl(data.data).appendTo("#commentlist");
+                }
+                else {
+                }
+            },
+            async: false,
+        });
+    }
+
+    function goBack() {
+        var curPage = parseInt($("#NewsPagination li:eq(1) a").html());
+        if (curPage > 1) {
+            getDataNewsPage(curPage - 1);
+        }
+    }
+
+    function goNext() {
+        var curPage = parseInt($("#NewsPagination li:eq(1) a").html());
+        if (curPage >= 1) {
+            getDataNewsPage(curPage + 1);
+        }
+    }
+
+    function getDataNewsPage(page) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("getDataNewsPage", "Posts")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                page: page,
+                categoryId: '@ViewBag.CategoryId'
+            }),
+            success: function (data) {
+                if (data.status == 1) {
+                    $("#ulListCategory").empty();
+                    $("#tmplListNews").tmpl(data.data).appendTo("#ulListCategory");
+                    $("#NewsPagination li:eq(1) a").html(page);
+
+                    var lastPage = 1;
+
+                    if (data.TotalRecord % pageSize1 == 0) {
+                        lastPage = Math.floor(data.TotalRecord / pageSize1);
+                    }
+                    else {
+                        lastPage = Math.floor(data.TotalRecord / pageSize1) + 1;
+                    }
+                    if (page == 1) {
+                        $("#NewsPagination li:eq(0) a").removeAttr("onclick");
+                        $("#NewsPagination li:eq(2) a").attr("onclick", "goNext('')");
+                    }
+                    else if (page == lastPage) {
+                        $("#NewsPagination li:eq(2) a").removeAttr("onclick");
+                        $("#NewsPagination li:eq(0) a").attr("onclick", "goBack('')");
+                    }
+                    else {
+                        $("#NewsPagination li:eq(2) a").attr("onclick", "goNext('')");
+                        $("#NewsPagination li:eq(0) a").attr("onclick", "goBack('')");
+                    }
+                }
+                else {
+                    alert(data.sErr);
+                }
+            },
+            async: false,
+        });
+    }
+
+    function insertCommentParent() {
+        var obj = {};
+        obj.ObjectLinkId=@Model.DetailNew.Id;
+        obj.Content = $("#txtComment").val();
+        if($("#txtComment").val().trim()==""){
+            return;
+        }
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("InsertCommentParent", "Posts")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                $("#txtComment").val("");
+                if (data.status == 1) {
+                    //alert("Your comment is pedding");
+                    alertPopup("Message","Your comment is pending");
+                    $("#respond").hide();
+                    setTimeout(function(){ $("#respond").show(500); }, 30000);
+                }
+            }
+        })
+    }
+
+    //function comment(event){
+    //    if(event.keyCode==13){
+    //        insertCommentParent();
+    //    }
+    //}
+
+    function replyComment(event,parentId){
+        if (event.keyCode == 13){
+            repCmt(parentId);
+        }
+    }
+
+    function repCmt(parentId){
+        var obj = {};
+        obj.ObjectLinkId=@Model.DetailNew.Id;
+        obj.Content = $("#replyComment_"+parentId).val();
+        obj.ParentId = parentId;
+
+        if($("#replyComment_"+parentId).val().trim()==""){
+            return;
+        }
+        var formData = new FormData();
+        formData.append("obj", JSON.stringify(obj));
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("InsertCommentChild", "Posts")',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                $("#replyComment_"+parentId).val("");
+                if (data.status == 1) {
+                    //alert("Your comment is pedding");
+                    alertPopup("Message","Your comment is pending");
+                    $("#replyComment_"+parentId).hide();
+                    setTimeout(function(){ $("#replyComment_"+parentId).show(500); }, 30000);
+                }
+            }
+        })
+    }
+
+</script>

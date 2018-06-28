@@ -1,0 +1,23 @@
+﻿<Window x:Class="DemoWPF.TypeConverters"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoWPF"
+        mc:Ignorable="d"
+        Title="TypeConverters" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="txtDisplay" Text="This is a textblock control. Can't be edited." Grid.Column="0" Grid.Row="0" />
+        <Button x:Name="btnDisplayButton" Grid.Column="1" Grid.Row="0" Background="Blue" Content="Button" Width="100" Height="40" />
+        <TextBlock x:Name="txtHexRGBColor" Text="Background as a three digit hex valueRGB." Grid.Column="0" Grid.Row="1" />
+        <Button x:Name="btnHexRGBColor" Grid.Column="1" Grid.Row="1" Background="#299" Content="Button"  Width="100" Height="40" />
+    </Grid>
+</Window>

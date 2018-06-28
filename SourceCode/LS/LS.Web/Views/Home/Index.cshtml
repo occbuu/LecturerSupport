@@ -1,0 +1,315 @@
+﻿@using resx = LS.Resources.Resources;
+@using LS.Web.Models
+@using LS.Utility
+
+@model HomeViewModels
+
+@{
+    ViewBag.Title = "Home Page";
+    var count = 0;
+    var count1 = 0;
+}
+
+<!-- Start HomePage Slider -->
+<section id="home">
+    <!-- Carousel -->
+    <div id="main-slide" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slide" data-slide-to="1"></li>
+            <li data-target="#main-slide" data-slide-to="2"></li>
+            <li data-target="#main-slide" data-slide-to="3"></li>
+        </ol>
+        <!--/ Indicators end-->
+        <!-- Carousel inner -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img class="img-responsive" src="~/Content/images/slider/a.jpg" alt="slider" />
+                <div class="slider-content">
+                    <div class="col-md-12 text-center">
+                        <h2 class="animated2">
+                            <span style="color:white">HELLO I'm</span>
+                        </h2>
+                        <h3 class="animated3">
+                            <span style="color:#ee3733; font-weight:500">@resx.DR. TRAN THI THANH DIEU</span>
+                        </h3>
+                        <p class="animated4">@resx.Welcome</p>
+                    </div>
+                </div>
+            </div>
+            <!--/ Carousel item end -->
+            <div class="item">
+                <img class="img-responsive" src="~/Content/images/slider/class-7.png" alt="slider" />
+            </div>
+            <!--/ Carousel item end -->
+            <div class="item">
+                <img class="img-responsive" src="~/Content/images/slider/bg2.jpg" alt="slider">
+            </div>
+            <!--/ Carousel item end -->
+            <div class="item">
+                <img class="img-responsive" src="~/Content/images/slider/bg3.jpg" alt="slider">
+            </div>
+            <!--/ Carousel item end -->
+        </div>
+        <!-- Carousel inner end-->
+        <!-- Controls -->
+        <a class="left carousel-control" href="#main-slide" data-slide="prev">
+            <span><i class="fa fa-angle-left"></i></span>
+        </a>
+        <a class="right carousel-control" href="#main-slide" data-slide="next">
+            <span><i class="fa fa-angle-right"></i></span>
+        </a>
+    </div>
+    <!-- /carousel -->
+</section>
+<!-- End HomePage Slider -->
+<!-- Start Full Width Sections Content -->
+<div id="content" class="full-sections">
+    <!-- Start Full Width Section 2 -->
+    <div class="section" style="padding-top:60px; padding-bottom:60px; border-top:1px solid #eee; border-bottom:1px solid #eee; background:#f9f9f9;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Start Big Heading -->
+                    <div class="big-title">
+                        @foreach (var result in Model.ContentVM)
+                        {
+                            if (result.Name != Constants.Home.ImagesOfTeacher)
+                            {
+                                @(Html.Raw(result.Value))
+                            }
+                        }
+                    </div>
+                    <!-- Divider -->
+                    <div class="hr1" style="margin-bottom:14px;"></div>
+                    <!-- Start Icons Lists -->
+                    <div class="row">
+                        @foreach (var result in Model.ContentVM)
+                        {
+                            if (result.contentDetailsVM != null)
+                            {
+                                <div class="col-md-6">
+                                    <ul class="icons-list">
+                                        @foreach (var item in result.contentDetailsVM)
+                                        {
+                                            count++;
+                                            @(Html.Raw(item.Value))
+                                            if (count == 3)
+                                            {
+                                                count = 0;
+                                                break;
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="col-md-6">
+                                <ul class="icons-list">
+                                    @foreach (var item in result.contentDetailsVM)
+                                    {
+                                        count++;
+                                        if (count > 3)
+                                        {
+                                            @(Html.Raw(item.Value))
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- End Icons Lists -->
+                    <!-- Divider -->
+                    <div class="hr1" style="margin-bottom:20px;"></div>
+                    <!-- Button -->
+                    <a href="@Url.Action("Index", "About")" class="btn-system btn-small">@resx.ReadMoreAboutUs</a>
+                </div>
+                <div class="col-md-4">
+                    @foreach (var result in Model.ContentVM)
+                    {
+                        if (result.Name == Constants.Home.ImagesOfTeacher)
+                        {
+                            var imagesSplit = result.Value.Split(',');
+                            <img class="img-responsive" src="~/Content/images/slider/@imagesSplit[0]" alt="slider" />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Full Width Section 2 -->
+    <!-- Start Full Width Section 3 -->
+    <div class="section" style="padding-top:60px; padding-bottom:60px; border-top:0; border-bottom:0; background:#fff;">
+        <div class="container">
+            <div class="big-title text-center">
+                <h1><strong>@resx.ThisisMyClasses</strong></h1>
+            </div>
+            <div class="hr1" style="margin-bottom:15px;"></div>
+            <ul id="portfolio-list" data-animated="fadeIn">
+                @{
+                    var tmp = 0;
+                    foreach (var item in Model.TeacherMemoryVM)
+                    {
+                        tmp++;
+                        if (tmp <= 6)
+                        {
+                            <li>
+                                <img src="@item.Url@item.FileName@item.FileExtension" alt="" />
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+            <div class="hr1" style="margin-bottom:30px;"></div>
+            <p class="text-center"><a href="@Url.Action("Gallery","About")" class="btn-system btn-medium border-btn"><i class="icon-brush"></i> @resx.ViewFullPortfolio</a></p>
+        </div>
+    </div>
+    <!-- End Full Width Section 3 -->
+    <!-- Start Full Width Section 4 -->
+    <div class="section" style="padding-top:60px; padding-bottom:60px; border-top:1px solid #eee; border-bottom:1px solid #eee; background:#f9f9f9;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6" style="margin-top: 5%;">
+                    @foreach (var result in Model.DashBoardVM)
+                    {
+                        if (result.Name == Constants.Home.WeAlwaysSatisfyYou)
+                        {
+                            <div class="big-title">
+                                @(Html.Raw(result.Value))
+                            </div>
+                        }
+                        else
+                        {
+                            @(Html.Raw(result.Value))
+                        }
+                    }
+                </div>
+                <!-- Start Progress Bars -->
+                <div class="col-md-6">
+                    <!-- Start Progress Bar 1 -->
+                    <div class="skill-shortcode">
+                        @foreach (var result in Model.DashBoardVM)
+                        {
+                            if (result.dashBoardDetailsVM != null)
+                            {
+                                foreach (var item in result.dashBoardDetailsVM)
+                                {
+                                    <div class="skill">
+                                        @(Html.Raw(item.Value))
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+                <!-- End Progress Bars -->
+            </div>
+            <!-- Divider -->
+            <div class="hr5" style="margin-top:30px; margin-bottom:40px;"></div>
+            <!-- Start Team Members -->
+            <div class="row">
+                <!-- Start Memebr 1 -->
+                @foreach (var result in Model.TeacherDelegateStudentVM)
+                {
+                    count1++;
+                    if (count1 <= 4)
+                    {
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="team-member">
+                                <!-- Memebr Photo, Name & Position -->
+                                <div class="member-photo" style="z-index:1">
+                                    <img alt="" style="height:300px; width:100%" src="~/Content/images/students/@result.Avartar" />
+                                    <div class="member-name">@result.Name<span data-toggle="modal" data-target="#myModal_@count1" style="cursor:pointer">Student</span></div>
+                                </div>
+                                <!-- Memebr Modal -->
+                                <div class="modal fade" id="myModal_@count1" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content" style="margin-top:11%" id="123">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">@result.Name</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <img alt="" style="height:200px;" src="~/Content/images/students/@result.Avartar" />
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <ul>
+                                                            <li><p style="font-weight:600">Degree           :</p><span style="color:#666; padding-left:27px">@result.Degree</span></li>
+                                                            <li><p style="font-weight:600">Thesis topic     :</p><span style="color:#666; padding-left:27px">@result.Topic</span></li>
+                                                            <li><p style="font-weight:600">Supervision type :</p><span style="color:#666; padding-left:27px">@result.SupervisionType</span></li>
+                                                            <li><p style="font-weight:600">Completion year  :</p><span style="color:#666; padding-left:27px">@result.Time</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Memebr Social Links -->
+                                <div class="member-socail">
+                                    <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                                    <a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a class="flickr" href="#"><i class="fa fa-flickr"></i></a>
+                                    <a class="mail" href="#"><i class="fa fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <!-- End Team Members -->
+        </div>
+    </div>
+    <!-- End Full Width Section 4 -->
+    <!-- Start Full Width Section 5 -->
+    <div class="section" style="padding-top:35px; padding-bottom:20px; border-top:0; border-bottom:0; background:#fff;">
+        <div class="container">
+            <!-- Start Clients Carousel -->
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Start Clients Carousel -->
+                    <div class="our-clients">
+                        <!-- Classic Heading -->
+                        <h4 class="classic-title"><span>@resx.Pictures</span></h4>
+                        <div class="clients-carousel custom-carousel touch-carousel" data-appeared-items="4">
+                            @foreach (var result in Model.TeacherMemoryVM)
+                            {
+                                <div class="client-item item">
+                                    <a href="@result.Url@result.FileName@result.FileExtension" class="lightbox">
+                                        <img src="@result.Url@result.FileName@result.FileExtension" alt="" width="168" height="119"/>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- End Clients Carousel -->
+                </div>
+                <div class="col-md-4">
+                    @foreach (var result in Model.CommentVM)
+                    {
+                        @(Html.Raw(result.Value))
+                        <div class="custom-carousel show-one-slide touch-carousel" data-appeared-items="1">
+                            @foreach (var item in result.commentDetailVM)
+                            {
+                                <div class="classic-testimonials item">
+                                    @(Html.Raw(item.Value))
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- End Clients Carousel -->
+        </div>
+    </div>
+    <!-- End Full Width Section 5 -->
+</div>
+<!-- End Full Width Sections Content -->

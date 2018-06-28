@@ -1,0 +1,825 @@
+﻿@{
+    ViewBag.Title = "CheckAttendanceAndEnterPoints";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javacript:void(0);">Lớp</a></li>
+            <li><a href="#">Điểm Danh và Nhập Điểm</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="well" style="padding-bottom:4%">
+    <div class="dropdown row">
+        <div class="col-xs-3" style="margin-top:12px;">
+            <h3>Chọn Loại Xử Lý: </h3>
+        </div>
+        <div class="col-xs-9">
+            <div class="row" style="margin-top:15px;width:70%">
+                <select id="txtType" class="form-control" onchange="changeType();">
+                    <option value="luachon" style="text-align:center;">-- Vui Lòng Lựa Chọn --</option>
+                    <option value="box-diem-danh">Điểm Danh Học Viên</option>
+                    <option value="box-nhap-diem">Nhập Điểm Học Viên</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="box" style="margin-top:5%; display:none" id="box-diem-danh">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <div class="box-content">
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Từ ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-from-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br><br>
+                </div>
+
+                <div class="col-sm-5 col-sm-offset-2 search-right">
+                    <div class="input-group">
+                        <input class="form-control input-lg" placeholder="Tìm kiếm tên học viên" type="text">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Đến ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-to-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br /><br />
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn trường:
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-control">
+                            <option value="">
+                                ĐH Hutech
+                            </option>
+                            <option value="">
+                                ĐH KHXHNV TPHCM
+                            </option>
+                            <option value="">
+                                ĐH Văn Hóa
+                            </option>
+                        </select>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn lớp:
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="multi-select-class" style="width:100%">
+                            <option value="1">
+                                HUT-152 Việt Nam Học
+                            </option>
+                            <option value="2">
+                                NV-357 Đông Phương Học
+                            </option>
+                            <option value="2">
+                                VH-432 Kinh Tế Học
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn buổi:
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="multi-select-class-2" style="width:100%">
+                            <option value="1">
+                                Buổi 1 - 1/7/2016 7h-9h
+                            </option>
+                            <option value="2">
+                                Buổi 2 - 8/7/2016 7h-9h
+                            </option>
+                            <option value="2">
+                                Buổi 3 - 15/7/2016 7h-9h
+                            </option>
+                            <option value="2">
+                                Buổi 4 - 22/7/2016 7h-9h
+                            </option>
+                            <option value="2">
+                                Buổi 5 - 29/7/2016 7h-9h
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6" style="margin-left: 13px;margin-top: 5px;">
+                    <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    <button data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Thêm mới</button>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <strong>Đính kèm: </strong>
+                        </div>
+                        <div class="col-sm-8">
+                            <label for="File input">Chọn file</label>
+                            <input type="file" class="attachment-doc" style="display:inline" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:45px;">#</th>
+                        <th style="width:160px;">Tài khoản</th>
+                        <th style="width:125px;">Họ tên</th>
+                        <th style="width:110px;">Vắng không phép</th>
+                        <th style="width:110px;">Vắng có phép</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="khong-phep" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="diemDanh" value="co-phep" />
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:45px;">#</th>
+                        <th style="width:160px;">Tài khoản</th>
+                        <th style="width:125px;">Họ tên</th>
+                        <th style="width:110px;">Vắng không phép</th>
+                        <th style="width:110px;">Vắng có phép</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="box" style="margin-top:5%; display:none" id="box-nhap-diem">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+                <a class="close-link">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <div class="box-content">
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Từ ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-from-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br><br>
+                </div>
+
+                <div class="col-sm-5 col-sm-offset-2 search-right">
+                    <div class="input-group">
+                        <input class="form-control input-lg" placeholder="Tìm kiếm tên học viên" type="text">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-sm-5">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Đến ngày:
+                    </div>
+                    <div class="col-lg-8">
+                        <input placeholder="Enter Date" id="search-to-date" class="form-control" type="text" readonly="readonly">
+                    </div>
+                    <br /><br />
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn trường:
+                    </div>
+                    <div class="col-lg-8">
+                        <select class="form-control">
+                            <option value="">
+                                ĐH Hutech
+                            </option>
+                            <option value="">
+                                ĐH KHXHNV TPHCM
+                            </option>
+                            <option value="">
+                                ĐH Văn Hóa
+                            </option>
+                        </select>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-5" style="margin-top: 5px;margin-bottom: 20px;">
+                    <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                        Chọn lớp:
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="multi-select-class-3" style="width:100%">
+                            <option value="1">
+                                HUT-152 Việt Nam Học
+                            </option>
+                            <option value="2">
+                                NV-357 Đông Phương Học
+                            </option>
+                            <option value="2">
+                                VH-432 Kinh Tế Học
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6" style="margin-left: 13px;margin-top: 5px;">
+                    <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    <a href="CheckAttendanceAndEnterPoints/ScoreConfig"><button data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-default btn-sm"><i class="fa fa-gears"></i> Config loại điểm</button></a>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <strong>Đính kèm: </strong>
+                        </div>
+                        <div class="col-sm-8">
+                             <label for="File input">Chọn file</label>
+                            <input type="file" class="attachment-doc" style="display:inline" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:45px;">#</th>
+                        <th style="width:140px;">Tài khoản</th>
+                        <th style="width:125px;">Họ tên</th>
+                        <th style="width:220px;">Điểm</th>
+                        <th style="width:110px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>manhtu07</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 25%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 lable-diem">
+                                    Điểm 50%
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" id="" class="form-control input-point" maxlength="3" step="0.01" />
+                                </div>
+                                <br /><br />
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-label-left" type="button" style="width:70px;height:30px;">
+                                <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-save" style="margin-bottom:2px;margin-right:2px;"></i>Lưu Lại</a>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:45px;">#</th>
+                        <th style="width:160px;">Tài khoản</th>
+                        <th style="width:125px;">Họ tên</th>
+                        <th style="width:200px;">Điểm</th>
+                        <th style="width:120px;"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="attachment-doc" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" style="margin-top:85px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">ĐÍNH KÈM</h3>
+                </div>
+                <div class="modal-body box-body">
+                    <div class="row">
+                        <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                            Chọn trường<span style="color:red;"> *</span>:
+                        </div>
+                        <div class="col-lg-8">
+                            <select id="" class="form-control">
+                                <option value="">ĐH Hutech</option>
+                                <option value="">ĐH KHXHNV TPHCM</option>
+                                <option value="" >ĐH Văn Hóa</option>
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                            Chọn lớp<span style="color:red;"> *</span>:
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control" style="width:100%">
+                                <option value="">
+                                    HUT-152 Việt Nam Học
+                                </option>
+                                <option value="">
+                                    NV-357 Đông Phương Học
+                                </option>
+                                <option value="">
+                                    VH-432 Kinh Tế Học
+                                </option>
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2" style="margin-top: 5px;font-weight: bold;">
+                            Định kèm<span style="color:red;"> *</span>:
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="file" id="" />
+                        </div>
+                    </div>
+                    <br />
+                    <div style="float:right">
+                        <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<style>
+    .input-point {
+        width: 70%;
+    }
+
+    .lable-diem {
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+    .modal-dialog {
+        width: 800px;
+        margin: 30px auto;
+    }
+</style>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#multi-select-class').select2();
+        $('#multi-select-class-2').select2();
+        $('#multi-select-class-3').select2();
+        $('#multi-select-class-4').select2();
+        $('#multi-select-class-6').select2();
+    });
+
+    $(function () {
+        $("#txtType").val('luachon');
+    });
+
+    function changeType() {
+        //$("#tableSiteInfo").empty();
+        //$("#boxData").css("display", "block");
+
+        var type = $("#txtType").val();
+
+        if (type == "box-diem-danh") {
+            $('#box-nhap-diem').css("display", "none");
+            $("#box-diem-danh").slideDown(500);
+            $('#box-diem-danh').css("display", "block");
+        }
+        else {
+            if (type == "box-nhap-diem") {
+                $('#box-diem-danh').css("display", "none");
+                $("#box-nhap-diem").slideDown(500);
+                $('#box-nhap-diem').css("display", "block");
+            }
+        }
+    }
+
+</script>
+<!--End Breadcrumb-->

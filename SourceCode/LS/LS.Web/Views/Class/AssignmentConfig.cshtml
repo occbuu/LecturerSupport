@@ -1,0 +1,532 @@
+﻿
+@{
+    ViewBag.Title = "AssignmentConfig";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+@using LS.Utility
+@using LS.Web.Models
+
+@model List<UniversityViewModel>
+
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="javacript:void(0);">Lớp</a></li>
+            <li><a href="@Url.Action("ExerciseAndAssignment","Class")">Bài Tập và Đồ Án</a></li>
+            <li><a href="@Url.Action("AssignmentConfig","Class")">Config Nộp Bài </a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <!--<i class="fa fa-usd"></i>
+                    <span></span>-->
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="expand-link">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content no-padding">
+                <div class="box-content">
+                    <div class="col-sm-5">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Từ ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-from-date" class="form-control" type="text">
+                        </div>
+                        <br><br>
+                    </div>
+
+                    <div class="col-sm-5 col-sm-offset-2 search-right">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Đến ngày:
+                        </div>
+                        <div class="col-lg-8">
+                            <input placeholder="mm/dd/yyyy" id="search-to-date" class="form-control" type="text">
+                        </div>
+                        <br /><br />
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn Trường
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="selectSchool">
+                                <option value="@Constants.Document.All">
+                                    Tất cả
+                                </option>
+                                @foreach (var item in Model)
+                                {
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
+                                }
+                            </select>
+                        </div>
+                        <br><br>
+                    </div>
+
+                    <div class="col-sm-5 col-sm-offset-2 search-right" style="margin-top: 5px;margin-bottom: 20px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Chọn lớp:
+                        </div>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="multi-select-class" multiple="multiple"></select>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-sm-5" style="margin-top: 7px;margin-bottom: 7px;">
+                        <div class="col-lg-3" style="margin-top: 5px; font-weight: bold;">
+                            Trạng thái:
+                        </div>
+                        <div class="col-lg-8">
+                            <select class="form-control" id="selectStatus"></select>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-4" style="margin-left: 13px;margin-top: 5px;">
+                        <button id="btn-search" class="btn btn-primary btn-sm" style="color:white"><i class="fa fa-search"></i> Tìm kiếm</button>
+                        <button id="btnCreateConspectus" data-toggle="modal" data-target="#create-class" type="submit" class="btn btn-success btn-sm" style="color:white;"><i class="fa fa-plus"></i> Thêm mới</button>
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Lớp</th>
+                            <th>Nội dung</th>
+                            <th width="250px;">Trạng thái</th>
+                            <th width="150px"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableConfig">
+                        <!-- Start: list_row -->
+                        <tr>
+                            <td>1</td>
+                            <td>KB 152</td>
+                            <td>
+                                <strong>Nộp bài lần 1 </strong>
+                            </td>
+                            <td>
+                                <strong>Trạng thái</strong>: Comming<br />
+                                <strong>Người tạo</strong>: Admin<br />
+                                <strong>Ngày tạo</strong>: 01/06/2017
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#myModal">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Sửa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#show-to-delete">
+                                    <a class="ajax-link" href="javascript:void(0)"><i class="fa fa-cog" style="margin-bottom:2px;margin-right:2px;"></i>Xóa</a>
+                                </button>
+                                <button class="btn btn-default btn-label-left" type="button" style="width:50px;height:30px;" data-toggle="modal" data-target="#see-detail">
+                                    <a class="ajax-link"><i class="fa fa-eye"></i> Xem</a>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- End: list_row -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Lớp</th>
+                            <th>Nội dung</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id="pagination">
+            <span class="all-pages">Page 1 To 3 : </span>
+            <span class="current page-num">1</span>
+            <a class="page-num" href="#">2</a>
+            <a class="page-num" href="#">3</a>
+            <a class="next-page" href="#">Next</a>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỬA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">ĐH Hutech</option>
+                                    <option value="">ĐH KHXHNV TPHCM</option>
+                                    <option value="">ĐH Văn Hóa</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Việt Nam Học</option>
+                                    <option value="">Đông Phương Học</option>
+                                    <option value="">Kinh Tế Học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Nôi dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="txtNameDocument" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Công khai</option>
+                                    <option value="">Đang khóa</option>
+                                    <option value="">Sắp phát hành</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Lưu lại</button>
+                        </div>
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="create-class" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM MỚI</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trường<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">ĐH Hutech</option>
+                                    <option value="">ĐH KHXHNV TPHCM</option>
+                                    <option value="">ĐH Văn Hóa</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Lớp<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Việt Nam Học</option>
+                                    <option value="">Đông Phương Học</option>
+                                    <option value="">Kinh Tế Học</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Nội dung<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="txtNameDocument" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Trạng Thái<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <select class="form-control">
+                                    <option value="">Công khai</option>
+                                    <option value="">Đang khóa</option>
+                                    <option value="">Sắp phát hành</option>
+                                </select>
+                            </div>
+                            <br><br>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white">Thêm vào</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade modalshow" id="see-detail" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHI TIẾT CONFIG ĐIỂM</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Id
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    956
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Trạng thái
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    Public
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Nội dung
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    Nộp bài Nộp bài lần 1
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Trường:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    ĐH Hutech
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Lớp:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    HUT 152
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Người Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    manhtu07
+                                </div>
+                                <br><br>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-lg-4" style="margin-top: 5px; font-weight: bold;">
+                                    Ngày Tạo:
+                                </div>
+                                <div class="col-lg-6" style="margin-left: -5px;">
+                                    7/5/2016
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <button id="show-edit" type="button" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Sửa</button>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .modal-dialog {
+        width: 800px;
+        margin: 30px auto;
+    }
+
+    .img-detail-class img {
+        width: 150px;
+    }
+
+    #dashboard_tabs {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+</style>
+
+<script id="scriptConfig" type="text/x-jquery-tmpl">
+    <tr>
+        <td>1</td>
+        <td>KB 152</td>
+        <td>
+            <strong>Nộp bài lần 1 </strong>
+        </td>
+        <td>
+            <strong>Trạng thái</strong>: Comming<br />
+            <strong>Người tạo</strong>: Admin<br />
+            <strong>Ngày tạo</strong>: 01/06/2017
+        </td>
+        <td>
+            <div class="row">
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-app-sm" type="button" id="edit_${Id}" onclick="editClass('${Id}', this)" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-pencil" style="color:white"></i>
+                    </button>
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-danger btn-app-sm" type="button" id="del_${Id}" style="margin-left:5px; margin-right:5px" onclick="confirmDelete('${Id}')">
+                        <i class="fa fa-times" style="color:white"></i>
+                    </button>
+                </div>
+                <div class="col-xs-3">
+                    <button id="see_${Id}" onclick="seeDetail('${Id}',this)" class="btn btn-success btn-app-sm" type="button" style="margin-left:9.5px" data-toggle="modal" data-target="#see-detail">
+                        <i class="fa fa-info-circle" style="color:white"></i>
+                    </button>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        loadStatus('selectStatus');
+        loadClass('multi-select-class');
+        $('#multi-select-class').select2();
+        $('#multi-select-class-2').select2();
+    });
+
+    // Run Datables plugin and create 3 variants of settings
+    function AllTables() {
+        TestTable1();
+        LoadSelect2Script(MakeSelect2);
+    }
+    function MakeSelect2() {
+        $('select').select2();
+        $('.dataTables_filter').each(function () {
+            $(this).find('label input[type=text]').attr('placeholder', 'Search');
+        });
+    }
+
+    $(function () {
+        $("#search-from-date").datepicker();
+        $("#search-to-date").datepicker();
+    });
+
+    $('#show-edit').click(function () {
+        $('#see-detail').modal('hide');
+        $('#myModal').modal('show')
+
+    });
+
+    //#region -- Helper --
+
+    function loadStatus(idStatus) {
+        var option0 = "<option value='" + @Constants.AssignmentConfig_Status.All + "'>Tất cả</option>";
+        var option1 = "<option value='" + @Constants.AssignmentConfig_Status.ActiveStaus + "'>Active</option>";
+        var option2 = "<option value='" + @Constants.AssignmentConfig_Status.InactiveStatus + "'>Inctive</option>";
+        var option3 = "<option value='" + @Constants.AssignmentConfig_Status.CommingStatus + "'>Comming</option>";
+        var option4 = "<option value='" + @Constants.AssignmentConfig_Status.DeleteStatus + "'>Deleted</option>";
+        $('#' + idStatus + '').html(option0 + option1 + option2 + option3 + option4);
+    }
+
+    $('#selectSchool').change(function () {
+        loadClass('multi-select-class');
+    });
+
+    function loadClass(idClass) {
+        if (idClass == "multi-select-class") {
+            var schoolId = $('#selectSchool').val();
+        }
+        else {
+            var schoolId = null;
+        }
+        $("#" + idClass + "").empty();
+        $.ajax({
+            url: "@Url.Action("LoadClassBySchool", "Class")",
+            type: "POST",
+            dataType: "Json",
+            data: { schoolId: schoolId },
+            success: function (response) {
+                if (response.status) {
+                    for (var i = 0; i < response.lstClass.length; i++) {
+                        option = "<option value='" + response.lstClass[i].Id + "'>" + response.lstClass[i].Code + " - " + response.lstClass[i].Name + "</option>";
+                        $(option).appendTo("#" + idClass + "");
+                    }
+                }
+            },
+            async: false
+        });
+    }
+
+    //#endregion -- Helper --
+
+</script>

@@ -1,0 +1,10 @@
+USE LSDB
+GO 
+
+ALTER TABLE News
+ALTER COLUMN CreatedBy VARCHAR(200)
+GO
+
+ALTER TABLE News
+ADD CONSTRAINT fk_news_user FOREIGN KEY (CreatedBy) REFERENCES users(userid)
+

@@ -1,0 +1,308 @@
+﻿@using resx = LS.Resources.Posts.ResourcesPosts;
+@using resx1 = LS.Resources.Resources;
+
+@{
+    ViewBag.Title = resx.DetailAnnoucement;
+}
+
+<div class="page-banner" style="padding:40px 0; background: url(~/Content/images/slide-02-bg.jpg) center #f9f9f9;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@resx.CategoryArchives</h2>
+                <p>@resx1.IAm @resx1.TranThiThanhDieu</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumbs">
+                    <li><a href="#">@resx1.Announcement</a></li>
+                    <li>@resx1.Announcement</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="content">
+        <div class="container">
+            <div class="row blog-post-page">
+                <div class="col-md-9 blog-box tab-content">
+                    <div id="Cul1" class="tab-pane in active">
+                        <!-- Start Single Post Area -->
+                        <div class="blog-post gallery-post">
+                            <!-- Start Single Post (Gallery Slider) -->
+                            <div class="post-head">
+                                <div class="touch-slider post-slider">
+                                    <div class="item">
+                                        <a class="lightbox" title="This is an image title" href="~/Content/images/annoucement/nghitet2016.png" data-lightbox-gallery="gallery1">
+                                            <div class="thumb-overlay "><i class="fa fa-arrows-alt"></i></div>
+                                            <img class="img-annoucement" alt="" src="~/Content/images/annoucement/nghitet2016.png">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Post (Gallery) -->
+                            <!-- Start Single Post Content -->
+                            <div class="post-content">
+                                <div class="post-type"><i class="fa fa-picture-o"></i></div>
+                                <h2>Tet holidays calendar 2016 - Year of Monkey</h2>
+                                <ul class="post-meta">
+                                    <li>January 15, 2016 4:12 pm </li>
+                                    <li><a href="#">9:41</a>, <a href="#">AM</a></li>
+                                    <li><a href="#">4 @resx.Comments</a></li>
+                                </ul>
+                                <p>
+                                    Tet festival is here!<br /><br />
+                                    Tet holidays calendar 2016 - Year of the Monkey for all students of English Literature, University of Social Sciences and Humanities - VNU HCM, both day and night classes.<br />
+                                    I wish you "Happy New Year".
+                                </p>
+                                <div class="post-bottom clearfix">
+                                    <div class="post-share">
+                                        <span>@resx.ShareThisPost:</span>
+                                        <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                                        <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                                        <a class="gplus" href="#"><i class="fa fa-google-plus"></i></a>
+                                        <a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                                        <a class="mail" href="#"><i class="fa fa-envelope"></i></a>
+                                    </div>
+                                </div>
+                                <div class="author-info clearfix">
+                                    <div class="author-image">
+                                        <a href="#"><img alt="" src="~/Content/images//tranthithanhdieu.png" /></a>
+                                    </div>
+                                    <div class="author-bio">
+                                        <h4>@resx.Author: TS. Trần Thị Thanh Diệu</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Post Content -->
+                        </div>
+                        <!-- End Single Post Area -->
+                        <!-- Start Comment Area -->
+                        <div id="comments">
+                            <h2 class="comments-title">(4) @resx.Comments</h2>
+                            <ol class="comments-list" id="commentlist"></ol>
+                            <div class="post-tags-list">
+                                <a id="moreQuestion" style="cursor:pointer" onclick="moreQuestion()">@resx.MoreQuestion</a>
+                            </div>
+                            <!-- Start Respond Form -->
+                            <div id="respond">
+                                <h2 class="respond-title">@resx.LeaveAReply</h2>
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="author">@resx.Name<span class="required">*</span></label>
+                                            <input id="author" name="author" type="text" value="" size="30" aria-required="true">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="email">@resx.Email<span class="required">*</span></label>
+                                            <input id="email" name="author" type="text" value="" size="30" aria-required="true">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="url">@resx.Website<span class="required">*</span></label>
+                                            <input id="url" name="url" type="text" value="" size="30" aria-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="comment">@resx.AddYourComment</label>
+                                            <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+                                            <input name="submit" type="submit" id="submit" value="@resx.SubmitComment">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Respond Form -->
+                        </div>
+                        <!-- End Comment Area -->
+                    </div>
+                </div>
+                <!-- Sidebar -->
+                <div class="col-md-3 sidebar right-sidebar">
+                    <!-- Popular Posts widget -->
+                    <div class="widget widget-popular-posts">
+                        <h4>@resx.RecentAnnoucement<span class="head-line"></span></h4>
+                        <ul class="tab" id="tab1">
+                            <li>
+                                <div class="widget-thumb">
+                                    <a href="#"><img src="~/Content/images/annoucement/nghitet2016.png" alt="" /></a>
+                                </div>
+                                <div class="widget-content">
+                                    <h5><a href="javascript:void(0)">Tet holidays calendar 2016 - Year of Monkey</a></h5>
+                                    <span>January 15, 2016</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <div class="widget-thumb">
+                                    <a href="#"><img src="~/Content/images/annoucement/moi-khao-sat.png" alt="" /></a>
+                                </div>
+                                <div class="widget-content">
+                                    <h5><a href="javascript:void(0)">Invited to participate in online surveys.</a></h5>
+                                    <span> May 3, 2016</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <div class="widget-thumb">
+                                    <a href="#"><img src="~/Content/images/annoucement/dk-cuusv.png" alt="" /></a>
+                                </div>
+                                <div class="widget-content">
+                                    <h5><a href="javascript:void(0)">Alumni invited to register</a></h5>
+                                    <span>May 2, 2016</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                            <li>
+                                <div class="widget-thumb">
+                                    <a href="#"><img src="~/Content/images/Library//Cul3_1.jpg" alt="" /></a>
+                                </div>
+                                <div class="widget-content">
+                                    <h5><a href="javascript:void(0)">Invited to participate in online surveys.</a></h5>
+                                    <span>May1, 2916</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--End sidebar-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script id="tmplQuestion" type="text/x-jquery-tmpl">
+    <li>
+        <div class='comment-box clearfix'>
+            <div class='avatar'><img alt="" src="/Content/images/avatar.png" /></div>
+            <div class='comment-content'>
+                <div class='comment-meta'>
+                    <span class='comment-by'> John Doe</span>
+                    <span class='comment-date'>February 15, 2013 at 11:39 pm</span>
+                    <span class='reply-link'><a href='#'>@resx.Reply</a></span>
+                </div>
+                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia desrut mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+                <div>
+                    <a id="readMore${Id}" style='cursor:pointer' onclick="readMore('${Id}')">@resx.MoreAns...</a>
+                    <a id="hideAll${Id}" style='cursor:pointer;display:none;' onclick="hideAll('${Id}')">@resx.HideAll...</a>
+                </div>
+            </div>
+        </div>
+        <div id="boxReadMore${Id}"></div>
+    </li>
+</script>
+
+<script id="tmplComment" type="text/x-jquery-tmpl">
+    <div>
+        <ul>
+            <li>
+                <div class='comment-box clearfix'>
+                    <div class='avatar'><img alt="" src="/Content/images/avatar.png" /></div>
+                    <div class='comment-content'>
+                        <div class='comment-meta'>
+                            <span class='comment-by'>John Doe</span>
+                            <span class='comment-date'>February 15, 2013 at 11:39 pm</span>
+                            <span class='reply-link'><a href='#'>@resx.Reply</a></span>
+                        </div>
+                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script src="~/Scripts/jquery.tmpl.js"></script>
+
+<script type="text/javascript">
+
+    var _currTab = 1;
+    var _maxTab = 3;
+    var _count = 1;
+
+    $(document).ready(function () {
+        //$(".main-main").html(page1).fadeIn();
+        moreQuestion();
+        moreQuestion();
+    });
+
+    function changeTab(i) {
+        var preTab = _currTab;
+
+        _currTab += i;
+        if (_currTab < 1) {
+            _currTab = 1;
+            return;
+        }
+
+        if (_currTab > _maxTab) {
+            _currTab = _maxTab;
+            return;
+        }
+
+        $("#tab" + preTab).hide();
+        $("#tab" + _currTab).show(300);
+    };
+
+    function changePage(id) {
+        $(".main-main").empty();
+        _count = 1;
+
+        switch (id) {
+            case 1:
+                $(".main-main").html(page1).fadeIn();
+                reload_js();
+                moreQuestion();
+                moreQuestion();
+                break;
+            case 2:
+                $(".main-main").html(page2).fadeIn();
+                reload_js();
+                moreQuestion();
+                moreQuestion();
+                break;
+            case 3:
+                $(".main-main").html(page3).fadeIn();
+                reload_js();
+                moreQuestion();
+                moreQuestion();
+                break;
+            default: break;
+        }
+    }
+    var src = "/Scripts/js/owl.carousel.min.js";
+
+    function reload_js() {
+        $('script[src="' + src + '"]').remove();
+        $('<script>').attr('src', src).appendTo('head');
+    }
+
+    function readMore(id) {
+        var ele = $("#boxReadMore" + id).children();
+        if (ele.length == 4) {
+            $("#readMore" + id).hide();
+            $("#hideAll" + id).show();
+        }
+        $("#tmplComment").tmpl().hide().appendTo("#boxReadMore" + id).show(300);
+    }
+
+    function hideAll(id) {
+        $("#readMore" + id).show();
+        $("#hideAll" + id).hide();
+        $("#boxReadMore" + id).empty();
+    }
+
+    function moreQuestion() {
+        if (_count < 5) {
+            var data = { Id: _count };
+            $("#tmplQuestion").tmpl(data).appendTo("#commentlist");
+            _count++;
+        }
+        else {
+            $("#moreQuestion").hide();
+        }
+    }
+
+</script>

@@ -1,0 +1,940 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/admin/_Layout.cshtml";
+}
+
+<!--Start Breadcrumb-->
+<div class="row">
+    <div id="breadcrumb" class="col-xs-12">
+        <a href="#" class="show-sidebar">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ol class="breadcrumb pull-left">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+        </ol>
+        <div id="social" class="pull-right">
+            <a href="#"><i class="fa fa-google-plus"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+<!--Start Dashboard 1-->
+<div id="dashboard-header" class="row">
+    <div class="col-xs-12 col-sm-4 col-md-5">
+        <h3>Hello, Dashboard!</h3>
+    </div>
+    <div class="clearfix visible-xs"></div>
+    <div class="col-xs-12 col-sm-8 col-md-7 pull-right">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="sparkline-dashboard" id="sparkline-1"></div>
+                <div class="sparkline-dashboard-info">
+                    <i class="fa fa-usd"></i>756.45M
+                    <span class="txt-primary">EBITDA</span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="sparkline-dashboard" id="sparkline-2"></div>
+                <div class="sparkline-dashboard-info">
+                    <i class="fa fa-usd"></i>245.12M
+                    <span class="txt-info">OIBDA</span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="sparkline-dashboard" id="sparkline-3"></div>
+                <div class="sparkline-dashboard-info">
+                    <i class="fa fa-usd"></i>107.83M
+                    <span>REVENUE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Dashboard 1-->
+<!--Start Dashboard 2-->
+<div class="row-fluid">
+    <div id="dashboard_links" class="col-xs-12 col-sm-2 pull-right">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#" class="tab-link" id="overview">Overview</a></li>
+            <li><a href="#" class="tab-link" id="clients">Clients</a></li>
+            <li><a href="#" class="tab-link" id="graph">Statistics</a></li>
+            <li><a href="#" class="tab-link" id="servers">Servers</a></li>
+            <li><a href="#" class="tab-link" id="planning">Planning</a></li>
+            <li><a href="#" class="tab-link" id="netmap">Network map</a></li>
+            <li><a href="#" class="tab-link" id="stock">Yahoo finance</a></li>
+        </ul>
+    </div>
+    <div id="dashboard_tabs" class="col-xs-12 col-sm-10">
+        <!--Start Dashboard Tab 1-->
+        <div id="dashboard-overview" class="row" style="visibility: visible; position: relative;">
+            <div id="ow-marketplace" class="col-sm-12 col-md-6">
+                <div id="ow-setting">
+                    <a href="#"><i class="fa fa-folder-open"></i></a>
+                    <a href="#"><i class="fa fa-credit-card"></i></a>
+                    <a href="#"><i class="fa fa-ticket"></i></a>
+                    <a href="#"><i class="fa fa-bookmark-o"></i></a>
+                    <a href="#"><i class="fa fa-globe"></i></a>
+                </div>
+                <h4 class="page-header">MARKETPLACE</h4>
+                <table id="ticker-table" class="table m-table table-bordered table-hover table-heading">
+                    <thead>
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Price</th>
+                            <th>Change</th>
+                            <th>Weekly Chart</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-ticker"><b>BRDM</b><span>Broadem Inc.</span></td>
+                            <td class="m-price">33.27</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 1.45 (27&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>ASWLL</b><span>Aswell Corp.</span></td>
+                            <td class="m-price">45.13</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 6.32 (12&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>MIXL</b><span>Mixal LTD.</span></td>
+                            <td class="m-price">71.13</td>
+                            <td class="m-change"><i class="fa fa-angle-down"></i> 7.2 (12&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>LMPRD</b><span>L.A. Prod.</span></td>
+                            <td class="m-price">30.24</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 5.3 (18&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>ALK</b><span>Allien K.</span></td>
+                            <td class="m-price">51.1</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 7.5 (3.5&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>LNISW</b><span>Lenstri Sweet</span></td>
+                            <td class="m-price">123.12</td>
+                            <td class="m-change"><i class="fa fa-angle-down"></i> 54.3 (15.3&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>RNLD</b><span>Ron LEED</span></td>
+                            <td class="m-price">64.14</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 12.33 (0.3&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>BCN</b><span>BeetCN Corp.</span></td>
+                            <td class="m-price">64.14</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 12.33 (0.3&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>AWS</b><span>Awesome Inc.</span></td>
+                            <td class="m-price">64.14</td>
+                            <td class="m-change"><i class="fa fa-angle-up"></i> 12.33 (0.3&#37;)</td>
+                            <td class="td-graph"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div id="ow-donut" class="row">
+                    <div class="col-xs-4">
+                        <div id="morris_donut_1" style="width:120px;height:120px;"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="morris_donut_2" style="width:120px;height:120px;"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div id="morris_donut_3" style="width:120px;height:120px;"></div>
+                    </div>
+                </div>
+                <div id="ow-activity" class="row">
+                    <div class="col-xs-2 col-sm-1 col-md-2">
+                        <div class="v-txt">ACTIVITY</div>
+                    </div>
+                    <div class="col-xs-7 col-sm-5 col-md-6">
+                        <div class="row"><i class="fa fa-code"></i> Release published <span class="label label-default pull-right">01:17:34</span></div>
+                        <div class="row"><i class="fa fa-cloud-upload"></i> Backup created <span class="label label-default pull-right">03:23:34</span></div>
+                        <div class="row"><i class="fa fa-camera"></i> Snapshot created <span class="label label-default pull-right">04:22:11</span></div>
+                        <div class="row"><i class="fa fa fa-money"></i> Invoice pay <span class="label label-default pull-right">05:11:51</span></div>
+                        <div class="row"><i class="fa fa-briefcase"></i> Project edited <span class="label label-default pull-right">04:52:23</span></div>
+                        <div class="row"><i class="fa fa-floppy-o"></i> Project saved <span class="label label-default pull-right">07:11:01</span></div>
+                        <div class="row"><i class="fa fa-bug"></i> Bug fixed <span class="label label-default pull-right">09:10:31</span></div>
+                    </div>
+                    <div id="ow-stat" class="col-xs-3 col-sm-4 col-md-4 pull-right">
+                        <div class="row"><small><b>Ow Stat.:</b></small></div>
+                        <div class="row">&#37;user <sup>20,43</sup></div>
+                        <div class="row">&#37;nice <sup>1,01</sup></div>
+                        <div class="row">&#37;system <sup>27,34</sup></div>
+                        <div class="row">&#37;iowait <sup>2,02</sup></div>
+                        <div class="row">&#37;steal <sup>1,22</sup></div>
+                        <div class="row">&#37;idle <sup>47,98</sup></div>
+                        <div class="row">tps <sup>296546</sup></div>
+                    </div>
+                </div>
+                <div id="ow-summary" class="row">
+                    <div class="col-xs-12">
+                        <h4 class="page-header">&Sigma; SUMMARY</h4>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-6">Total commits<b>1245634</b></div>
+                                    <div class="col-xs-6">Release count<b>227</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">Tests passed<b>5222345</b></div>
+                                    <div class="col-xs-6">Tickets solved<b>324322</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">Active clients<b>52145</b></div>
+                                    <div class="col-xs-6">Support team<b>288</b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 1-->
+        <!--Start Dashboard Tab 2-->
+        <div id="dashboard-clients" class="row" style="visibility: hidden; position: absolute;">
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-users"></i></div>
+                <div class="col-xs-2"><b>Country</b></div>
+                <div class="col-xs-2">Visitors</div>
+                <div class="col-xs-2">Page hits</div>
+                <div class="col-xs-2">Revenue</div>
+                <div class="col-xs-1">Activity</div>
+                <div class="col-xs-2">Date</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>USA</b></div>
+                <div class="col-xs-2">109455</div>
+                <div class="col-xs-2">54322344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 354563</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/31/13</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>U.K.</b></div>
+                <div class="col-xs-2">86549</div>
+                <div class="col-xs-2">43242344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 265563</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/25/13</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>FRANCE</b></div>
+                <div class="col-xs-2">79399</div>
+                <div class="col-xs-2">45376844</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 309456</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/30/13</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>GERMANY</b></div>
+                <div class="col-xs-2">94567</div>
+                <div class="col-xs-2">35322344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 301040</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/26/13</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>CANADA</b></div>
+                <div class="col-xs-2">89525</div>
+                <div class="col-xs-2">1342344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 298764</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/30/13</div>
+            </div>
+            <div class="row one-list-message">
+                <div class="col-xs-1"><i class="fa fa-user"></i></div>
+                <div class="col-xs-2"><b>CHINA</b></div>
+                <div class="col-xs-2">120865</div>
+                <div class="col-xs-2">43522344</div>
+                <div class="col-xs-2"><i class="fa fa-usd"></i> 776563</div>
+                <div class="col-xs-1"><span class="bar"></span></div>
+                <div class="col-xs-2 message-date">12/29/13</div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 2-->
+        <!--Start Dashboard Tab 3-->
+        <div id="dashboard-graph" class="row" style="width:100%; visibility: hidden; position: absolute;">
+            <div class="col-xs-12">
+                <h4 class="page-header">OS Platform Statistics</h4>
+                <div id="stat-graph" style="height: 300px;"></div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 3-->
+        <!--Start Dashboard Tab 4-->
+        <div id="dashboard-servers" class="row" style="visibility: hidden; position: absolute;">
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-windows"></i>#SRV-APP</h4>
+                <small>Application server</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-1" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-windows"></i> Windows 2008</div>
+                        <div class="row"><i class="fa fa-user"></i> Active users - 49</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 10 days</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-windows"></i>#DB-MASTER</h4>
+                <small>SQL server</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-2" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-windows"></i> Windows 2013</div>
+                        <div class="row"><i class="fa fa-user"></i> Active users - 39</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 2 month 1 day</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-linux"></i>#DB-WEB</h4>
+                <small>MySQL server</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-3" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-linux"></i> CentOS 6.5</div>
+                        <div class="row"><i class="fa fa-user"></i> Active users - 298</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 9 month 17 day</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-linux"></i>#WWW-SRV</h4>
+                <small>Web-server</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-4" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-linux"></i> Centos 6.5</div>
+                        <div class="row"><i class="fa fa-user"></i> Active users - 1989</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 2 years 3 month</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-linux"></i>#PHONE-OFFICE</h4>
+                <small>Asterisk</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-5" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-linux"></i> Debian 6.4</div>
+                        <div class="row"><i class="fa fa-phone"></i> Active calls - 86</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 3 month 19 day</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 ow-server">
+                <h4 class="page-header text-right"><i class="fa fa-linux"></i>#DEVEL</h4>
+                <small>DEV server</small>
+                <div class="ow-settings">
+                    <a href="#"><i class="fa fa-gears"></i></a>
+                </div>
+                <div class="row ow-server-bottom">
+                    <div class="col-sm-4">
+                        <div class="knob-slider">
+                            <input id="knob-srv-6" class="knob" data-width="60" data-height="60" data-angleOffset="180" data-fgColor="#6AA6D6" data-skin="tron" data-thickness=".2" value="">CPU Load
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row"><i class="fa fa-linux"></i> CentOS 6.5</div>
+                        <div class="row"><i class="fa fa-archive"></i> Repositories - 17</div>
+                        <div class="row"><i class="fa fa-bolt"></i> Uptime - 4 month 21 day</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id="ow-server-footer">
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-sun-o"></i> <b>287</b> <span>Hosts</span></a>
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-envelope-o"></i> <b>56</b> <span>Messages</span></a>
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-desktop"></i> <b>85</b> <span>Stations</span></a>
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-info-circle"></i> <b>33</b> <span>Errors</span></a>
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-comments-o"></i> <b>1386</b> <span>Comments</span></a>
+                <a href="#" class="col-xs-4 col-sm-2 btn-default text-center"><i class="fa fa-user"></i> <b>19985</b> <span>Clients</span></a>
+            </div>
+        </div>
+        <!--End Dashboard Tab 4-->
+        <!--Start Dashboard Tab 5-->
+        <div id="dashboard-planning" class="row" style="visibility: hidden; position: absolute;">
+            <div class="col-xs-12 col-sm-6">
+                <h4 class="page-header">Planned projects</h4>
+                <a href="#">Expense items</a><a href="#" class="pull-right">Project members</a>
+                <table class="table m-table table-bordered table-hover table-heading">
+                    <thead>
+                        <tr>
+                            <th>Projects</th>
+                            <th>Ending date</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="m-ticker"><b>Network upgrade</b><span>Change Dlink devices to Cisco</span></td>
+                            <td class="m-price">Aug</td>
+                            <td class="m-change">179459</td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>Improved power equipment</b><span>Nevada datacenter</span></td>
+                            <td class="m-price">Nov</td>
+                            <td class="m-change">59411</td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>New ticket system</b><span>developed from scratch</span></td>
+                            <td class="m-price">Jul</td>
+                            <td class="m-change">14906</td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>Storage Area Network</b><span>project</span></td>
+                            <td class="m-price">Nov</td>
+                            <td class="m-change">250000</td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>New optical channels</b><span>6 links</span></td>
+                            <td class="m-price">Nov</td>
+                            <td class="m-change">22359</td>
+                        </tr>
+                        <tr>
+                            <td class="m-ticker"><b>Load-balance system</b><span>based on Linux</span></td>
+                            <td class="m-price">Dec</td>
+                            <td class="m-change">33950</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-6" id="planning-chart-1" style="height:250px;"><a href="#">Reports</a></div>
+            <div class="col-xs-12 col-sm-8" id="planning-chart-2" style="height: 250px;"></div>
+            <div class="col-xs-12 col-sm-4" id="planning-chart-3" style="height: 250px;"></div>
+            <div class="col-xs-8">
+                <h4 class="page-header">Quarterly forecast</h4>
+                <div class="row">
+                    <div class="col-xs-3"><span>Q1</span>123,34234</div>
+                    <div class="col-xs-3"><span>Q2</span>123,34234</div>
+                    <div class="col-xs-3"><span>Q3</span>123,34234</div>
+                    <div class="col-xs-3"><span>Q4</span>123,34234</div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <h4 class="page-header">Total forecast</h4>
+                <div class="row">
+                    <div class="col-xs-12"><span>QE</span>732423234.34</div>
+                </div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 5-->
+        <!--Start Dashboard Tab 6-->
+        <div id="dashboard-netmap" class="row" style="visibility: hidden; position: absolute;">
+            <div class="col-xs-12">
+                <h4 class="page-header">Network map(mesh topology)</h4>
+                <canvas id="springy-demo" width="900" height="480" />
+            </div>
+        </div>
+        <!--End Dashboard Tab 6-->
+        <!--Start Dashboard Tab 7-->
+        <div id="dashboard-stock" class="row" style="visibility: hidden; position: absolute;">
+            <div class="col-xs-12">
+                <h4 class="page-header">Stocks from Yahoo Finance</h4>
+                <div id="inputSymbol">
+                    <p>Enter Stock</p>
+                    <input id="txtSymbol" class="required" Placeholder="Symbol" />
+                    <input id="startDate" class="datePick required" type="text" Placeholder="From" />
+                    <input id="endDate" class="datePick" type="text" Placeholder="To" />
+                    <button id="submit">Submit</button>
+                </div>
+                <div class="realtime" style="margin-top:40px;">
+                    <div class="col-xs-6"><p>Name</p><span id="symbol"></span></div>
+                    <div class="col-xs-6"><p>RealtimeBid</p><span id="bidRealtime"></span></div>
+                </div>
+                <div class="historical">
+                    <div class="col-xs-6"><p>Date</p><div id="date"></div></div>
+                    <div class="col-xs-6"><p>Price</p><div id="closeValue"></div></div>
+                </div>
+            </div>
+        </div>
+        <!--End Dashboard Tab 7-->
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--End Dashboard 2 -->
+<div style="height: 40px;"></div>
+
+<script type="text/javascript">
+
+    // Array for random data for Sparkline
+    var sparkline_arr_1 = SparklineTestData();
+    var sparkline_arr_2 = SparklineTestData();
+    var sparkline_arr_3 = SparklineTestData();
+    $(document).ready(function () {
+        // Make all JS-activity for dashboard
+        DashboardTabChecker();
+        DrawKnobDashboard();
+        DrawSparklineDashboard();
+        MorrisDashboard();
+        SpringyNetmap();
+        // Make beauty hover in table
+        $("#ticker-table").beautyHover();
+        // Run script for stock block
+        CreateStockPage();
+    });
+
+    //
+    // Make array of random data
+    //
+    function SparklineTestData() {
+        var arr = [];
+        for (var i = 1; i < 9; i++) {
+            arr.push([Math.floor(1000 * Math.random())])
+        }
+        return arr;
+    }
+
+    //
+    // Function for change panels of Dashboard
+    //
+    function DashboardTabChecker() {
+        $('#content').on('click', 'a.tab-link', function (e) {
+            e.preventDefault();
+            $('div#dashboard_tabs').find('div[id^=dashboard]').each(function () {
+                $(this).css('visibility', 'hidden').css('position', 'absolute');
+            });
+            var attr = $(this).attr('id');
+            $('#' + 'dashboard-' + attr).css('visibility', 'visible').css('position', 'relative');
+            $(this).closest('.nav').find('li').removeClass('active');
+            $(this).closest('li').addClass('active');
+        });
+    }
+
+    /*-------------------------------------------
+        Function for get stock from Yahoo finance to dashboard page
+    ---------------------------------------------*/
+    //
+    // Make stock dashboard page
+    //
+    function CreateStockPage() {
+        var yqlURL = "http://query.yahooapis.com/v1/public/yql?q=";
+        var dataFormat = "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+        $(function () { //Load jQueryUI DatePicker by class name
+            $(".datePick").datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+        $("#submit").click(function () {
+            var symbol = $("#txtSymbol").val();
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            var realtimeQ = yqlURL + "select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22" + symbol + "%22)%0A%09%09&" + dataFormat;
+            var historicalQ = yqlURL + "select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20%3D%20%22" + symbol + "%22%20and%20startDate%20%3D%20%22" + startDate + "%22%20and%20endDate%20%3D%20%22" + endDate + "%22" + dataFormat;
+            $(function () {
+                $.getJSON(realtimeQ, function (json) {//YQL Request
+                    $('#symbol').text(json.query.results.quote.Name);//Assign quote.Param to span tag
+                    $('#bidRealtime').text(json.query.results.quote.BidRealtime);
+                });
+            });
+            $(function () {
+                $.getJSON(historicalQ, function (json) {
+                    $.each(json.query.results.quote, function (i, quote) {//loop results.quote object
+                        $("#date").append('<span>' + quote.Date + '</span');//create span for each record
+                    });
+                    $.each(json.query.results.quote, function (i, quote) { //new each statement is needed
+                        $("#closeValue").append('<span>' + quote.Close + '</span');
+                    });
+                });
+            });
+        });
+    }
+
+    //
+    // Draw 3 Sparkline plot in Dashboard header
+    //
+    function SparklineLoop() {
+        SparkLineDrawBarGraph($('#sparkline-1'), sparkline_arr_1.map(SmallChangeVal));
+        SparkLineDrawBarGraph($('#sparkline-2'), sparkline_arr_2.map(SmallChangeVal), '#7BC5D3');
+        SparkLineDrawBarGraph($('#sparkline-3'), sparkline_arr_3.map(SmallChangeVal), '#B25050');
+    }
+
+    //
+    // Helper for draw Sparkline plots on Dashboard page
+    //
+    function SparkLineDrawBarGraph(elem, arr, color) {
+        if (color) {
+            var stacked_color = color;
+        }
+        else {
+            stacked_color = '#6AA6D6'
+        }
+        elem.sparkline(arr, { type: 'bar', barWidth: 7, highlightColor: '#000', barSpacing: 2, height: 40, stackedBarColor: stacked_color });
+    }
+    // Draw SparkLine example Charts for Dashboard (table- Tickers)
+    //
+    function DrawSparklineDashboard() {
+        SparklineLoop();
+        setInterval(SparklineLoop, 1000);
+        var sparkline_clients = [[309], [223], [343], [652], [455], [18], [912], [15]];
+        $('.bar').each(function () {
+            $(this).sparkline(sparkline_clients.map(SmallChangeVal), { type: 'bar', barWidth: 5, highlightColor: '#000', barSpacing: 2, height: 30, stackedBarColor: '#6AA6D6' });
+        });
+        var sparkline_table = [[1, 341], [2, 464], [4, 564], [5, 235], [6, 335], [7, 535], [8, 642], [9, 342], [10, 765]];
+        $('.td-graph').each(function () {
+            var arr = $.map(sparkline_table, function (val, index) {
+                return [[val[0], SmallChangeVal([val[1]])]];
+            });
+            $(this).sparkline(arr,
+                {
+                    defaultPixelsPerValue: 10, minSpotColor: null, maxSpotColor: null, spotColor: null,
+                    fillColor: false, lineWidth: 2, lineColor: '#5A8DB6'
+                });
+        });
+    }
+
+    //
+    // Draw Knob Charts for Dashboard (for servers)
+    //
+    function DrawKnobDashboard() {
+        var srv_monitoring_selectors = [
+            $("#knob-srv-1"), $("#knob-srv-2"), $("#knob-srv-3"),
+            $("#knob-srv-4"), $("#knob-srv-5"), $("#knob-srv-6")
+        ];
+        srv_monitoring_selectors.forEach(DrawKnob);
+        setInterval(function () {
+            srv_monitoring_selectors.forEach(RedrawKnob);
+        }, 3000);
+    }
+
+    //
+    // Draw Morris charts on Dashboard (panel- Statistics - Planning + 3 donuts)
+    //
+    function MorrisDashboard() {
+        Morris.Line({
+            element: 'stat-graph',
+            data: [
+                { "period": "2014-01", "Win8": 13.4, "Win7": 55.3, 'Vista': 1.5, 'NT': 0.3, 'XP': 11, 'Linux': 4.9, 'Mac': 9.6, 'Mobile': 4 },
+                { "period": "2013-12", "Win8": 10, "Win7": 55.9, 'Vista': 1.5, 'NT': 3.1, 'XP': 11.6, 'Linux': 4.8, 'Mac': 9.2, 'Mobile': 3.8 },
+                { "period": "2013-11", "Win8": 8.6, "Win7": 56.4, 'Vista': 1.6, 'NT': 3.7, 'XP': 11.7, 'Linux': 4.8, 'Mac': 9.6, 'Mobile': 3.7 },
+                { "period": "2013-10", "Win8": 9.9, "Win7": 56.7, 'Vista': 1.6, 'NT': 1.4, 'XP': 12.4, 'Linux': 4.9, 'Mac': 9.6, 'Mobile': 3.3 },
+                { "period": "2013-09", "Win8": 10.2, "Win7": 56.8, 'Vista': 1.6, 'NT': 0.4, 'XP': 13.5, 'Linux': 4.8, 'Mac': 9.3, 'Mobile': 3.3 },
+                { "period": "2013-08", "Win8": 9.6, "Win7": 55.9, 'Vista': 1.7, 'NT': 0.4, 'XP': 14.7, 'Linux': 5, 'Mac': 9.2, 'Mobile': 3.4 },
+                { "period": "2013-07", "Win8": 9, "Win7": 56.2, 'Vista': 1.8, 'NT': 0.4, 'XP': 15.8, 'Linux': 4.9, 'Mac': 8.7, 'Mobile': 3.2 },
+                { "period": "2013-06", "Win8": 8.6, "Win7": 56.3, 'Vista': 2, 'NT': 0.4, 'XP': 15.4, 'Linux': 4.9, 'Mac': 9.1, 'Mobile': 3.2 },
+                { "period": "2013-05", "Win8": 7.9, "Win7": 56.4, 'Vista': 2.1, 'NT': 0.4, 'XP': 15.7, 'Linux': 4.9, 'Mac': 9.7, 'Mobile': 2.6 },
+                { "period": "2013-04", "Win8": 7.3, "Win7": 56.4, 'Vista': 2.2, 'NT': 0.4, 'XP': 16.4, 'Linux': 4.8, 'Mac': 9.7, 'Mobile': 2.2 },
+                { "period": "2013-03", "Win8": 6.7, "Win7": 55.9, 'Vista': 2.4, 'NT': 0.4, 'XP': 17.6, 'Linux': 4.7, 'Mac': 9.5, 'Mobile': 2.3 },
+                { "period": "2013-02", "Win8": 5.7, "Win7": 55.3, 'Vista': 2.4, 'NT': 0.4, 'XP': 19.1, 'Linux': 4.8, 'Mac': 9.6, 'Mobile': 2.2 },
+                { "period": "2013-01", "Win8": 4.8, "Win7": 55.3, 'Vista': 2.6, 'NT': 0.5, 'XP': 19.9, 'Linux': 4.8, 'Mac': 9.3, 'Mobile': 2.2 }
+            ],
+            xkey: 'period',
+            ykeys: ['Win8', 'Win7', 'Vista', 'NT', 'XP', 'Linux', 'Mac', 'Mobile'],
+            labels: ['Win8', 'Win7', 'Vista', 'NT', 'XP', 'Linux', 'Mac', 'Mobile']
+        });
+        Morris.Donut({
+            element: 'morris_donut_1',
+            data: [
+                { value: 70, label: 'pay', formatted: 'at least 70%' },
+                { value: 15, label: 'client', formatted: 'approx. 15%' },
+                { value: 10, label: 'buy', formatted: 'approx. 10%' },
+                { value: 5, label: 'hosted', formatted: 'at most 5%' }
+            ],
+            formatter: function (x, data) { return data.formatted; }
+        });
+        Morris.Donut({
+            element: 'morris_donut_2',
+            data: [
+                { value: 20, label: 'office', formatted: 'current' },
+                { value: 35, label: 'store', formatted: 'approx. 35%' },
+                { value: 20, label: 'shop', formatted: 'approx. 20%' },
+                { value: 25, label: 'cars', formatted: 'at most 25%' }
+            ],
+            formatter: function (x, data) { return data.formatted; }
+        });
+        Morris.Donut({
+            element: 'morris_donut_3',
+            data: [
+                { value: 17, label: 'current', formatted: 'current' },
+                { value: 22, label: 'week', formatted: 'last week' },
+                { value: 10, label: 'month', formatted: 'last month' },
+                { value: 25, label: 'period', formatted: 'period' },
+                { value: 25, label: 'year', formatted: 'this year' }
+            ],
+            formatter: function (x, data) { return data.formatted; }
+        });
+        Morris.Bar({
+            element: 'planning-chart-1',
+            data: [
+                { x: 'Network upgrade', y: 179459 },
+                { x: 'Improved power equipment', y: 59411 },
+                { x: 'New ticket system', y: 14906 },
+                { x: 'Storage area network', y: 250000 },
+                { x: 'New optical channels', y: 22359 },
+                { x: 'Load balance system', y: 33950 }
+            ],
+            xkey: 'x',
+            ykeys: ['y'],
+            labels: ['Y'],
+            barColors: function (row, series, type) {
+                if (type === 'bar') {
+                    var red = Math.ceil(255 * row.y / this.ymax);
+                    return 'rgb(' + red + ',0,0)';
+                }
+                else {
+                    return '#000';
+                }
+            }
+        });
+        Morris.Bar({
+            element: 'planning-chart-2',
+            data: [
+                { x: "2015-01", y: 179459 },
+                { x: "2015-02", y: 149459 },
+                { x: "2015-03", y: 13849 },
+                { x: "2015-04", y: 12349 },
+                { x: "2015-05", y: 200019 },
+                { x: "2015-06", y: 59459 },
+                { x: "2015-07", y: 93459 },
+                { x: "2015-08", y: 133044 },
+                { x: "2015-09", y: 9244 },
+                { x: "2015-10", y: 54144 },
+                { x: "2015-11", y: 19954 },
+                { x: "2015-11", y: 38452 }
+            ],
+            xkey: 'x',
+            ykeys: ['y'],
+            labels: ['Spending'],
+            barColors: function (row, series, type) {
+                if (type === 'bar') {
+                    var red = Math.ceil(255 * row.y / this.ymax);
+                    return 'rgb(0,' + red + ',0)';
+                }
+                else {
+                    return '#000';
+                }
+            }
+        });
+        Morris.Donut({
+            element: 'planning-chart-3',
+            data: [
+                { label: 'Network upgrade', value: 179459 },
+                { label: 'Improved power equipment', value: 59411 },
+                { label: 'New ticket system', value: 14906 },
+                { label: 'Storage area network', value: 250000 },
+                { label: 'New optical channels', value: 22359 },
+                { label: 'Load balance system', value: 33950 }
+            ],
+            colors: ['#CCC', '#DDD', '#BBB']
+        });
+    }
+
+    //
+    // Draw Springy graphs (Network map) on Dashboard page
+    //
+    function SpringyNetmap() {
+        var graph = new Springy.Graph();
+        var core1 = graph.newNode({ label: 'Network core 1 (Cisco 3750G-48PS)' });
+        var core2 = graph.newNode({ label: 'Network core 2 (Cisco 3750G-48PS)' });
+        var srv1 = graph.newNode({ label: 'Server switch 1 (Cisco 3750G-48TS)' });
+        var srv2 = graph.newNode({ label: 'Server switch 2 (Cisco 3750G-48TS)' });
+        var pabx1 = graph.newNode({ label: 'PABX switch 1 (Cisco 3750G-48TS)' });
+        var pabx2 = graph.newNode({ label: 'PABX switch 2 (Cisco 3750G-48TS)' });
+        var router1 = graph.newNode({ label: 'Router 1 (Cisco 3945E)' });
+        var router2 = graph.newNode({ label: 'Router 2 (Cisco 3945E)' });
+        graph.newEdge(core1, core2, { color: '#00A0B0' });
+        graph.newEdge(core2, core1, { color: '#6A4A3C' });
+        graph.newEdge(core1, srv1, { color: '#CC333F' });
+        graph.newEdge(core2, srv1, { color: '#CC333F' });
+        graph.newEdge(core1, srv2, { color: '#EB6841' });
+        graph.newEdge(core2, srv2, { color: '#EB6841' });
+        graph.newEdge(srv1, srv2, { color: '#EDC951' });
+        graph.newEdge(srv2, srv1, { color: '#EDC951' });
+        graph.newEdge(pabx1, core1, { color: '#7DBE3C' });
+        graph.newEdge(pabx1, core2, { color: '#7DBE3C' });
+        graph.newEdge(pabx2, core1, { color: '#000000' });
+        graph.newEdge(pabx2, core2, { color: '#000000' });
+        graph.newEdge(router1, core1, { color: '#00A0B0' });
+        graph.newEdge(router1, core2, { color: '#00A0B0' });
+        graph.newEdge(router2, core1, { color: '#6A4A3C' });
+        graph.newEdge(router2, core2, { color: '#6A4A3C' });
+        graph.newEdge(pabx1, pabx2, { color: '#CC333F' });
+        graph.newEdge(pabx2, pabx1, { color: '#CC333F' });
+        graph.newEdge(router1, router2, { color: '#EB6841' });
+        graph.newEdge(router2, router1, { color: '#EB6841' });
+
+        $('#springy-demo').springy({
+            graph: graph,
+            nodeSelected: function (node) {
+                console.log('Node selected: ' + JSON.stringify(node.data));
+            }
+        });
+    }
+
+    //
+    //  Function for Draw Knob Charts
+    //
+    function DrawKnob(elem) {
+        elem.knob({
+            change: function (value) {
+                //console.log("change : " + value);
+            },
+            release: function (value) {
+                //console.log(this.$.attr('value'));
+                console.log("release : " + value);
+            },
+            cancel: function () {
+                console.log("cancel : ", this);
+            },
+            draw: function () {
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
+                    var a = this.angle(this.cv);  // Angle
+                    var sa = this.startAngle;          // Previous start angle
+                    var sat = this.startAngle;         // Start angle
+                    var ea;                            // Previous end angle
+                    var eat = sat + a;                 // End angle
+                    var r = 1;
+                    this.g.lineWidth = this.lineWidth;
+                    this.o.cursor
+                        && (sat = eat - 0.3)
+                        && (eat = eat + 0.3);
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.v);
+                        this.o.cursor
+                            && (sa = ea - 0.3)
+                            && (ea = ea + 0.3);
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.pColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                        this.g.stroke();
+                    }
+                    this.g.beginPath();
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                    this.g.stroke();
+                    return false;
+                }
+            }
+        });
+        // Example of infinite knob, iPod click wheel
+        var v;
+        var up = 0;
+        var down = 0;
+        var i = 0;
+        var $idir = $("div.idir");
+        var $ival = $("div.ival");
+        var incr = function () { i++; $idir.show().html("+").fadeOut(); $ival.html(i); }
+        var decr = function () { i--; $idir.show().html("-").fadeOut(); $ival.html(i); };
+
+        $("input.infinite").knob(
+            {
+                min: 0,
+                max: 20,
+                stopper: false,
+                change: function () {
+                    if (v > this.cv) {
+                        if (up) {
+                            decr();
+                            up = 0;
+                        } else {
+                            up = 1; down = 0;
+                        }
+                    } else {
+                        if (v < this.cv) {
+                            if (down) {
+                                incr();
+                                down = 0;
+                            } else {
+                                down = 1; up = 0;
+                            }
+                        }
+                    }
+                    v = this.cv;
+                }
+            });
+    }
+
+    //
+    // Helper for random change data (only test data for Sparkline plots)
+    //
+    function SmallChangeVal(val) {
+        var new_val = Math.floor(100 * Math.random());
+        var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        var result = val[0] + new_val * plusOrMinus;
+        if (parseInt(result) > 1000) {
+            return [val[0] - new_val]
+        }
+        if (parseInt(result) < 0) {
+            return [val[0] + new_val]
+        }
+        return [result];
+    }
+
+    //
+    // Redraw Knob charts on Dashboard (panel- servers)
+    //
+    function RedrawKnob(elem) {
+        elem.animate({
+            value: Math.floor(100 * Math.random())
+        }, {
+            duration: 3000,
+            easing: 'swing',
+            progress: function () {
+                $(this).val(parseInt(Math.ceil(elem.val()))).trigger('change');
+            }
+        });
+    }
+
+</script>

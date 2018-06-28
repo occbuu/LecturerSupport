@@ -1,0 +1,34 @@
+﻿@using LS.Utility;
+@using LS.Web.Models
+@model WhoAmIVM
+
+@foreach (var item in Model.WhoAmIDetail)
+{
+    <div class="row">
+        <div class="col-md-7">
+            <!-- Classic Heading -->
+            @Html.Raw(Model.Value)
+            <!-- Some Text -->
+            @Html.Raw(item.Value)
+        </div>
+
+        <div class="col-md-5">
+
+            <!-- Start Touch Slider -->
+            <div class="touch-slider" data-slider-navigation="true" data-slider-pagination="true">
+                @{
+                    var images = item.Images.Split(';');
+                    foreach (var img in images)
+                    {
+                        if (!string.IsNullOrEmpty(img))
+                        {
+                            var image = Constants.AboutMe.DirImagesOfTeacher + img;
+                            <div class="item"><img alt="" src="@image"></div>
+                        }
+                    }
+                }
+            </div>
+            <!-- End Touch Slider -->
+        </div>
+    </div>
+                    }

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C90C13B-37F0-465D-BE5F-DFA682E8F25F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LS.IDAL</RootNamespace>
+    <AssemblyName>LS.IDAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IAssignmentConfigDao.cs" />
+    <Compile Include="IClassDao.cs" />
+    <Compile Include="ICommentDao.cs" />
+    <Compile Include="ICommonCodeDao.cs" />
+    <Compile Include="ICommonTypeDao.cs" />
+    <Compile Include="ICourseScoreDao.cs" />
+    <Compile Include="IDocumentDao.cs" />
+    <Compile Include="IFunctionDao.cs" />
+    <Compile Include="IFunctionRoleDao.cs" />
+    <Compile Include="ILibraryDao.cs" />
+    <Compile Include="ILinksDao.cs" />
+    <Compile Include="ILogsDao.cs" />
+    <Compile Include="IMessageDao.cs" />
+    <Compile Include="INewsDao.cs" />
+    <Compile Include="IStudentClassDao.cs" />
+    <Compile Include="IStudentDao.cs" />
+    <Compile Include="IStudentExerciseDao.cs" />
+    <Compile Include="ISubjectDao.cs" />
+    <Compile Include="IObjectDao.cs" />
+    <Compile Include="IQADao.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IRoleDao.cs" />
+    <Compile Include="IScheduleDao.cs" />
+    <Compile Include="ISiteInfoDao.cs" />
+    <Compile Include="ITagsDao.cs" />
+    <Compile Include="ITeacherBackgroundDao.cs" />
+    <Compile Include="ITeacherDelegateDao.cs" />
+    <Compile Include="ITeacherMemoryDao.cs" />
+    <Compile Include="ITeacherResearchWorkDao.cs" />
+    <Compile Include="ITeacherStudiesDao.cs" />
+    <Compile Include="IUniversityDao.cs" />
+    <Compile Include="IUserRoleDao.cs" />
+    <Compile Include="IUsersDao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ITeacherDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LS.Model\LS.Model.csproj">
+      <Project>{5a3881e6-4ff0-40a7-a0a3-d5e1d06327f3}</Project>
+      <Name>LS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

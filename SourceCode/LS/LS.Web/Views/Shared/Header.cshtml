@@ -1,0 +1,251 @@
+﻿@using resx = LS.Resources.Resources
+@using resx1 = LS.Resources.Users.ResourcesUsers
+@using LS.Web.Models
+
+@{
+    var tmp = HttpContext.Current.Session["IsLogin"];
+    var isLogin = tmp != null;
+    string userId = "";
+    if (isLogin)
+    {
+        var user = (UserFrontVM)(Session["IsLogin"]);
+        userId = user.UserId;
+    }
+}
+<!-- Start Header ( Logo & Naviagtion ) -->
+<div class="navbar navbar-default navbar-top">
+    <div class="container">
+        <div class="navbar-header" style="margin-top:30px">
+            <!-- Stat Toggle Nav Link For Mobiles -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <!-- Start Navigation List -->
+            <ul class="nav navbar-nav navbar-right">
+                @(Html.Partial("_HeaderPartial"))
+            </ul>
+            <!-- End Navigation List -->
+        </div>
+    </div>
+    <!-- Mobile Menu Start -->
+    <ul class="wpb-mobile-menu">
+        @(Html.Partial("_HeaderPartial"))
+    </ul>
+    <!-- Mobile Menu End -->
+</div>
+<div class="modal fade" id="login" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="margin-top:20%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2>@resx.SignIn</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top:20px; padding-bottom: 2%" id="login">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-3 col-md-offset-2">
+                        <!--<form role="form">-->
+                        <!--<fieldset>-->
+                        <h2>@resx.PleaseSignIn</h2>
+                        <hr class="colorgraph">
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" class="form-control input-lg" placeholder="@resx.EmailAddress" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg" maxlength="12" pattern="[a-zA-Z0-9]{6,}" placeholder="@resx.Password" required>
+                        </div>
+                        <div class="form-group">
+                            <a href="" style="text-align: center">@resx.ForgotPassword?</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a id="ok" class="btn btn-lg btn-success btn-block">@resx.SignIn</a>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a class="btn btn-lg btn-primary" id="btnregister">@resx.Register</a>
+                            </div>
+                        </div>
+                        <!--</fieldset>-->
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="#close">@resx.Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="changePassword" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="margin-top:20%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2>@resx.ChangePassword</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top:20px; padding-bottom: 2%" id="login">
+                    <div id="alert" hidden class="form-group alert alert-danger">
+                    </div>
+                    <div class="col-xs-10 col-sm-8 col-md-7 col-sm-offset-3 col-md-offset-2">
+                        <!--<form role="form">-->
+                        <!--<fieldset>-->
+                        <br />
+                        <div class="form-group">
+                            <input type="password" name="passwordOld" id="oldPassword" maxlength="12" pattern="[a-zA-Z0-9]{6,}" class="form-control input-lg" placeholder="@resx1.OldPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="passwordNew1" id="newPassword" maxlength="12" pattern="[a-zA-Z0-9]{6,}" title="At least 6 characters" class="form-control input-lg" placeholder="@resx1.NewPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="passwordNew2" id="confirmPassword" maxlength="12" pattern="[a-zA-Z0-9]{6,}" title="At least 6 characters" class="form-control input-lg" placeholder="@resx1.Confirm" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button id="submit" class="btn btn-lg btn-success btn-block">@resx1.Change</button>
+                            </div>
+                            @*<div class="col-xs-6 col-sm-6 col-md-6">
+                                    <a class="btn btn-lg btn-danger btn-block" data-dismiss="modal" id="#close">@resx.Close</a>
+                                </div>*@
+                        </div>
+                        <!--</fieldset>-->
+                        <!-- </form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#ok").click(function () {
+            var email = $("#email").val();
+            var pwd = $("#password").val();
+            if (email != "" && pwd != "") {
+                var data = {
+                    UserId: email,
+                    Pwd: pwd
+                };
+                $.ajax({
+                    url: "@Url.Action("Login","Home")",
+                    type: "POST",
+                    dataType: "Json",
+                    data: { model: JSON.stringify(data) },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.redirect;
+                        }
+                        else {
+                            alert("Email or Password does not correct");
+                        }
+                    }
+                });
+            }
+            else {
+                alert("Email or Password dose not null");
+            }
+
+        });
+
+        $('#submit').click(function () {
+            var oldPassword = $('#oldPassword').val();
+            var newPassword = $('#newPassword').val();
+            var confirmPassword = $('#confirmPassword').val();
+            var userId = "hung";
+            $('#alert').html("");
+            $('#alert').removeClass('alert-success').addClass('alert-danger');
+            $('#alert').hide();
+            var string = "";
+            var flag = false;
+            if (userId == '') {
+                string += "Please Login again<br />";
+                flag = true;
+            }
+            if (oldPassword.length < 6) {
+                string = "Old Password was wrong<br />";
+                flag = true;
+            }
+            if (newPassword.length < 6) {
+                string += "New Password was wrong<br />";
+                flag = true;
+            }
+            if (newPassword != confirmPassword) {
+                string += "Two Passwords must be matching<br />";
+                flag = true;
+            }
+            if (flag) {
+                $('#alert').html(string);
+                $('#alert').show();
+            }
+            else {
+                var data = {
+                    userId: userId,
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                    confirmPassword: confirmPassword
+                };
+                $.ajax({
+                    url: '@Url.Action("ChangePassword","Users")',
+                    type: 'Post',
+                    dataType: 'Json',
+                    data: { model: JSON.stringify(data) },
+                    success: function (response) {
+                        switch (response.success) {
+                            case 1:
+                                {
+                                    $('#alert').removeClass('alert-danger').addClass('alert-success');
+                                    $('#alert').html("Your Password has changed");
+                                    $('#alert').show();
+                                    $('#oldPassword').val('');
+                                    $('#newPassword').val('');
+                                    $('#confirmPassword').val('');
+                                    break;
+                                }
+                            case -3:
+                                {
+                                    $('#alert').html("Old Password  or New Password or Confirm Password is null or less than 6 characters ");
+                                    $('#alert').show();
+                                    break;
+                                }
+                            case -2:
+                                {
+                                    $('#alert').html("New Password not equal to Confirm Password");
+                                    $('#alert').show();
+                                    break;
+                                }
+                            case -1:
+                                {
+                                    $('#alert').html("Old Password was wrong");
+                                    $('#alert').show();
+                                    break;
+                                }
+                        }
+                    }
+
+                });
+            }
+        });
+
+        $(".logout").click(function () {
+            $(".formLogin").show();
+            $(".user").css("display", "none");
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("Logout","Home")'
+            });
+            history.go(0);
+            location.reload();
+        });
+    });
+
+</script>
+<!-- End Header ( Logo & Naviagtion ) -->
+@Html.Partial("AlertPopup")

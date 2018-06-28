@@ -1,0 +1,26 @@
+﻿@using LS.Web.Models;
+@using LS.Utility;
+@model NameDelegateStudentsVM
+
+@foreach (var item in Model.DelegateStudentsDetail)
+{
+    var image = Constants.InfoType.DirOfImageDelegateStudents + Model.Image;
+    <div class="col-md-3 single-student">
+        <img src="@image" />
+    </div>
+
+    <div class="col-md-9">
+        <table class="table table-borderless table-research">
+            <thead>
+                <tr>
+                    <td style="width:170px">@Model.Value</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Raw(item.Value)
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+}

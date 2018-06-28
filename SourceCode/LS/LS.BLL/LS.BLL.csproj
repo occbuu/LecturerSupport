@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{231513E5-62F3-4F81-BE2D-3A31A267CB20}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LS.BLL</RootNamespace>
+    <AssemblyName>LS.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssignmentConfigService.cs" />
+    <Compile Include="ClassService.cs" />
+    <Compile Include="CommentService.cs" />
+    <Compile Include="CommonCodeService.cs" />
+    <Compile Include="CommonTypeService.cs" />
+    <Compile Include="CourseScoreService.cs" />
+    <Compile Include="DocumentService.cs" />
+    <Compile Include="FunctionRoleService.cs" />
+    <Compile Include="FunctionService.cs" />
+    <Compile Include="StudentClassService.cs" />
+    <Compile Include="StudentExerciseService.cs" />
+    <Compile Include="StudentService.cs" />
+    <Compile Include="LibraryService.cs" />
+    <Compile Include="LinksService.cs" />
+    <Compile Include="LogsService.cs" />
+    <Compile Include="MessageService.cs" />
+    <Compile Include="NewsService.cs" />
+    <Compile Include="ObjectService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QAService.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="RoleService.cs" />
+    <Compile Include="ScheduleService.cs" />
+    <Compile Include="SiteInfoService.cs" />
+    <Compile Include="SubjectService.cs" />
+    <Compile Include="TagsService.cs" />
+    <Compile Include="TeacherBackgroundService.cs" />
+    <Compile Include="TeacherDelegateStudentService.cs" />
+    <Compile Include="TeacherMemoryService.cs" />
+    <Compile Include="TeacherResearchWorkService.cs" />
+    <Compile Include="TeacherService.cs" />
+    <Compile Include="TeacherStudiesService.cs" />
+    <Compile Include="UniversityService.cs" />
+    <Compile Include="UserRoleService.cs" />
+    <Compile Include="UsersService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LS.DAL\LS.DAL.csproj">
+      <Project>{82dca804-9b10-4c7f-b70e-d9106f8ab7ce}</Project>
+      <Name>LS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LS.IBLL\LS.IBLL.csproj">
+      <Project>{3242092c-8d1a-402e-bf91-5cf8940f6a94}</Project>
+      <Name>LS.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LS.IDAL\LS.IDAL.csproj">
+      <Project>{8c90c13b-37f0-465d-be5f-dfa682e8f25f}</Project>
+      <Name>LS.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LS.Model\LS.Model.csproj">
+      <Project>{5a3881e6-4ff0-40a7-a0a3-d5e1d06327f3}</Project>
+      <Name>LS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LS.Utility\LS.Utility.csproj">
+      <Project>{7c9b5034-2b55-4615-84e1-3da8ca00364e}</Project>
+      <Name>LS.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

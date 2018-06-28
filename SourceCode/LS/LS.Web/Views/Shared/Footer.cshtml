@@ -1,0 +1,112 @@
+﻿@using resx = LS.Resources.Resources;
+@using LS.Web.Models
+@using LS.Utility
+
+@{
+    var footerVM = HttpContext.Current.Session[Constants.InfoType.Footer] == null ? new List<FooterVM>() : HttpContext.Current.Session[Constants.InfoType.Footer] as List<FooterVM>;
+    var socialNetworkVM = HttpContext.Current.Session[Constants.InfoType.SocialNetwork] == null ? new List<SocialNetworkVM>() : HttpContext.Current.Session[Constants.InfoType.SocialNetwork] as List<SocialNetworkVM>;
+}
+
+<!-- Start Footer -->
+<footer>
+    <div class="container">
+        <div class="row footer-widgets">
+            <!-- Start Subscribe & Social Links Widget -->
+            @foreach (var result in footerVM)
+            {
+                <div class="col-md-3">
+                    @if (result.Name == Constants.InfoType.GetInTouch)
+                    {
+                        <div class="footer-widget mail-subscribe-widget">
+                            @(Html.Raw(result.Value))
+                            @foreach (var item in result.footerDetailsVM)
+                            {
+                                @(Html.Raw(item.Value))
+                            }
+                        </div>
+                        <div class="footer-widget social-widget">
+                            <ul class="social-icons">
+                                @foreach (var icon in socialNetworkVM)
+                                {
+                                    if (icon.ParentId != null)
+                                    {
+                                        @(Html.Raw(icon.Value))
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+                    else if (result.Name == Constants.InfoType.SocialNetwork)
+                    {
+                        <div class="footer-widget twitter-widget">
+                            @(Html.Raw(result.Value))
+                            <ul>
+                                <li>
+                                    <a href="https://www.facebook.com/dieu.tranthithanh.94">@@Facebook </a><span>Lorem ipsum dolor et, consectetur adipiscing eli.</span>
+                                    <span>28 February 2014</span>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else if (result.Name == Constants.InfoType.FooterImages)
+                    {
+                        <div class="footer-widget flickr-widget">
+                            @(Html.Raw(result.Value))
+                            <ul class="flickr-list">
+                                @foreach (var item in result.footerDetailsVM)
+                                {
+                                    var lstImages = item.Value.Split(';');
+                                    for (var i = 0; i < lstImages.Count() - 1; i++)
+                                    {
+                                        <li>
+                                            <a href="~/Content/images/classes/@lstImages[i]" class="lightbox">
+                                                <img alt="" src="~/Content/images/classes/@lstImages[i]">
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+                    else if (result.Name == Constants.InfoType.FooterName)
+                    {
+                        <div class="footer-widget contact-widget">
+                            @(Html.Raw(result.Value))
+                            <ul>
+                                @foreach (var item in result.footerDetailsVM)
+                                {
+                                    @(Html.Raw(item.Value))
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <!-- .row -->
+        <!-- Start Copyright -->
+        <div class="copyright-section">
+            <div class="row">
+                @foreach (var result in footerVM)
+                {
+                    if (result.Name == Constants.InfoType.CopyRight)
+                    {
+                        <div class="col-md-6">
+                            @(Html.Raw(result.Value))
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="footer-nav">
+                                @foreach (var item in result.footerDetailsVM)
+                                {
+                                    @(Html.Raw(item.Value))
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- End Copyright -->
+    </div>
+</footer>
+<!-- End Footer -->
