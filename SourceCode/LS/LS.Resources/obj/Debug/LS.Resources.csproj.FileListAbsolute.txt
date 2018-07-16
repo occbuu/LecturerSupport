@@ -30,4 +30,3 @@ D:\CTY\Vân\LS\SourceCode\LS\LS.Resources\obj\Debug\ja-JP\LS.Resources.resources
 D:\CTY\Vân\LS\SourceCode\LS\LS.Resources\obj\Debug\vi-VN\LS.Resources.resources.dll
 D:\CTY\Vân\LS\SourceCode\LS\LS.Resources\obj\Debug\LS.Resources.dll
 D:\CTY\Vân\LS\SourceCode\LS\LS.Resources\obj\Debug\LS.Resources.pdb
-D:\CTY\Vân\LS\SourceCode\LS\LS.Resources\obj\Debug\LS.Resources.csprojAssemblyReference.cache

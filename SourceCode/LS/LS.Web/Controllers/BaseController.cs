@@ -164,6 +164,7 @@ namespace LS.Web.Controllers
             if (controllerContext != null)
             {
                 var tmp = controllerContext.RouteData.Values;
+                //tmp.Values[0].
                 var action = tmp["action"].ToString();
                 var controller = tmp["controller"].ToString();
                 var functionCode = ParseToFuction(action, controller);

@@ -1,4 +1,5 @@
-﻿@using LS.Utility
+﻿@using LS.Web.Models;
+@model TeacherViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -34,22 +35,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-9" style="margin-top:15px;">
-            <div class="col-lg-2" style="margin-left:-12px;font-weight:bold">
-                Từ ngày
-            </div>
-            <div class="col-lg-3">
-                <input id="fromDate" class="form-control calendar" data-date-format="dd/mm/yyyy" placeholder="Từ ngày">
-            </div>
-            <div class="col-lg-2" style="font-weight:bold">
-                Đến ngày
-            </div>
-            <div class="col-lg-3" style="margin-left:3px;">
-                <input id="toDate" class="form-control calendar" data-date-format="dd/mm/yyyy" placeholder="Đến ngày">
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-lg-9" style="margin-top:15px">
             <span id="checkDate"></span>
         </div>
@@ -60,9 +45,11 @@
         </div>
         <div class="col-xs-7" style="width: 525px;">
             <select id="txtType" class="form-control" onchange="changeType()">
-                <option value="Type"> -- Ngành --</option>
-                <option value="Teacher">Teacher</option>
-                <option value="TeacherBackground">Teacher Background</option>
+                <option value="Type"> -- Teacher --</option>
+                @foreach (var item in Model.TeacherVM)
+                {
+                    <option value="@item.Id">@item.FullName</option>
+                }
             </select>
         </div>
     </div>
@@ -95,13 +82,10 @@
             <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
                 <thead>
                     <tr>
-                        <th style="width:20px;">
-                            <input id="cbTotal" type="checkbox" value="checkTotalRecord">
-                        </th>
                         <th style="width:40px;">STT</th>
                         <th style="width:40px;">ID</th>
-                        <th style="width:500px;">Tiêu đề</th>
-                        <th style="width:110px;">Mô tả</th>
+                        <th style="width:100px;">Tiêu đề</th>
+                        <th>Mô tả</th>
                         <th style="width:80px;">Loại</th>
                         <th style="width:100px;">Người tạo</th>
                         <th style="width:100px;">Ngày tạo</th>
@@ -113,8 +97,8 @@
                     <tr>
                         <th style="width:40px;">STT</th>
                         <th style="width:40px;">ID</th>
-                        <th style="width:500px;">Tiêu đề</th>
-                        <th style="width:110px;">Mô tả</th>
+                        <th style="width:100px">Tiêu đề</th>
+                        <th>Mô tả</th>
                         <th style="width:80px;">Loại</th>
                         <th style="width:100px;">Người tạo</th>
                         <th style="width:100px;">Ngày tạo</th>
@@ -366,34 +350,6 @@
     </div>
 </div>
 
-<script id="tmplContent" type="text/x-jquery-tmpl">
-    <tr id="rowPost_${Id}">
-        <th style="width:20px;">
-            {{if !CanDelete}}
-            <input id="cbChild_${Id}" type="checkbox" class="checkChildRecord" value="${Id}" disabled>
-            {{else}}
-            <input id="cbChild_${Id}" type="checkbox" class="checkChildRecord" value="${Id}" enabled>
-            {{/if}}
-        </th>
-        <td>${index}</td>
-        <td>${Id}</td>
-        <td>${SubjectName}</td>
-        <td>${SubjectType}</td>
-        <td>${CreateOn}</td>
-        <td>${CreateBy}</td>
-        <td>
-            <div class="row">
-                <div class="col-xs-5">
-                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="edit('${Id}',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
-                </div>
-                <div class="col-xs-5">
-                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}')"><i class="fa fa-info-circle" style="color:white"></i></button>
-                </div>
-            </div>
-        </td>
-    </tr>
-</script>
-
 <script type="text/javascript">
 
     var _recordPerPage = 4;
@@ -404,16 +360,15 @@
     var arrChecked = [];
 
     $(function () {
-        search();
+        //searchSubject();
         CKEDITOR.replace('editorContent');
         $('.calendar').datepicker({
             startDate: '-3d'
         });
     })
 
-    function searchSubject() {
+    @*function searchSubject() {
         $('#pagination').twbsPagination('destroy');
-        searchDate();
     }
 
     var pageConfig = {
@@ -507,5 +462,50 @@
                 }
             });
         }
+    }*@
+
+    function changeType() {
+        var id = $("#txtType").val();
+        var str = '';
+
+        $.ajax({
+            url: "/Lecturers/GetInformation/" + id,
+            type: "POST",
+            data: 1,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var res = data.Result;
+                var index = 0;
+                if (res.length > 0) {
+                    for (var i = 0; i < res.length; i++) {
+                        index++;
+                        str += '<tr>';
+                        str += '<td>' + index +'</td>';
+                        str += '<td>' + res[i].Id +'</td>';
+                        str += '<td>' + res[i].Title +'</td>';
+                        str += '<td>' + res[i].Description +'</td>';
+                        str += '<td>' + res[i].Type +'</td>';
+                        str += '<td>' + res[i].CreatedBy +'</td>';
+                        str += '<td>' + res[i].CreatedDate +'</td>';
+                        str += '<td>';
+                        str += '<div class="row">';
+                        str += '<div class="col-xs-5">';
+                        str += '<button type="button" class="btn btn-primary btn-app-sm" name="Chỉnh sửa " onclick="edit(' + res[i].Id +',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>';
+                        str += '</div>';
+                        str += '<div class="col-xs-5">';
+                        str += '<button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" onclick="view(' + res[i].Id +')"><i class="fa fa-info-circle" style="color:white"></i></button>';
+                        str += '</div>';
+                        str += '</div>';
+                        str += '</td>';
+                        str += '</tr>';
+                    }
+                }
+
+                $("#listPost").append(str);
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
     }
 </script>

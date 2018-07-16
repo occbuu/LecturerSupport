@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LS.BLL
 {
-    using System.Linq.Expressions;
-    using IBLL;
-    using Model;
     using DAL;
+    using IBLL;
     using IDAL;
+    using Model;
+    using System.Linq.Expressions;
 
     public class TeacherBackgroundService : ITeacherBackgroundService
     {

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LS.BLL
 {
-    using System.Linq.Expressions;
-    using IBLL;
-    using Model;
-    using IDAL;
     using DAL;
+    using IBLL;
+    using IDAL;
+    using Model;
+    using System.Linq.Expressions;
 
     public class TeacherMemoryService : ITeacherMemoryService
     {
@@ -18,7 +16,7 @@ namespace LS.BLL
 
         public void Delete(TeacherMemory entity)
         {
-           _teacherMemoryDao.Delete(entity);
+            _teacherMemoryDao.Delete(entity);
         }
 
         public List<TeacherMemory> ExecuteSQLQuery(string query, object[] parameters)
@@ -43,7 +41,7 @@ namespace LS.BLL
 
         public List<TeacherMemory> SearchByType(string type)
         {
-            return _teacherMemoryDao.SearchFor2(t=> t.Type == type).ToList();
+            return _teacherMemoryDao.SearchFor2(t => t.Type == type).ToList();
         }
 
         public List<TeacherMemory> SearchFor(Expression<Func<TeacherMemory, bool>> predicate)

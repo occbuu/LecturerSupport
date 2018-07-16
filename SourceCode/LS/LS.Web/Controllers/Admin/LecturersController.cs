@@ -1,13 +1,11 @@
-﻿using System.Web.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace LS.Web.Controllers
 {
     using BLL;
     using IBLL;
     using Models;
-    using Utility;
-
 
     /// <summary>
     /// Lecturers controller
@@ -20,35 +18,30 @@ namespace LS.Web.Controllers
 
         #region -- Views --
 
+        #region -- Manage Information --
         public ActionResult Index()
         {
             var teacherVM = new TeacherViewModel();
-            teacherVM.TeacherVM = new List<TeacherViewModels>();
-            teacherVM.TeacherMemoryVM = new List<TeacherMemoryViewModel>();
-            teacherVM.TeacherBackgroundVM = new List<TeacherBackgroundViewModel>();
-            var lstTeacher = TeacherViewModels.Convert(_teacherService.SearchByFullName(Constants.Teacher.TranThiThanhDieu));
-            var tmp = _teacherMemoryService.SearchByType(Constants.Teacher.Avartar);
-            var lstAvartarTeacher = TeacherMemoryViewModel.Convert(tmp);
-            var lstTeacherBackground = TeacherMemoryViewModel.Convert(_teacherMemoryService.GetAll());
-
-            foreach (var result in lstTeacher)
-            {
-                teacherVM.TeacherVM.Add(result);
-            }
-
-            foreach (var result in lstAvartarTeacher)
-            {
-                teacherVM.TeacherMemoryVM.Add(result);
-            }
-
-            foreach (var result in lstTeacherBackground)
-            {
-                teacherVM.TeacherMemoryVM.Add(result);
-            }
+            var lstTeacher = TeacherViewModels.ConvertToVM(_teacherService.GetAll());
+            teacherVM.TeacherVM = lstTeacher;
             return View(teacherVM);
         }
 
-        [Route("ManageTeaching")]
+        [HttpPost]
+        public ActionResult GetInformation(int id)
+        {
+            var teacherVM = new TeacherViewModel();
+            var vm = new List<TeacherBackgroundViewModel>();
+            if (id > 0)
+            {
+                var m = _teacherBackgroundService.SearchFor(x => x.TeacherId == id);
+                vm = TeacherBackgroundViewModel.Convert(m);
+            }
+
+            return Json(new { Status = "success", Result = vm }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         public ActionResult ManageTeaching()
         {
             return View();

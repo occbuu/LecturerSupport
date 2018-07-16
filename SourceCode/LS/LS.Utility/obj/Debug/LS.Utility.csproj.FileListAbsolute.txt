@@ -1,6 +1,5 @@
 D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\bin\Debug\LS.Utility.dll
 D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\bin\Debug\LS.Utility.pdb
-D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\obj\Debug\LS.Utility.csprojAssemblyReference.cache
 D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\obj\Debug\LS.Utility.csproj.CoreCompileInputs.cache
 D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\obj\Debug\LS.Utility.dll
 D:\CTY\Vân\LS\SourceCode\LS\LS.Utility\obj\Debug\LS.Utility.pdb

@@ -207,9 +207,9 @@
     <!--Modal -->
                                 <div class="container">
                                     <!-- Modal Edit-->
-                                    <div class="modal fade" id="myModal" role="dialog">
+                                    @*<div class="modal fade" id="myModal" role="dialog">
                                         <div class="modal-dialog">
-                                            <!-- Modal content-->
+                                             Modal content
                                             @using (Html.BeginForm("UpdateProfile", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                             {
                                                 @Html.AntiForgeryToken()
@@ -227,12 +227,6 @@
                                                                 <input type="text" id="fName" name="fName" value="@UserFrontVM.CurrentUser.Name" class="form-control" required>
                                                             </div>
                                                         </div><br />
-                                                        @*<div class="form-group input-group input-group-btn">
-                                                            <label class="control-label col-md-2"><strong>Last Name</strong></label>
-                                                            <div class="col-md-10">
-                                                                <input type="text" id="lName" name="lName" value="@lastName" class="form-control" required>
-                                                            </div>
-                                                        </div><br />*@
                                                         <div class="form-group input-group input-group-btn">
                                                             <label class="control-label col-md-2"><strong>Birthday</strong></label>
                                                             <div class="col-md-10">
@@ -255,38 +249,16 @@
                                                             <img src="@avatar" alt="Norway" style="width: 250px; height: 250px;" class="img-thumbnail">
                                                         </div>
                                                         <br />
-                                                        <!--<div class="input-group input-group-btn">
-                                                            <h4>First Name: <input type="text" id="fName" name="" style="width:80%;margin-left:20px" class="form-control"></h4>
-                                                        </div><br />
-                                                        <div class="input-group input-group-btn">
-                                                            <h4>Last Name: <input type="text" id="lName" name="" style="width:80%;margin-left:20px" class="form-control"></h4>
-                                                        </div><br />
-                                                        <div class="input-group input-group-btn">
-                                                            <h4>Birthday: <input type="text" name="Birthday" id="eBirthday" style="width:80%" class="form-control"></h4>
-                                                        </div><br />
-                                                        <div class="input-group input-group-btn">
-                                                            <h4>Address: <input type="text" id="eAddress" name="Address1" style="width:80%;margin-left:4px" class="form-control"></h4>
-                                                        </div><br />
-                                                        <div class="input-group input-group-btn">
-                                                            <h4>Email: <input type="text" name="Email" id="eEmail" style="width:80%;margin-left:24px" class="form-control"></h4>
-                                                        </div><br />
-                                                        <div class="input-group input-group-btn">
-                                                            <h4>Avatar: <input type="file" name="Avatar" id="eAvatar" style="width:80%;margin-left:24px" class="form-control"></h4>
-                                                        </div>-->
                                                         <br />
                                                         <div style="float:right">
                                                             <button id="submit" style="border-color:#337ab7; background-color:#337ab7; color:white;width:5em">Edit</button>
                                                         </div>
                                                         <br />
                                                     </div>
-
-                                                    @*<div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>*@
                                                 </div>
                                             }
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <!-- Modal Announcement-->
                                     <div class="modal fade" id="ModalAnnouncement" role="dialog">
                                         <div class="modal-dialog">
