@@ -1,7 +1,11 @@
-﻿
+﻿@using LS.Web.Models;
+@model List<TeacherStudiesViewModel>
+
 @{
     ViewBag.Title = "ManageStudies";
     Layout = "~/Views/Shared/admin/_Layout.cshtml";
+
+    var index = 0;
 }
 
 <!--Start Breadcrumb-->
@@ -20,6 +24,101 @@
             <a href="#"><i class="fa fa-twitter"></i></a>
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-youtube"></i></a>
+        </div>
+    </div>
+</div>
+<div class="well">
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="search">
+                <input id="txtKeyword" type="text" placeholder="Tìm kiếm theo tiêu đề" style="background-color:white!important" />
+                <i class="fa fa-search" style="top:8px;color:red!important" onclick="search(1)"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchSubject();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
+        </div>
+    </div>
+</div>
+
+<div class="well" style="padding-bottom:4%">
+    <span id="showTotalRecord" class="help-block"></span>
+    <hr />
+    <div class="box" id="boxData">
+        <div class="box-header">
+            <div class="box-icons">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="expand-link">
+                    <i class="fa fa-expand"></i>
+                </a>
+            </div>
+            <div class="no-move"></div>
+        </div>
+        <div class="box-content no-padding">
+            <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">STT</th>
+                        <th style="width:100px;">Tiêu đề</th>
+                        <th>Mô tả</th>
+                        <th style="width:80px;">Loại</th>
+                        <th style="width:100px;">Người tạo</th>
+                        <th style="width:100px;">Ngày tạo</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="listPost">
+                    @foreach (var item in Model)
+                    {
+                        index++;
+
+                        <tr>
+                            <th style="width:40px;">@index</th>
+                            <th style="width:100px;">@item.Title</th>
+                            <th>@Html.Raw(item.Description)</th>
+                            <th style="width:80px;">@item.Type</th>
+                            <th style="width:100px;">@item.CreatedBy</th>
+                            <th style="width:100px;">@item.CreatedDate</th>
+                            <th style="width:80px;">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <button type="button" class="btn btn-primary btn-app-sm" name="Chỉnh sửa " onclick="edit('@item.Id',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" onclick="view('@item.Id')"><i class="fa fa-info-circle" style="color:white"></i></button>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th style="width:40px;">STT</th>
+                        <th style="width:100px">Tiêu đề</th>
+                        <th>Mô tả</th>
+                        <th style="width:80px;">Loại</th>
+                        <th style="width:100px;">Người tạo</th>
+                        <th style="width:100px;">Ngày tạo</th>
+                        <th style="width:80px;">Thao tác</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <ul id="ulSearchResult" class="pagination" style="background-color:red !important; display:none;text-align:center;float:right"></ul>
+        </div>
+        <div id="pagination" class="pagination">
+        </div>
+        <div class="row" style="margin-right:3%;float:right; margin-top:1%">
+            <a id="btnInsert" name="Add " class="btn btn-primary" onclick="add(this);" style="display: none;">
+                Thêm mới
+            </a>
         </div>
     </div>
 </div>

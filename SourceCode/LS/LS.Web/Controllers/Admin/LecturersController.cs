@@ -14,6 +14,7 @@ namespace LS.Web.Controllers
     {
         private ITeacherService _teacherService = new TeacherService();
         private ITeacherMemoryService _teacherMemoryService = new TeacherMemoryService();
+        private ITeacherStudiesService _teacherStudiesService = new TeacherStudiesService();
         private ITeacherBackgroundService _teacherBackgroundService = new TeacherBackgroundService();
 
         #region -- Views --
@@ -42,16 +43,26 @@ namespace LS.Web.Controllers
         }
         #endregion
 
+        #region -- Manage Teaching --
+
         public ActionResult ManageTeaching()
         {
             return View();
         }
 
-        [Route("ManageStudies")]
+        #endregion
+
+        #region -- Manage Studies --
+
         public ActionResult ManageStudies()
         {
-            return View();
+            var x = _teacherStudiesService.getByTeacher(1);
+            var vm = TeacherStudiesViewModel.Convert(x);
+
+            return View(vm);
         }
+
+        #endregion
 
         [Route("ManageDelegateStudents")]
         public ActionResult ManageDelegateStudents()

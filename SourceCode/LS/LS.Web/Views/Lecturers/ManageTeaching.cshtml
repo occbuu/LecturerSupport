@@ -23,4 +23,41 @@
         </div>
     </div>
 </div>
+<div class="well">
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="search">
+                <input id="txtKeyword" type="text" placeholder="Tìm kiếm theo tiêu đề" style="background-color:white!important" />
+                <i class="fa fa-search" style="top:8px;color:red!important" onclick="search(1)"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9" style="margin-top:15px">
+            <span id="checkDate"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2" style="font-weight:bold;width: 135px">
+            Lựa chọn:
+        </div>
+        <div class="col-xs-7" style="width: 525px;">
+            <select id="txtType" class="form-control" onchange="changeType()">
+                <option value="Type"> -- Teacher --</option>
+                @*@foreach (var item in Model.TeacherVM)
+                {
+                    <option value="@item.Id">@item.FullName</option>
+                }*@
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchSubject();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
+        </div>
+    </div>
+</div>
 <!--End Breadcrumb-->
