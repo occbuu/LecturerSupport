@@ -28,13 +28,13 @@ namespace LS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetInformation(int id)
+        public ActionResult GetInformation(int id, string keyword)
         {
             var teacherVM = new TeacherViewModel();
             var vm = new List<TeacherBackgroundViewModel>();
             if (id > 0)
             {
-                var m = _teacherBackgroundService.SearchFor(x => x.TeacherId == id);
+                var m = _teacherBackgroundService.SearchFor(x => x.TeacherId == id && (x.Description.Contains(keyword) || x.Title.Contains(keyword)));
                 vm = TeacherBackgroundViewModel.Convert(m);
             }
 

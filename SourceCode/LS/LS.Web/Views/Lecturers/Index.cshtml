@@ -30,7 +30,7 @@
         <div class="col-lg-9">
             <div id="search">
                 <input id="txtKeyword" type="text" placeholder="Tìm kiếm theo tiêu đề" style="background-color:white!important" />
-                <i class="fa fa-search" style="top:8px;color:red!important" onclick="search(1)"></i>
+                <i class="fa fa-search" style="top:8px;color:red!important" onclick="changeType()"></i>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <div class="row">
         <div class="col-lg-8"></div>
         <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
-            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchSubject();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="changeType();"><i class="fa fa-search"></i> Tìm</button>
             <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
             <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
         </div>
@@ -83,7 +83,6 @@
                 <thead>
                     <tr>
                         <th style="width:40px;">STT</th>
-                        <th style="width:40px;">ID</th>
                         <th style="width:100px;">Tiêu đề</th>
                         <th>Mô tả</th>
                         <th style="width:80px;">Loại</th>
@@ -96,7 +95,6 @@
                 <tfoot>
                     <tr>
                         <th style="width:40px;">STT</th>
-                        <th style="width:40px;">ID</th>
                         <th style="width:100px">Tiêu đề</th>
                         <th>Mô tả</th>
                         <th style="width:80px;">Loại</th>
@@ -367,7 +365,7 @@
         });
     })
 
-    @*function searchSubject() {
+    function searchSubject() {
         $('#pagination').twbsPagination('destroy');
     }
 
@@ -462,16 +460,23 @@
                 }
             });
         }
-    }*@
+    }
 
     function changeType() {
         var id = $("#txtType").val();
+        var keyword = $("#txtKeyword").val();
         var str = '';
+        $("#listPost").empty();
+        var obj = {};
+        obj.id = id;
+        obj.keyword = keyword;
+
+        console.log(obj);
 
         $.ajax({
-            url: "/Lecturers/GetInformation/" + id,
+            url: "@Url.Action("GetInformation", "Lecturers")",
             type: "POST",
-            data: 1,
+            data: JSON.stringify(obj),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 var res = data.Result;
@@ -481,7 +486,6 @@
                         index++;
                         str += '<tr>';
                         str += '<td>' + index +'</td>';
-                        str += '<td>' + res[i].Id +'</td>';
                         str += '<td>' + res[i].Title +'</td>';
                         str += '<td>' + res[i].Description +'</td>';
                         str += '<td>' + res[i].Type +'</td>';
