@@ -54,14 +54,39 @@ namespace LS.Web.Controllers
 
         #region -- Manage Studies --
 
+        //public ActionResult ManageStudies()
+        //{
+        //    //var x = _teacherStudiesService.getByTeacher(1);
+        //    //var vm = TeacherStudiesViewModel.Convert(x);
+
+        //    return View();
+        //}
+
         public ActionResult ManageStudies()
         {
-            var x = _teacherStudiesService.getByTeacher(1);
-            var vm = TeacherStudiesViewModel.Convert(x);
-
-            return View(vm);
+            return View();
         }
 
+        public ActionResult SearchForStudies(string keyword)
+        {
+
+            var vm = new List<TeacherStudiesViewModel>();
+            if (keyword != null)
+            {
+                var m = _teacherStudiesService.SearchFor(x => x.TeacherId == 1 && (x.Description.Contains(keyword) || x.Title.Contains(keyword)));
+                vm = TeacherStudiesViewModel.Convert(m);
+            }
+
+            return Json(new { Status = "success", Result = vm }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SearchById(int id)
+        {
+            var m = _teacherStudiesService.GetById(id);
+            var vm = TeacherStudiesViewModel.Convert(m);
+
+            return Json(new { Status = "success", Result = vm }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         [Route("ManageDelegateStudents")]

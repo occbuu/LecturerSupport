@@ -39,9 +39,8 @@
     <div class="row">
         <div class="col-lg-8"></div>
         <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
-            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchSubject();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="search();"><i class="fa fa-search"></i> Tìm</button>
             <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
-            <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
         </div>
     </div>
 </div>
@@ -74,31 +73,7 @@
                         <th style="width:80px;">Thao tác</th>
                     </tr>
                 </thead>
-                <tbody id="listPost">
-                    @foreach (var item in Model)
-                    {
-                        index++;
-
-                        <tr>
-                            <th style="width:40px;">@index</th>
-                            <th style="width:100px;">@item.Title</th>
-                            <th>@Html.Raw(item.Description)</th>
-                            <th style="width:80px;">@item.Type</th>
-                            <th style="width:100px;">@item.CreatedBy</th>
-                            <th style="width:100px;">@item.CreatedDate</th>
-                            <th style="width:80px;">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <button type="button" class="btn btn-primary btn-app-sm" name="Chỉnh sửa " onclick="edit('@item.Id',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
-                                    </div>
-                                    <div class="col-xs-5">
-                                        <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" onclick="view('@item.Id')"><i class="fa fa-info-circle" style="color:white"></i></button>
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                    }
-                </tbody>
+                <tbody id="listPost"></tbody>
                 <tfoot>
                     <tr>
                         <th style="width:40px;">STT</th>
@@ -122,4 +97,143 @@
         </div>
     </div>
 </div>
+
+<!-- Update Informartion -->
+<div class="modal fade" id="updateModal" role="dialog">
+    <div class="row">
+        <div class="modal-dialog" style="float:left">
+            <!-- Modal content-->
+            <div class="modal-content" style="margin-left:40%; width:150%; height:auto">
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-3" style="margin-top: 10px; font-weight: bold;">
+                                ID :<span style="color:dodgerblue;margin-left:3%" id="lblId"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề : <input class="form-control" id="txtTieude" />
+                            </div>
+                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                                Mô tả : <textarea class="form-control" id="txtMota"></textarea>
+                            </div>
+                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
+                                Type :<span style="color:dodgerblue;margin-left:3%" id="lblLoai"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+                            <button type="button" class="btn btn-primary" style="width:70px;" onclick="update();"> Sửa</button>
+                            <button type="button" class="btn btn-default" style="width:70px;" onclick="">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
+</div>
 <!--End Breadcrumb-->
+
+<script type="text/javascript">
+
+    var _recordPerPage = 4;
+    var arrId = [];
+    var src = "/Scripts/js/owl.carousel.min.js";
+    var currentPage = 1;
+    var curList;
+    var arrChecked = [];
+
+    $(function () {
+        search();
+    })
+
+    function search() {
+        var keyword = $("#txtKeyword").val();
+        var str = '';
+        $("#listPost").empty();
+        var obj = {};
+        //obj.id = id;
+        obj.keyword = keyword;
+
+        $.ajax({
+            url: "@Url.Action("SearchForStudies", "Lecturers")",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var res = data.Result;
+                var index = 0;
+                if (res.length > 0) {
+                    for (var i = 0; i < res.length; i++) {
+                        index++;
+                        str += '<tr>';
+                        str += '<td>' + index +'</td>';
+                        str += '<td>' + res[i].Title +'</td>';
+                        str += '<td>' + res[i].Description +'</td>';
+                        str += '<td>' + res[i].Type +'</td>';
+                        str += '<td>' + res[i].CreatedBy +'</td>';
+                        str += '<td>' + res[i].CreatedDate +'</td>';
+                        str += '<td>';
+                        str += '<button type="button" class="btn btn-primary btn-app-sm" name="Chỉnh sửa " onclick="showEditModal(' + res[i].Id +')" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>';
+                        str += '</td>';
+                        str += '</tr>';
+                    }
+                }
+
+                $("#listPost").append(str);
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+
+    function showEditModal(id) {
+        $("#updateModal").modal('show');
+        var obj = {};
+        obj.id = id;
+
+        $.ajax({
+            url: "@Url.Action("SearchById", "Lecturers")",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log(data);
+                if (data.Status == "success") {
+                    $("#lblId").text(id);
+                    $("#txtTieude").val(data.Result.Title);
+                    $("#txtMota").val(data.Result.Description);
+                    var a = $("#txtMota").html($("#txtMota").val());
+                    $("#txtMota").val(a[0].innerHTML);
+                    
+                    console.log(a);
+                    $("#lblLoai").text(data.Result.Type);
+                }
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+
+    function update() {
+        $.ajax({
+            url: "@Url.Action("SearchForStudies", "Lecturers")",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+               
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+</script>
