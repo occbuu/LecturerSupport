@@ -107,39 +107,54 @@
                 <div class="modal-body">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-xs-3" style="margin-top: 10px; font-weight: bold;">
-                                ID :<span style="color:dodgerblue;margin-left:3%" id="lblId"></span>
+                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
+                                ID :
+                            </div>
+                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
+                                <span style="color:dodgerblue;margin-left:3%" id="lblId"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px; font-weight: bold;">
+                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
+                                Tiêu đề :
+                            </div>
+                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
+                                <input class="form-control" id="txtTieude" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5px; font-weight: bold;">
+                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
+                                Type :
+                            </div>
+                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
+                                <span style="color:dodgerblue;margin-left:3%" id="lblLoai"></span>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px">
-                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
-                                Tiêu đề : <input class="form-control" id="txtTieude" />
+                            <div class="col-xs-12" style="margin-top: 5px; font-weight: bold;">
+                                Mô tả : <textarea id="txtMota" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
                             </div>
-                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
-                                Mô tả : <textarea class="form-control" id="txtMota"></textarea>
-                            </div>
-                            <div class="col-xs-4" style="margin-top: 5px; font-weight: bold;">
-                                Type :<span style="color:dodgerblue;margin-left:3%" id="lblLoai"></span>
+                        </div>
+
+                        <span id="success" style="color:forestgreen" hidden> Updated Successfull</span>
+                        <span id="error" style="color:crimson" hidden> Update Error</span>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+                                <button type="button" class="btn btn-primary" style="width:70px;" onclick="update();"> Sửa</button>
+                                <button type="button" class="btn btn-default" style="width:70px;" onclick="cancel()">Hủy</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="row">
-                        <div class="col-lg-8"></div>
-                        <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
-                            <button type="button" class="btn btn-primary" style="width:70px;" onclick="update();"> Sửa</button>
-                            <button type="button" class="btn btn-default" style="width:70px;" onclick="">Hủy</button>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
+        </div>
     </div>
-</div>
-<!--End Breadcrumb-->
+    <!--End Breadcrumb-->
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
     var _recordPerPage = 4;
     var arrId = [];
@@ -150,6 +165,7 @@
 
     $(function () {
         search();
+        CKEDITOR.replace('txtMota');
     })
 
     function search() {
@@ -157,7 +173,6 @@
         var str = '';
         $("#listPost").empty();
         var obj = {};
-        //obj.id = id;
         obj.keyword = keyword;
 
         $.ajax({
@@ -208,11 +223,8 @@
                 if (data.Status == "success") {
                     $("#lblId").text(id);
                     $("#txtTieude").val(data.Result.Title);
-                    $("#txtMota").val(data.Result.Description);
-                    var a = $("#txtMota").html($("#txtMota").val());
-                    $("#txtMota").val(a[0].innerHTML);
-                    
-                    console.log(a);
+                    CKEDITOR.instances.txtMota.setData(data.Result.Description);
+
                     $("#lblLoai").text(data.Result.Type);
                 }
             },
@@ -222,18 +234,39 @@
         });
     }
 
+    function cancel() {
+        $("#updateModal").modal('hide');
+    }
+
     function update() {
+        var obj = {};
+            obj.Id = $("#lblId").text();
+            obj.Title = $("#txtTieude").val();
+            obj.Description = CKEDITOR.instances.txtMota.getData();
+
         $.ajax({
-            url: "@Url.Action("SearchForStudies", "Lecturers")",
+            url: "@Url.Action("UpdateForStudies", "Lecturers")",
             type: "POST",
             data: JSON.stringify(obj),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-               
+                if (data == "True") {
+                    $("#success").show();
+                    $("#error").hide();
+
+                    setTimeout(function () {
+                        $("#updateModal").modal('hide');
+                        search();
+                    }, 2000);
+                }
+                else {
+                    $("#success").hide();
+                    $("#error").show();
+                }
             },
             error: function (data) {
                 console.log("error " + data);
             }
         });
     }
-</script>
+    </script>

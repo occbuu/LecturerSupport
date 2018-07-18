@@ -5,6 +5,7 @@ namespace LS.Web.Controllers
 {
     using BLL;
     using IBLL;
+    using LS.Model;
     using Models;
 
     /// <summary>
@@ -54,14 +55,6 @@ namespace LS.Web.Controllers
 
         #region -- Manage Studies --
 
-        //public ActionResult ManageStudies()
-        //{
-        //    //var x = _teacherStudiesService.getByTeacher(1);
-        //    //var vm = TeacherStudiesViewModel.Convert(x);
-
-        //    return View();
-        //}
-
         public ActionResult ManageStudies()
         {
             return View();
@@ -87,37 +80,69 @@ namespace LS.Web.Controllers
 
             return Json(new { Status = "success", Result = vm }, JsonRequestBehavior.AllowGet);
         }
+
+        public bool UpdateForStudies(TeacherStudy m)
+        {
+            var res = false;
+            if (m != null)
+            {
+                var result = _teacherStudiesService.GetById(m.Id);
+                result.Description = m.Description;
+                result.Title = m.Title;
+
+                _teacherStudiesService.Update(result);
+                res = true;
+            }
+
+            return res;
+        }
+
         #endregion
 
-        [Route("ManageDelegateStudents")]
+        #region -- Manage DelegateStudents --
+
         public ActionResult ManageDelegateStudents()
         {
             return View();
         }
 
-        [Route("ManageResearchWorks")]
+        #endregion
+
+        #region -- Manage ResearchWorks --
+
         public ActionResult ManageResearchWorks()
         {
             return View();
         }
 
-        [Route("ManageGallery")]
+        #endregion
+
+        #region -- Manage Gallery --
+
         public ActionResult ManageGallery()
         {
             return View();
         }
 
-        [Route("ManageSchedule")]
+        #endregion
+
+        #region -- Manage Schedule --
+
         public ActionResult ManageSchedule()
         {
             return View();
         }
 
-        [Route("ManageContact")]
+        #endregion
+
+        #region -- Manage Contact --
+
         public ActionResult ManageContact()
         {
             return View();
         }
+
+        #endregion
 
         #endregion
 
