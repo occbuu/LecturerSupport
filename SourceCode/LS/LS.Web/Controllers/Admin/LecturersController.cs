@@ -7,6 +7,7 @@ namespace LS.Web.Controllers
     using IBLL;
     using LS.Model;
     using Models;
+    using System;
 
     /// <summary>
     /// Lecturers controller
@@ -89,8 +90,32 @@ namespace LS.Web.Controllers
                 var result = _teacherStudiesService.GetById(m.Id);
                 result.Description = m.Description;
                 result.Title = m.Title;
+                result.Year = m.Year;
 
                 _teacherStudiesService.Update(result);
+                res = true;
+            }
+
+            return res;
+        }
+
+        public bool AddForStudies(TeacherStudy m)
+        {
+            var res = false;
+            if (m != null)
+            {
+                var result = new TeacherStudy();
+                result.TeacherId = 1;
+                result.Description = m.Description;
+                result.Title = m.Title;
+                result.Year = m.Year;
+                result.Type = "ResearchInterests";
+                result.Status = "ACT";
+                result.CanDelete = false;
+                result.CreatedBy = "admin";
+                result.CreatedDate = DateTime.Now;
+
+                _teacherStudiesService.Insert(result);
                 res = true;
             }
 

@@ -40,7 +40,7 @@
         <div class="col-lg-8"></div>
         <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
             <button type="button" class="btn btn-primary" style="width:70px;" onclick="search();"><i class="fa fa-search"></i> Tìm</button>
-            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="showAddModal()"><i class="fa fa-plus"></i> Thêm</button>
         </div>
     </div>
 </div>
@@ -107,27 +107,40 @@
                 <div class="modal-body">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
-                                ID :
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    ID :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <span style="color:dodgerblue;margin-left:3%" id="lblId"></span>
+                                </div>
                             </div>
-                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
-                                <span style="color:dodgerblue;margin-left:3%" id="lblId"></span>
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    Loại :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <span style="color:dodgerblue;margin-left:3%" id="lblLoai"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 5px; font-weight: bold;">
-                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
-                                Tiêu đề :
+
+                        <div class="row">
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    Năm :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <input class="form-control" id="txtNam" />
+                                </div>
                             </div>
-                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
-                                <input class="form-control" id="txtTieude" />
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 5px; font-weight: bold;">
-                            <div class="col-xs-2" style="margin-top: 10px; font-weight: bold;">
-                                Type :
-                            </div>
-                            <div class="col-xs-10" style="margin-top: 10px; font-weight: bold;">
-                                <span style="color:dodgerblue;margin-left:3%" id="lblLoai"></span>
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    Tiêu đề :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <input class="form-control" id="txtTieude" />
+                                </div>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px">
@@ -152,9 +165,60 @@
             </div>
         </div>
     </div>
-    <!--End Breadcrumb-->
+</div>
 
-    <script type="text/javascript">
+<!-- Add -->
+<div class="modal fade" id="addModal" role="dialog">
+    <div class="row">
+        <div class="modal-dialog" style="float:left">
+            <!-- Modal content-->
+            <div class="modal-content" style="margin-left:40%; width:150%; height:auto">
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    Năm :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <input class="form-control" id="txtThemNam" />
+                                </div>
+                            </div>
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-4" style="margin-top: 10px; font-weight: bold;">
+                                    Tiêu đề :
+                                </div>
+                                <div class="col-xs-8" style="margin-top: 10px; font-weight: bold;">
+                                    <input class="form-control" id="txtThemTieude" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-xs-12" style="margin-top: 5px; font-weight: bold;">
+                                Mô tả : <textarea id="txtThemMota" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                            </div>
+                        </div>
+
+                        <span id="themSuccess" style="color:forestgreen" hidden> Added Successfull</span>
+                        <span id="themError" style="color:crimson" hidden> Add Error</span>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
+                                <button type="button" class="btn btn-primary" style="width:70px;" onclick="add();"> Thêm</button>
+                                <button type="button" class="btn btn-default" style="width:70px;" onclick="cancel()">Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Breadcrumb-->
+
+<script type="text/javascript">
 
     var _recordPerPage = 4;
     var arrId = [];
@@ -166,6 +230,7 @@
     $(function () {
         search();
         CKEDITOR.replace('txtMota');
+        CKEDITOR.replace('txtThemMota');
     })
 
     function search() {
@@ -224,7 +289,7 @@
                     $("#lblId").text(id);
                     $("#txtTieude").val(data.Result.Title);
                     CKEDITOR.instances.txtMota.setData(data.Result.Description);
-
+                    $("#txtNam").val(data.Result.Year);
                     $("#lblLoai").text(data.Result.Type);
                 }
             },
@@ -232,6 +297,10 @@
                 console.log("error " + data);
             }
         });
+    }
+
+    function showAddModal() {
+        $("#addModal").modal('show');
     }
 
     function cancel() {
@@ -242,6 +311,7 @@
         var obj = {};
             obj.Id = $("#lblId").text();
             obj.Title = $("#txtTieude").val();
+            obj.Year = $("#txtNam").val();
             obj.Description = CKEDITOR.instances.txtMota.getData();
 
         $.ajax({
@@ -269,4 +339,36 @@
             }
         });
     }
-    </script>
+
+    function add() {
+        var obj = {};
+            obj.Title = $("#txtThemTieude").val();
+            obj.Year = $("#txtThemNam").val();
+            obj.Description = CKEDITOR.instances.txtThemMota.getData();
+
+        $.ajax({
+            url: "@Url.Action("AddForStudies", "Lecturers")",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == "True") {
+                    $("#themSuccess").show();
+                    $("#themError").hide();
+
+                    setTimeout(function () {
+                        $("#addModal").modal('hide');
+                        search();
+                    }, 2000);
+                }
+                else {
+                    $("#themSuccess").hide();
+                    $("#themError").show();
+                }
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+</script>
