@@ -5,6 +5,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/admin/_Layout.cshtml";
 }
+<style>
+    .modal-dialog {
+        width: 900px;
+        margin: 30px auto;
+    }
+</style>
 
 <div class="row">
     <div id="breadcrumb" class="col-xs-12">
@@ -40,24 +46,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-2" style="font-weight:bold;width: 135px">
-            Lựa chọn:
-        </div>
-        <div class="col-xs-7" style="width: 525px;">
-            <select id="txtType" class="form-control" onchange="changeType()">
-                <option value="Type"> -- Teacher --</option>
-                @foreach (var item in Model.TeacherVM)
-                {
-                    <option value="@item.Id">@item.FullName</option>
-                }
-            </select>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-lg-8"></div>
         <div class="col-lg-4" style="margin-top:15px;margin-bottom:-15px">
-            <button type="button" class="btn btn-primary" style="width:70px;" onclick="changeType();"><i class="fa fa-search"></i> Tìm</button>
-            <button type="button" class="btn btn-success" style="width:70px;" onclick="window.location.href='@Url.Action("Create", "SubjectManagement")'"><i class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-primary" style="width:70px;" onclick="searchInfo();"><i class="fa fa-search"></i> Tìm</button>
+            <button type="button" class="btn btn-success" style="width:70px;" onclick="showAddModal()"><i class="fa fa-plus"></i> Thêm</button>
             <button type="button" class="btn btn-danger" style="width:70px;" onclick="confirmDelete();"><i class="fa fa-minus"></i> Xóa</button>
         </div>
     </div>
@@ -82,6 +74,9 @@
             <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
                 <thead>
                     <tr>
+                        <th style="width:2%;">
+                            <input id="cbTotal" type="checkbox" value="checkTotalRecord" onclick="clickCb();">
+                        </th>
                         <th style="width:40px;">STT</th>
                         <th style="width:100px;">Tiêu đề</th>
                         <th>Mô tả</th>
@@ -94,6 +89,7 @@
                 <tbody id="listPost"></tbody>
                 <tfoot>
                     <tr>
+                        <th style="width:2%;"></th>
                         <th style="width:40px;">STT</th>
                         <th style="width:100px">Tiêu đề</th>
                         <th>Mô tả</th>
@@ -108,245 +104,121 @@
         </div>
         <div id="pagination" class="pagination">
         </div>
-        <div class="row" style="margin-right:3%;float:right; margin-top:1%">
-            <a id="btnInsert" name="Add " class="btn btn-primary" onclick="add(this);" style="display: none;">
-                Thêm mới
-            </a>
-        </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog" style="float:left">
-        <!-- Modal content-->
-        <div class="modal-content" style="width:882px;height:650px;margin-left:280px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="Title">Update TopBar</h4>
-            </div>
-            <div class="well">
-                <form role="form" style="margin-top:10px;">
-                    <div class="box-body">
-                        <div class="row" style="margin-top:15px;">
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="modal fade" id="create" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">THÊM MỚI</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
                             <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
-                                ID:<span style="color:red;"> *</span>
+                                Tiêu đề<span style="color:red;"> *</span>:
                             </div>
-                            <div class="col-lg-10">
-                                <h4 id="txtId"></h4>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top:15px;">
-                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
-                                Tiêu đề
-                                :<span style="color:red;"> *</span>
-                            </div>
-                            <div class="col-lg-10">
-                                <input type="text" placeholder="Nhập tên môn học" id="txtSubject" class="form-control">
-                            </div>
-                        </div>
-                        <div id="showThongBao" style="margin-top:15px">
-                        </div>
-                        <div class="row" style="margin-top:15px;">
-                            <div class="col-lg-2" style="font-weight: bold;">
-                                Mô tả:<span style="color:red;"> *</span>
-                            </div>
-                            <div class="col-lg-10">
-                                <textarea id="editorContent" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top:15px">
-                            <div class="col-lg-2" style="font-weight: bold;">
-                                Loại môn học:
-                            </div>
-                            <div class="col-lg-10">
-                                <select id="txtType" class="form-control">
-                                    <option value="LyThuyet">Lý Thuyết</option>
-                                    <option value="ThucHanh">Thực Hành</option>
-                                    <option value="LTThucHanh">Lý thuyết và Thực hành</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 15px;">
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-6" style="font-weight: bold;">
-                                        Số bài:<span style="color:red;"> *</span>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input type="text" placeholder="Nhập số bài" id="txtUnit" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-5" style="font-weight: bold;padding-left:55px;">
-                                        Thực hành:<span style="color:red;"> *</span>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <input type="text" placeholder="Nhập số tiết thực hành" id="txtPractice" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-5" style="font-weight: bold;padding-left:55px;">
-                                        Lý thuyết:<span style="color:red;"> *</span>
-                                    </div>
-                                    <div class="col-lg-7">
-                                        <input type="text" placeholder="Nhập số tiết lý thuyết" id="txtTheory" class="form-control">
-                                    </div>
-                                </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="create-title" class="form-control" type="text" required>
                             </div>
                             <br><br>
                         </div>
-                        <div class="row" style="margin-top:15px;" id="trangthai">
-                            <div class="col-lg-2" style="font-weight: bold;">
-                                Trạng thái
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Mô tả<span style="color:red;"> *</span>:
                             </div>
-                            <div class="col-lg-10">
-                                <select id="txtStatus" class="form-control">
-                                    <option value="ACT">Hoạt động</option>
-                                    <option value="IACT">Không Hoạt động</option>
-                                </select>
+                            <div class="col-lg-9">
+                                <textarea id="createDes" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
                             </div>
+                            <br><br>
                         </div>
-                        <div class="row" style="margin-top: 5px;">
-                            <div class="col-lg-2" id="divThongBao_TB" style="margin-top: 5px;">
-                                <span id="spanThongBao_TB" style="margin-left:2%"></span>
-                            </div>
-                            <div class="col-lg-10">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="row" style="margin-top:5px;float:right">
-                            <div class="col-lg-4" style="margin-top: 5px;">
-                                <a id="btnReset" class="btn btn-primary" style="display: none;width:70px;float:right" onclick="reset();">
-                                    Reset
-                                </a>
-                            </div>
-                            <div class="col-lg-4" style="margin-top: 5px;margin-right:25px">
-                                <a id="btnSaveSubject" class="btn btn-primary" onclick="save();" style="display: inline-block;margi;width:70px">
-                                    Lưu
-                                </a>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
-                </form>
+                    <div class="modal-footer" style="margin-top:85px">
+                        <div style="float:right">
+                            <button onclick="add()" class="form-control btn-primary">Lưu lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 ">
+        <div class="modal fade" id="edit" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="margin-top:85px">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title accent-color" style="font-weight:700; text-align:center">CHỈNH SỮA</h3>
+                    </div>
+                    <div class="modal-body box-body">
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                ID:
+                            </div>
+                            <div class="col-lg-9">
+                                <span class="edit-Id"></span>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Tiêu đề<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <input placeholder="Enter Name Document" id="edit-title" class="form-control" type="text" required>
+                            </div>
+                            <br><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2" style="margin-top: 5px; font-weight: bold;">
+                                Mô tả<span style="color:red;"> *</span>:
+                            </div>
+                            <div class="col-lg-9">
+                                <textarea id="editDes" rows="10" cols="80" style="visibility: hidden; display: none;"></textarea>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top:85px">
+                        <div style="float:right">
+                            <button onclick="edit()" class="form-control btn-primary">Lưu lại</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="viewModal" role="dialog">
-    <div class="modal-dialog" style="float:left">
-        <!-- Modal content-->
-        <div class="modal-content" style="width:882px;height:400px;margin-left:280px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title" id="Title">Thông tin chi tiết</h2>
+
+<script id="tmplContent" type="text/x-jquery-tmpl">
+    <tr id="rowPost_${Id}">
+        <th style="width:2%;">
+            <input id="cbChild_${Id}" type="checkbox" value="checkChildRecord">
+        </th>
+        <th style="width:40px;">${index}</th>
+        <th style="width:100px">${Title}</th>
+        <th>{{html Description}}</th>
+        <th style="width:80px;">${Type}</th>
+        <th style="width:100px;">${CreateBy}</th>
+        <th style="width:100px;">${CreateDate}</th>
+        <th style="width:80px;">
+            <div class="row">
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-primary btn-app-sm" id="update_${Id}" name="Chỉnh sửa " onclick="showEditModal('${Id}')" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>
+                </div>
+                <div class="col-xs-5">
+                    <button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" id="view_${Id}" onclick="view('${Id}')"><i class="fa fa-info-circle" style="color:white"></i></button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal" role="form">
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <label class="control-label" style="font-weight:900">Tên môn học:</label>
-                        </div>
-                        <div class="col-xs-10">
-                            <label id="txtTenMonHoc" style="font-weight:100;padding-top:3px"></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-2">
-                            <label class="control-label" style="font-weight:900">Loại môn học:</label>
-                        </div>
-                        <div class="col-xs-10">
-                            <label id="txtLoaiMonHoc" style="font-weight:100;padding-top:3px"></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-2">
-                            <label class="control-label" style="font-weight:900">Mô tả:</label>
-                        </div>
-                        <div class="col-xs-10">
-                            <label id="txtMota" style="font-weight:100;padding-top:3px"></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-4">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="control-label" style="font-weight:900">Số bài:</label>
-                                </div>
-                                <div class="col-xs-7" style="padding-left:40px">
-                                    <label id="txtSoBai" style="font-weight:100;padding-top:3px"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="control-label" style="float:left;font-weight:900">Thực hành:</label>
-                                </div>
-                                <div class="col-xs-7">
-                                    <label id="txtThucHanh" style="font-weight:100;padding-top:3px"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <label class="control-label" style="float:left;font-weight:900">Lý thuyết:</label>
-                                </div>
-                                <div class="col-xs-7">
-                                    <label id="txtLyThuyet" style="font-weight:100;padding-top:3px"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-2">
-                            <label class="control-label" style="font-weight:900">Trạng thái:</label>
-                        </div>
-                        <div class="col-xs-10">
-                            <label id="txtTrangThai" style="font-weight:100;padding-top:3px"></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-2">
-                            <label class="control-label" style="font-weight:900">Có thể xóa:</label>
-                        </div>
-                        <div class="col-xs-10">
-                            <label id="txtCoTheXoa" style="font-weight:100;padding-top:3px"></label>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:15px">
-                        <div class="col-xs-6">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label class="control-label" style="font-weight:900">Người tạo:</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <label id="txtNguoiTao" style="font-weight:100;padding-top:3px"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <label class="control-label" style="float:left;font-weight:900">Ngày tạo:</label>
-                                </div>
-                                <div class="col-xs-8">
-                                    <label id="txtNgayTao" style="font-weight:100;padding-top:5px"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+        </th>
+    </tr>
+</script>
 
 <script type="text/javascript">
 
@@ -358,15 +230,36 @@
     var arrChecked = [];
 
     $(function () {
-        //searchSubject();
-        CKEDITOR.replace('editorContent');
-        $('.calendar').datepicker({
-            startDate: '-3d'
-        });
+        search();
+        CKEDITOR.replace('createDes');
+        CKEDITOR.replace('editDes');
     })
 
-    function searchSubject() {
+    function searchInfo() {
         $('#pagination').twbsPagination('destroy');
+        search();
+    }
+
+    function showAddModal() {
+        $("#create").modal("show");
+    }
+
+    function showEditModal(id) {
+        $("#edit").modal("show");
+        $("#edit-Id").text(id);
+        var obj = {};
+        obj.id = id;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetInfoByID", "Lecturers")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(obj),
+            success: function (data) {
+                $("#edit-title").val(data.data.Title);
+                CKEDITOR.instances.createDes.setData(data.data.Description);
+            }
+        })
     }
 
     var pageConfig = {
@@ -397,24 +290,36 @@
                 arrChecked[i] = arrId[i];
             }
         }
-        var formData = new FormData();
-        formData.append("obj", JSON.stringify(arrChecked));
 
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("DeleteSubject", "SubjectManagement")',
-            processData: false,
-            contentType: false,
-            data: formData,
+            url: '@Url.Action("DeleteInfo", "Lecturers")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                ids: arrChecked
+            }),
             success: function (data) {
                 if (data.status == 1) {
                     for (i = 0; i < arrChecked.length; i++) {
                         $("#rowPost_" + arrChecked[i]).remove();
                     }
-                    searchSubject();
+                    searchInfo();
                 }
             }
         })
+    }
+
+    function clickCb() {
+        if (cbTotal.checked == false) {
+            for (i = 0; i < arrId.length; i++) {
+                $('#cbChild_' + arrId[i]).prop('checked', false);
+            }
+        }
+        else {
+            for (i = 0; i < arrId.length; i++) {
+                $('#cbChild_' + arrId[i]).prop('checked', true);
+            }
+        }
     }
 
     function confirmDelete() {
@@ -462,50 +367,110 @@
         }
     }
 
-    function changeType() {
-        var id = $("#txtType").val();
-        var keyword = $("#txtKeyword").val();
-        var str = '';
-        $("#listPost").empty();
-        var obj = {};
-        obj.id = id;
-        obj.keyword = keyword;
 
-        console.log(obj);
+    function search() {
+        $("#listPost").empty();
+        var keyword = $("#txtKeyword").val();
 
         $.ajax({
             url: "@Url.Action("GetInformation", "Lecturers")",
             type: "POST",
+            data: JSON.stringify({
+                keyword: keyword,
+                page: pageConfig.pageIndex,
+                pageSize: pageConfig.pageSize
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.status == 1) {
+                    var stt = (pageConfig.pageIndex - 1) * pageConfig.pageSize;
+                    stt = stt + 1;
+                    for (var i = 0; i < data.data.length; i++) {
+                        data.data[i].index = stt;
+                        stt++;
+                        arrId[i] = data.data[i].Id;
+                    }
+                    curList = data.data;
+                    $("#tmplContent").tmpl(data.data).appendTo("#listPost");
+                    paging(data.TotalRecord, function () {
+                        search();
+                    });
+                }
+            },
+            async: false,
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+
+    function add() {
+        var obj = {};
+        obj.Title = $("#create-title").val();
+        obj.Description = CKEDITOR.instances.createDes.getData();
+
+        $.ajax({
+            url: "@Url.Action("AddForInfo", "Lecturers")",
+            type: "POST",
             data: JSON.stringify(obj),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                var res = data.Result;
-                var index = 0;
-                if (res.length > 0) {
-                    for (var i = 0; i < res.length; i++) {
-                        index++;
-                        str += '<tr>';
-                        str += '<td>' + index +'</td>';
-                        str += '<td>' + res[i].Title +'</td>';
-                        str += '<td>' + res[i].Description +'</td>';
-                        str += '<td>' + res[i].Type +'</td>';
-                        str += '<td>' + res[i].CreatedBy +'</td>';
-                        str += '<td>' + res[i].CreatedDate +'</td>';
-                        str += '<td>';
-                        str += '<div class="row">';
-                        str += '<div class="col-xs-5">';
-                        str += '<button type="button" class="btn btn-primary btn-app-sm" name="Chỉnh sửa " onclick="edit(' + res[i].Id +',this)" style="color:blue"><i class="fa fa-pencil" style="color:white"></i></button>';
-                        str += '</div>';
-                        str += '<div class="col-xs-5">';
-                        str += '<button type="button" class="btn btn-success btn-app-sm" name="Xem thông tin " style="margin-left:5px" onclick="view(' + res[i].Id +')"><i class="fa fa-info-circle" style="color:white"></i></button>';
-                        str += '</div>';
-                        str += '</div>';
-                        str += '</td>';
-                        str += '</tr>';
-                    }
-                }
+                if (data == "True") {
+                    $("#create").modal("hide");
 
-                $("#listPost").append(str);
+                    $.confirm({
+                        type: 'green',
+                        title: 'Thông báo !!!',
+                        content: 'Đã thêm thành công',
+                        animation: 'Rotate',
+                        closeAnimation: 'Rotate',
+                        buttons: {
+                            close: {
+                                btnClass: 'btn-green',
+                                text: "OK",
+                            }
+                        }
+                    });
+
+                    search();
+                }
+            },
+            error: function (data) {
+                console.log("error " + data);
+            }
+        });
+    }
+
+    function edit() {
+        var obj = {};
+        obj.Title = $("#edit-title").val();
+        obj.Description = CKEDITOR.instances.editDes.getData();
+
+        $.ajax({
+            url: "@Url.Action("EditForInfo", "Lecturers")",
+            type: "POST",
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data == "True") {
+                    $("#edit").modal("hide");
+
+                    $.confirm({
+                        type: 'green',
+                        title: 'Thông báo !!!',
+                        content: 'Chỉnh sữa thành công',
+                        animation: 'Rotate',
+                        closeAnimation: 'Rotate',
+                        buttons: {
+                            close: {
+                                btnClass: 'btn-green',
+                                text: "OK",
+                            }
+                        }
+                    });
+
+                    search();
+                }
             },
             error: function (data) {
                 console.log("error " + data);

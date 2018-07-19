@@ -46,5 +46,26 @@ namespace LS.Web.Models
                       };
             return res.ToList();
         }
+
+        public static TeacherBackgroundViewModel Convert(TeacherBackground entity)
+        {
+            if (entity == null)
+            {
+                return new TeacherBackgroundViewModel();
+            }
+            var res = new TeacherBackgroundViewModel
+            {
+                Id = entity.Id,
+                TeacherId = entity.TeacherId,
+                Title = entity.Title,
+                Description = entity.Description,
+                Type = entity.Type,
+                Status = entity.Status,
+                CanDelete = entity.CanDelete,
+                CreatedBy = entity.CreatedBy,
+                CreatedDate = entity.CreatedDate.HasValue ? entity.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm:ss") : string.Empty,
+            };
+            return res;
+        }
     }
 }

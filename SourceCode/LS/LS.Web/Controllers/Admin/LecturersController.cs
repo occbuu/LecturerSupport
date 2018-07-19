@@ -8,6 +8,7 @@ namespace LS.Web.Controllers
     using LS.Model;
     using Models;
     using System;
+    using System.Linq;
 
     /// <summary>
     /// Lecturers controller
@@ -31,18 +32,100 @@ namespace LS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetInformation(int id, string keyword)
+        public ActionResult GetInformation(string keyword, int page, int pageSize)
         {
             var teacherVM = new TeacherViewModel();
             var vm = new List<TeacherBackgroundViewModel>();
-            if (id > 0)
+            try
             {
-                var m = _teacherBackgroundService.SearchFor(x => x.TeacherId == id && (x.Description.Contains(keyword) || x.Title.Contains(keyword)));
-                vm = TeacherBackgroundViewModel.Convert(m);
+                var list = _teacherBackgroundService.SearchFor(x => x.TeacherId == 1 && (x.Description.Contains(keyword) || x.Title.Contains(keyword)));
+                var list2 = list.OrderBy(p => p.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                var listResult = TeacherBackgroundViewModel.Convert(list2);
+                return Json(new { status = 1, data = listResult, TotalRecord = list.Count });
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult GetInfoByID(int id)
+        {
+            var m = _teacherBackgroundService.GetById(id);
+            var vm = TeacherBackgroundViewModel.Convert(m);
 
             return Json(new { Status = "success", Result = vm }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult DeleteInfo(List<string> ids)
+        {
+            var res = Json(new { status = 0, sErr = "" });
+
+            try
+            {
+                if (ids.Count > 0)
+                {
+                    foreach (var item in ids)
+                    {
+                        var m = _teacherBackgroundService.GetById(item);
+                        _teacherBackgroundService.Delete(m);
+                    }
+                }
+
+                res = Json(new { status = 1, result = "" });
+            }
+            catch (Exception ex)
+            {
+                res = Json(new { status = 0, result = ex.Message });
+            }
+            return res;
+        }
+
+        public bool AddForInfo(TeacherBackground m)
+        {
+            var res = false;
+            if (m != null)
+            {
+                var id = int.Parse(_teacherBackgroundService.GetAll().LastOrDefault().Id);
+                id++;
+
+                var result = new TeacherBackground
+                {
+                    Id = id.ToString(),
+                    TeacherId = 1,
+                    Description = m.Description,
+                    Title = m.Title,
+                    Type = "EducationBackground",
+                    Status = "ACT",
+                    CanDelete = true,
+                    CreatedBy = "Admin",
+                    CreatedDate = DateTime.Now
+                };
+
+                _teacherBackgroundService.Insert(result);
+                res = true;
+            }
+
+            return res;
+        }
+
+        public bool EditForInfo(TeacherBackground m)
+        {
+            var res = false;
+            if (m != null)
+            {
+                var entity = _teacherBackgroundService.GetById(m.Id);
+
+                entity.Title = m.Title;
+                entity.Description = m.Description;
+
+                _teacherBackgroundService.Update(entity);
+                res = true;
+            }
+
+            return res;
+        }
+
         #endregion
 
         #region -- Manage Teaching --
