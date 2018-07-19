@@ -89,39 +89,35 @@ namespace LS.Web.Controllers.Admin
         }
 
         // Update Teacher's information
-        [HttpPost]
-        [AcceptVerbs(HttpVerbs.Post)]
-        [ValidateInput(false)]
-        public ActionResult EditTeacher()
+        public ActionResult EditTeacher(Teacher entity)
         {
             try
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                var objTmp = js.Deserialize<TeacherViewModels>(Request.Params["obj"]);
-                var teacher = _teacherService.GetById(objTmp.Id);
-                if (teacher.FullName != objTmp.FullName)
+                var teacher = _teacherService.GetById(entity.Id);
+                if (teacher.FullName != entity.FullName)
                 {
-                    teacher.FullName = objTmp.FullName;
+                    teacher.FullName = entity.FullName;
                 }
-                if (teacher.Birthday != DateTime.Parse(objTmp.Birthday))
+                if (teacher.Birthday != entity.Birthday)
                 {
-                    teacher.Birthday = DateTime.Parse(objTmp.Birthday);
+                    teacher.Birthday = entity.Birthday;
                 }
-                if (teacher.Address != objTmp.Address)
+                if (teacher.Address != entity.Address)
                 {
-                    teacher.Address = objTmp.Address;
+                    teacher.Address = entity.Address;
                 }
-                if (teacher.Gender != objTmp.Gender)
+                if (teacher.Gender != entity.Gender)
                 {
-                    teacher.Gender = objTmp.Gender;
+                    teacher.Gender = entity.Gender;
                 }
-                if (teacher.PhoneNumber != objTmp.PhoneNumber)
+                if (teacher.PhoneNumber != entity.PhoneNumber)
                 {
-                    teacher.PhoneNumber = objTmp.PhoneNumber;
+                    teacher.PhoneNumber = entity.PhoneNumber;
                 }
-                if (teacher.Description != objTmp.Description)
+                if (teacher.Description != entity.Description)
                 {
-                    teacher.Description = objTmp.Description;
+                    teacher.Description = entity.Description;
                 }
                 teacher.ModifiedBy = UserFrontVM.CurrentUser.UserId;
                 teacher.ModifiedDate = DateTime.Now;
